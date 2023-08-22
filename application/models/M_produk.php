@@ -1,0 +1,46 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+class M_produk extends CI_Model
+{
+    public function getAll()
+    {
+        $result = $this->db->query("SELECT p.id_produk, p.kd_produk, p.nama, p.satuan, p.harga, p.gambar, p.tentang, p.jenis FROM tb_produk AS p");
+        return $result;
+    }
+
+    public function getLaris()
+    {
+        $result = $this->db->query("SELECT tpd.kd_produk, tpo.nama, tpo.satuan, tpo.harga, tpo.gambar, tpo.tentang, tpo.jenis, d.diskon,( SELECT SUM( s.stock) FROM tb_stock AS s WHERE s.kd_produk = tpo.kd_produk ) AS stock,( SELECT SUM( pd.jumlah ) FROM tb_pemesanan_detail AS pd WHERE pd.kd_produk = tpo.kd_produk ) AS jumlah, ( SELECT SUM( k.jumlah ) FROM tb_keranjang AS k WHERE k.kd_produk = tpo.kd_produk ) AS jumlah_keranjang FROM tb_pemesanan_detail AS tpd LEFT JOIN tb_pemesanan AS tp ON tpd.kd_pemesanan = tp.kd_pemesanan LEFT JOIN tb_produk AS tpo ON tpd.kd_produk = tpo.kd_produk LEFT JOIN tb_diskon AS d ON tpo.diskon = d.id_diskon WHERE tp.bintang IS NOT NULL AND tpo.jenis IN ( 'cake', 'dessert' )  GROUP BY tpd.kd_produk, tpo.nama, tpo.satuan, tpo.harga, tpo.gambar, tpo.tentang, tpo.jenis, d.diskon LIMIT 5")->result();
+        return $result;
+    }
+    
+    public function getLarisMonth($bulan)
+    {
+        $result = $this->db->query("SELECT tpd.kd_produk, tpo.nama, tpo.satuan, tpo.harga, tpo.gambar, tpo.tentang, tpo.jenis, d.diskon,( SELECT SUM( s.stock) FROM tb_stock AS s WHERE s.kd_produk = tpo.kd_produk ) AS stock,( SELECT SUM( pd.jumlah ) FROM tb_pemesanan_detail AS pd WHERE pd.kd_produk = tpo.kd_produk ) AS jumlah,( SELECT SUM( k.jumlah ) FROM tb_keranjang AS k WHERE k.kd_produk = tpo.kd_produk ) AS jumlah_keranjang FROM tb_pemesanan_detail AS tpd LEFT JOIN tb_pemesanan AS tp ON tpd.kd_pemesanan = tp.kd_pemesanan LEFT JOIN tb_produk AS tpo ON tpd.kd_produk = tpo.kd_produk LEFT JOIN tb_diskon AS d ON tpo.diskon = d.id_diskon WHERE tp.bintang IS NOT NULL AND tpo.jenis IN ( 'cake', 'dessert' )  AND MONTH ( tp.tgl_pemesanan ) = $bulan GROUP BY tpd.kd_produk, tpo.nama, tpo.satuan, tpo.harga, tpo.gambar, tpo.tentang, tpo.jenis, d.diskon LIMIT 5")->result();
+        return $result;
+    }
+    
+    public function getDiskon($diskon)
+    {
+        $result = $this->db->query("SELECT tpo.kd_produk, tpo.nama, tpo.satuan, tpo.harga, tpo.gambar, tpo.tentang, tpo.jenis, d.diskon FROM tb_produk AS tpo LEFT JOIN tb_diskon AS d ON tpo.diskon = d.id_diskon WHERE d.diskon = '$diskon'")->result();
+        return $result;
+    }
+
+    public function getBestProduk()
+    {
+        $result = $this->db->query("SELECT tpo.kd_produk, tpo.nama,( SELECT COUNT( tpd.kd_produk) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_produk = tpo.kd_produk ) AS jumlah FROM tb_produk AS tpo GROUP BY tpo.kd_produk, tpo.nama ORDER BY( SELECT COUNT( tpd.kd_produk ) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_produk = tpo.kd_produk ) DESC LIMIT 5");
+        return $result;
+    }
+
+    public function getProdukDetail($kd_produk)
+    {
+        $result = $this->db->query("SELECT p.id_produk, p.kd_produk, p.nama, p.jenis, ts.nama AS satuan,( SELECT SUM( s.stock) FROM tb_stock AS s WHERE s.kd_produk = p.kd_produk) AS stock,( SELECT SUM( pd.jumlah) FROM tb_pemesanan_detail AS pd LEFT JOIN tb_pemesanan AS pe ON pd.kd_pemesanan = pe.kd_pemesanan WHERE pd.kd_produk = p.kd_produk AND pe.status_pembayaran = '1' AND pe.status_pengantaran = '2') AS jumlah, p.harga, p.gambar, p.tentang, p.jenis, d.diskon FROM tb_produk AS p LEFT JOIN tb_satuan AS ts ON p.satuan = ts.kd_satuan LEFT JOIN tb_diskon AS d ON p.diskon = d.id_diskon WHERE p.kd_produk = '$kd_produk'")->row();
+        return $result;
+    }
+
+    public function getProdukCommentar($kd_produk)
+    {
+        $result = $this->db->query("SELECT tpo.kd_produk, tpo.nama AS nama_produk, tpd.kd_pemesanan, tpe.bintang, tpe.komentar, DATE_FORMAT( tpe.upd, '%Y-%m-%d' ) AS tgl_posting, DATE_FORMAT( tpe.upd, '%H:%i:%s') AS jam_posting, tu.nama AS nama_user FROM tb_produk AS tpo LEFT JOIN tb_pemesanan_detail AS tpd ON tpo.kd_produk = tpd.kd_produk LEFT JOIN tb_pemesanan AS tpe ON tpd.kd_pemesanan = tpe.kd_pemesanan LEFT JOIN tb_users AS tu ON tpe.id_users = tu.id_users WHERE tpo.kd_produk = '$kd_produk' AND tpe.bintang IS NOT NULL AND tpe.komentar IS NOT NULL");
+        return $result;
+    }
+}
