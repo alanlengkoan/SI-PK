@@ -12,16 +12,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
 
 <script>
-    let tabelUkuranDt = null;
+    let table = null;
 
     // untuk datatable
-    var untukTabelUkuran = function() {
-        tabelUkuranDt = $('#tabel-ukuran').DataTable({
+    var untukTable = function() {
+        table = $('#tabel-kategori').DataTable({
             responsive: true,
             processing: true,
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-            ajax: '<?= admin_url() ?>ukuran/get_data_ukuran_dt',
+            ajax: '<?= admin_url() ?>kategori/get_data_dt',
             columns: [{
                     title: 'No.',
                     data: null,
@@ -44,8 +44,8 @@
                     render: function(data, type, full, meta) {
                         return `
                         <div class="button-icon-btn button-icon-btn-cl">
-                            <button type="button" id="btn-upd" data-id="` + full.id_ukuran + `" class="btn btn-info btn-sm waves-effect" data-toggle="modal" data-target="#modal-add-upd"><i class="fa fa-pencil"></i>&nbsp;Ubah</button>
-                            <button type="button" id="btn-del" data-id="` + full.id_ukuran + `" class="btn btn-warning btn-sm waves-effect"><i class="fa fa-trash"></i>&nbsp;Hapus</button>
+                            <button type="button" id="btn-upd" data-id="` + full.id_kategori + `" class="btn btn-info btn-sm waves-effect" data-toggle="modal" data-target="#modal-add-upd"><i class="fa fa-pencil"></i>&nbsp;Ubah</button>&nbsp;
+                            <button type="button" id="btn-del" data-id="` + full.id_kategori + `" class="btn btn-warning btn-sm waves-effect"><i class="fa fa-trash"></i>&nbsp;Hapus</button>
                         </div>
                     `;
                     },
@@ -58,8 +58,9 @@
     var untukResetForm = function() {
         $(document).on('click', '#btn-add', function() {
             $('#judul-add-upd').html('Tambah');
-            $('#inpidukuran').val('');
-            $('#inpnama').val('');
+
+            $('#id_kategori').val('');
+            $('#nama').val('');
         });
     }();
 
@@ -67,8 +68,7 @@
     var untukTambahDanUbahData = function() {
         $(document).on('submit', '#form-add-upd', function(e) {
             e.preventDefault();
-            $('#inpkdsatuan').attr('required', 'required');
-            $('#inpnama').attr('required', 'required');
+            $('#nama').attr('required', 'required');
 
             if ($('#form-add-upd').parsley().isValid() == true) {
                 $.ajax({
@@ -85,15 +85,14 @@
                     },
                     success: function(response) {
                         swal({
-                                title: response.title,
-                                text: response.text,
-                                icon: response.type,
-                                button: response.button,
-                            })
-                            .then((value) => {
-                                $('#modal-add-upd').modal('hide');
-                                tabelUkuranDt.ajax.reload();
-                            });
+                            title: response.title,
+                            text: response.text,
+                            icon: response.type,
+                            button: response.button,
+                        }).then((value) => {
+                            $('#modal-add-upd').modal('hide');
+                            table.ajax.reload();
+                        });
                         $('#save').removeAttr('disabled');
                         $('#save').html('<i class="fa fa-save"></i>&nbsp;Simpan');
                     }
@@ -109,7 +108,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?= admin_url() ?>ukuran/get",
+                url: "<?= admin_url() ?>kategori/get",
                 dataType: 'json',
                 data: {
                     id: ini.data('id')
@@ -120,8 +119,8 @@
                     ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
                 },
                 success: function(response) {
-                    $('#inpidukuran').val(response.id_ukuran);
-                    $('#inpnama').val(response.nama);
+                    $('#id_kategori').val(response.id_kategori);
+                    $('#nama').val(response.nama);
 
                     ini.removeAttr('disabled');
                     ini.html('<i class="fa fa-pencil"></i>&nbsp;Ubah');
@@ -145,7 +144,7 @@
                     if (del) {
                         $.ajax({
                             type: "POST",
-                            url: "<?= admin_url() ?>ukuran/process_del",
+                            url: "<?= admin_url() ?>kategori/process_del",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id')
@@ -162,7 +161,7 @@
                                         button: data.button,
                                     })
                                     .then((value) => {
-                                        tabelUkuranDt.ajax.reload();
+                                        table.ajax.reload();
                                     });
                             }
                         });

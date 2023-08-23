@@ -31,7 +31,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="w-75 p-2">Tambah Topper <?= $title ?></h5>
+                                <h5 class="w-75 p-2">Daftar <?= $title ?></h5>
                             </div>
                             <div class="col-lg-6 text-right">
                                 <button type="button" id="btn-add" class="btn btn-success btn-sm waves-effect" data-toggle="modal" data-target="#modal-add-upd"><i class="fa fa-plus"></i>&nbsp;Tambah</button>
@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-produk-cake-topper">
-                        </table>
+                        <table class="table table-striped table-bordered nowrap" id="tabel-kategori"></table>
                     </div>
                 </div>
             </div>
@@ -49,51 +48,29 @@
 </div>
 <!-- end:: content -->
 
-
 <!-- begin:: modal tambah & ubah -->
 <div class="modal fade" id="modal-add-upd" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><span id="judul-add-upd"></span> Topper</h4>
+                <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="<?= admin_url() ?>p_topper/process_save" method="POST">
-                <!-- begin:: id produk topper -->
-                <input type="hidden" name="inpidproduktopper" id="inpidproduktopper" />
-                <!-- end:: id produk topper -->
+            <form id="form-add-upd" action="<?= admin_url() ?>kategori/process_save" method="POST">
+                <!-- begin:: id -->
+                <input type="hidden" name="id_kategori" id="id_kategori" />
+                <!-- end:: id -->
 
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Kode Topper</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpkdtopper" id="inpkdtopper" readonly="readonly" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Nama *</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpnamatopper" id="inpnamatopper" placeholder="Masukkan nama" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Harga *</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inphargatopper" id="inphargatopper" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan harga" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Gambar *</label>
-                        <div class="col-sm-10">
-                            <div id="lihat_gambar"></div>
-                            <input type="file" class="form-control" name="inpgambartopper" id="inpgambartopper" />
-                            <div id="centang_gambar"></div>
-                            <p>File dengan tipe (*.jpg,*.jpeg,*.png) Max. 20MB</p>
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama" />
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm waves-effect" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batal</button>
-                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light" id="save_topper"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light" id="save"><i class="fa fa-save"></i>&nbsp;Simpan</button>
                 </div>
             </form>
         </div>

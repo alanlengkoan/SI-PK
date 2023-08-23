@@ -26,39 +26,39 @@
             <li class="<?= ($this->uri->segment(2) === 'bank' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>bank">
                     <span class="pcoded-micon">
-                        <i class="feather icon-credit-card"></i>
-                    </span>
-                    <span class="pcoded-mtext">Bank</span>
-                </a>
-            </li>
-            <li class="<?= ($this->uri->segment(2) === 'satuan' ? 'active' : '') ?>">
-                <a href="<?= admin_url() ?>satuan">
-                    <span class="pcoded-micon">
-                        <i class="feather icon-layers"></i>
-                    </span>
-                    <span class="pcoded-mtext">Satuan</span>
-                </a>
-            </li>
-            <li class="<?= ($this->uri->segment(2) === 'ukuran' ? 'active' : '') ?>">
-                <a href="<?= admin_url() ?>ukuran">
-                    <span class="pcoded-micon">
                         <i class="feather icon-box"></i>
                     </span>
-                    <span class="pcoded-mtext">Ukuran</span>
+                    <span class="pcoded-mtext">Bank</span>
                 </a>
             </li>
             <li class="<?= ($this->uri->segment(2) === 'diskon' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>diskon">
                     <span class="pcoded-micon">
-                        <i class="feather icon-percent"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Diskon</span>
+                </a>
+            </li>
+            <li class="<?= ($this->uri->segment(2) === 'kategori' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>kategori">
+                    <span class="pcoded-micon">
+                        <i class="feather icon-box"></i>
+                    </span>
+                    <span class="pcoded-mtext">Kategori</span>
+                </a>
+            </li>
+            <li class="<?= ($this->uri->segment(2) === 'meja' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>meja">
+                    <span class="pcoded-micon">
+                        <i class="feather icon-box"></i>
+                    </span>
+                    <span class="pcoded-mtext">Meja</span>
                 </a>
             </li>
             <li class="<?= ($this->uri->segment(2) === 'slide' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>slide">
                     <span class="pcoded-micon">
-                        <i class="feather icon-image"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Slide</span>
                 </a>
@@ -66,48 +66,23 @@
             <li class="<?= ($this->uri->segment(2) === 'ongkir' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>ongkir">
                     <span class="pcoded-micon">
-                        <i class="fa fa-truck"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Ongkos Kirim</span>
                 </a>
             </li>
-            <li class="<?= ($this->uri->segment(2) === 'request' ? 'active' : '') ?>">
-                <a href="<?= admin_url() ?>request">
+            <li class="<?= ($this->uri->segment(2) === 'produk' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>produk">
                     <span class="pcoded-micon">
-                        <i class="feather icon-users"></i>
-                    </span>
-                    <span class="pcoded-mtext">Request</span>
-                </a>
-            </li>
-            <li class="pcoded-hasmenu <?= ($this->uri->segment(2) === 'p_cake' || $this->uri->segment(2) === 'p_dessert' || $this->uri->segment(2) === 'p_topper' ? 'pcoded-trigger active' : '') ?>">
-                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon">
-                        <i class="feather icon-tag"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Produk</span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class="<?= ($this->uri->segment(2) === 'p_cake' ? 'active' : '') ?>">
-                        <a href="<?= admin_url() ?>p_cake" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Cake</span>
-                        </a>
-                    </li>
-                    <li class="<?= ($this->uri->segment(2) === 'p_dessert' ? 'active' : '') ?>">
-                        <a href="<?= admin_url() ?>p_dessert" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Dessert</span>
-                        </a>
-                    </li>
-                    <li class="<?= ($this->uri->segment(2) === 'p_topper' ? 'active' : '') ?>">
-                        <a href="<?= admin_url() ?>p_topper" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Topper</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li class="<?= ($this->uri->segment(2) === 'stok' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>stok">
                     <span class="pcoded-micon">
-                        <i class="feather icon-repeat"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Stok</span>
                 </a>
@@ -115,7 +90,7 @@
             <li class="<?= ($this->uri->segment(2) === 'pelanggan' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>pelanggan">
                     <span class="pcoded-micon">
-                        <i class="feather icon-users"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Pelanggan</span>
                 </a>
@@ -123,7 +98,7 @@
             <li class="<?= ($this->uri->segment(2) === 'kurir' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>kurir">
                     <span class="pcoded-micon">
-                        <i class="feather icon-users"></i>
+                        <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Kurir</span>
                 </a>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Satuan extends MY_Controller
+class Meja extends MY_Controller
 {
     public function __construct()
     {
@@ -12,26 +12,26 @@ class Satuan extends MY_Controller
 
         // untuk load model
         $this->load->model('crud');
-        $this->load->model('m_satuan');
+        $this->load->model('m_meja');
     }
 
     // untuk default
     public function index()
     {
         $data = [
-            'title' => 'Satuan',
-            'content' => 'admin/satuan/view',
-            'css'     => 'admin/satuan/css/view',
-            'js'      => 'admin/satuan/js/view'
+            'title'   => 'Meja',
+            'content' => 'admin/meja/view',
+            'css'     => 'admin/meja/css/view',
+            'js'      => 'admin/meja/js/view'
         ];
         // untuk load view
         $this->load->view('admin/base', $data);
     }
 
     // untuk get data bank by datatable
-    public function get_data_satuan_dt()
+    public function get_data_dt()
     {
-        return $this->m_satuan->getAllDataDt();
+        return $this->m_meja->getAllDataDt();
     }
 
     // untuk get data by id
@@ -39,11 +39,11 @@ class Satuan extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_satuan', ['id_satuan' => $post['id']]);
+        $result   = $this->crud->gda('tb_meja', ['id_meja' => $post['id']]);
         $response = [
-            'id_satuan' => $result['id_satuan'],
-            'kd_satuan' => $result['kd_satuan'],
-            'nama'      => $result['nama'],
+            'id_meja'      => $result['id_meja'],
+            'no_meja'      => $result['no_meja'],
+            'jumlah_kursi' => $result['jumlah_kursi'],
         ];
         // untuk response json
         $this->_response($response);
@@ -55,22 +55,22 @@ class Satuan extends MY_Controller
         $post = $this->input->post(NULL, TRUE);
 
         $this->db->trans_start();
-        if (empty($post['inpidsatuan'])) {
+        if (empty($post['id_meja'])) {
             $data = [
-                'id_satuan' => acak_id('tb_satuan', 'id_satuan'),
-                'kd_satuan' => $post['inpkdsatuan'],
-                'nama'      => $post['inpnama'],
+                'id_meja'      => acak_id('tb_meja', 'id_meja'),
+                'no_meja'      => $post['no_meja'],
+                'jumlah_kursi' => $post['jumlah_kursi'],
             ];
 
-            $this->crud->i('tb_satuan', $data);
+            $this->crud->i('tb_meja', $data);
         } else {
             $data = [
-                'id_satuan' => $post['inpidsatuan'],
-                'kd_satuan' => $post['inpkdsatuan'],
-                'nama'      => $post['inpnama'],
+                'id_meja'      => $post['id_meja'],
+                'no_meja'      => $post['no_meja'],
+                'jumlah_kursi' => $post['jumlah_kursi'],
             ];
 
-            $this->crud->u('tb_satuan', $data, ['id_satuan' => $post['inpidsatuan']]);
+            $this->crud->u('tb_meja', $data, ['id_meja' => $post['id_meja']]);
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -88,7 +88,7 @@ class Satuan extends MY_Controller
         $post = $this->input->post(NULL, TRUE);
 
         $this->db->trans_start();
-        $this->crud->d('tb_satuan', $post['id'], 'id_satuan');
+        $this->crud->d('tb_meja', $post['id'], 'id_meja');
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $response = ['title' => 'Gagal!', 'text' => 'Gagal Hapus!', 'type' => 'error', 'button' => 'Ok!'];

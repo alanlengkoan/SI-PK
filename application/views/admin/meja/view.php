@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-ukuran">
-                        </table>
+                        <table class="table table-striped table-bordered nowrap" id="tabel-meja"></table>
                     </div>
                 </div>
             </div>
@@ -56,16 +55,22 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="<?= admin_url() ?>ukuran/process_save" method="POST">
+            <form id="form-add-upd" action="<?= admin_url() ?>meja/process_save" method="POST">
                 <!-- begin:: id -->
-                <input type="hidden" name="inpidukuran" id="inpidukuran" />
+                <input type="hidden" name="id_meja" id="id_meja" />
                 <!-- end:: id -->
 
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Nama *</label>
+                        <label class="col-sm-2 col-form-label">No. Meja&nbsp;*</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpnama" id="inpnama" placeholder="Masukkan nama" />
+                            <input type="text" class="form-control" name="no_meja" id="no_meja" placeholder="Masukkan nomor meja" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Jumlah Kursi&nbsp;*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="jumlah_kursi" id="jumlah_kursi" placeholder="Masukkan jumlah kursi" onkeydown="return justAngka(event)" />
                         </div>
                     </div>
                 </div>

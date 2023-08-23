@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-bank">
-                        </table>
+                        <table class="table table-striped table-bordered nowrap" id="tabel-bank"></table>
                     </div>
                 </div>
             </div>

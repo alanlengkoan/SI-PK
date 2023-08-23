@@ -20,7 +20,7 @@ class Stok extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Stok',
+            'title'   => 'Stok',
             'content' => 'admin/stok/view',
             'produk'  => $this->m_produk->getAll(),
             'css'     => 'admin/stok/css/view',

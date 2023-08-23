@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class P_topper extends MY_Controller
+class Produk extends MY_Controller
 {
     public function __construct()
     {
@@ -12,62 +12,69 @@ class P_topper extends MY_Controller
 
         // untuk load model
         $this->load->model('crud');
-        $this->load->model('m_topper');
+        $this->load->model('m_produk');
+        $this->load->model('m_diskon');
+        $this->load->model('m_kategori');
     }
 
     // untuk default
     public function index()
     {
         $data = [
-            'title'   => 'Topper',
-            'content'   => 'admin/p_topper/view',
-            'css'       => 'admin/p_topper/css/view',
-            'js'        => 'admin/p_topper/js/view'
+            'title'    => 'Produk',
+            'diskon'   => $this->m_diskon->getAll(),
+            'kategori' => $this->m_kategori->getAll(),
+            'content'  => 'admin/produk/view',
+            'css'      => 'admin/produk/css/view',
+            'js'       => 'admin/produk/js/view'
         ];
         // untuk load view
         $this->load->view('admin/base', $data);
     }
 
-    // untuk get data produk topper by datatable
-    public function get_data_topper_dt()
+    // untuk get data bank by datatable
+    public function get_data_dt()
     {
-        return $this->m_topper->getAllDataDt();
+        return $this->m_produk->getAllDataDt();
     }
 
-    // untuk ambil kode topper
-    public function kd_topper()
+    // untuk ambil kode produk
+    public function kd_produk()
     {
         $response = [
-            'kd_topper' => get_kode_urut('tb_produk_topper', 'kd_topper', 'KDP-T-'),
+            'kd_produk' => get_kode_urut('tb_produk', 'kd_produk', 'KDP-'),
         ];
         // untuk response json
         $this->_response($response);
     }
-
 
     // untuk get data by id
     public function get()
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_produk_topper', ['id_produk_topper' => $post['id']]);
+        $result   = $this->crud->gda('tb_produk', ['id_produk' => $post['id']]);
         $response = [
-            'id_produk_topper' => $result['id_produk_topper'],
-            'kd_topper'        => $result['kd_topper'],
-            'nama'             => $result['nama'],
-            'harga'            => $result['harga'],
-            'gambar'           => $result['gambar'],
+            'id_produk'   => $result['id_produk'],
+            'id_diskon'   => $result['id_diskon'],
+            'id_kategori' => $result['id_kategori'],
+            'kd_produk'   => $result['kd_produk'],
+            'nama'        => $result['nama'],
+            'harga'       => $result['harga'],
+            'gambar'      => $result['gambar'],
+            'deskripsi'   => $result['deskripsi'],
         ];
         // untuk response json
         $this->_response($response);
     }
 
-    // untuk proses simpan & ubah data topper
+    // untuk proses tambah data
     public function process_save()
     {
         $post = $this->input->post(NULL, TRUE);
 
-        if (empty($post['inpidproduktopper'])) {
+        $this->db->trans_start();
+        if (empty($post['id_produk'])) {
             $config['upload_path']   = './' . upload_path('gambar');
             $config['allowed_types'] = 'jpg|jpeg|png';
             $config['encrypt_name']  = TRUE;
@@ -75,7 +82,7 @@ class P_topper extends MY_Controller
 
             $this->load->library('upload', $config);
 
-            if (!$this->upload->do_upload('inpgambartopper')) {
+            if (!$this->upload->do_upload('gambar')) {
                 // apa bila gagal
                 $error = array('error' => $this->upload->display_errors());
 
@@ -85,14 +92,18 @@ class P_topper extends MY_Controller
                 $detailFile = $this->upload->data();
 
                 $data = [
-                    'id_produk_topper' => acak_id('tb_produk_topper', 'id_produk_topper'),
-                    'kd_topper'        => $post['inpkdtopper'],
-                    'nama'             => $post['inpnamatopper'],
-                    'harga'            => remove_separator($post['inphargatopper']),
-                    'gambar'           => $detailFile['file_name'],
+                    'id_produk'   => acak_id('tb_produk', 'id_produk'),
+                    'id_diskon'   => $post['id_diskon'],
+                    'id_kategori' => $post['id_kategori'],
+                    'kd_produk'   => $post['kd_produk'],
+                    'nama'        => $post['nama'],
+                    'harga'       => remove_separator($post['harga']),
+                    'deskripsi'   => $post['deskripsi'],
+                    'gambar'      => $detailFile['file_name'],
                 ];
+
                 $this->db->trans_start();
-                $this->crud->i('tb_produk_topper', $data);
+                $this->crud->i('tb_produk', $data);
                 $this->db->trans_complete();
                 if ($this->db->trans_status() === FALSE) {
                     $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
@@ -101,9 +112,9 @@ class P_topper extends MY_Controller
                 }
             }
         } else {
-            $result = $this->crud->gda('tb_produk_topper', ['id_produk_topper' => $post['inpidproduktopper']]);
+            $result = $this->crud->gda('tb_produk', ['id_produk' => $post['id_produk']]);
 
-            if (isset($post['ubah_gambar_topper']) && $post['ubah_gambar_topper'] === 'on') {
+            if (isset($post['ubah_gambar']) && $post['ubah_gambar'] === 'on') {
                 $config['upload_path']   = './' . upload_path('gambar');
                 $config['allowed_types'] = 'jpg|jpeg|png';
                 $config['encrypt_name']  = TRUE;
@@ -111,7 +122,7 @@ class P_topper extends MY_Controller
 
                 $this->load->library('upload', $config);
 
-                if (!$this->upload->do_upload('inpgambartopper')) {
+                if (!$this->upload->do_upload('gambar')) {
                     // apa bila gagal
                     $error = array('error' => $this->upload->display_errors());
 
@@ -127,15 +138,20 @@ class P_topper extends MY_Controller
                             unlink(upload_path('gambar') . $result['gambar']);
                         }
                     }
+
                     $data = [
-                        'id_produk_topper' => $post['inpidproduktopper'],
-                        'kd_topper'        => $post['inpkdtopper'],
-                        'nama'             => $post['inpnamatopper'],
-                        'harga'            => remove_separator($post['inphargatopper']),
-                        'gambar'           => $detailFile['file_name'],
+                        'id_produk'   => $post['id_produk'],
+                        'id_diskon'   => $post['id_diskon'],
+                        'id_kategori' => $post['id_kategori'],
+                        'kd_produk'   => $post['kd_produk'],
+                        'nama'        => $post['nama'],
+                        'harga'       => remove_separator($post['harga']),
+                        'deskripsi'   => $post['deskripsi'],
+                        'gambar'      => $detailFile['file_name'],
                     ];
+
                     $this->db->trans_start();
-                    $this->crud->u('tb_produk_topper', $data, ['id_produk_topper' => $post['inpidproduktopper']]);
+                    $this->crud->u('tb_produk', $data, ['id_produk' => $post['id_produk']]);
                     $this->db->trans_complete();
                     if ($this->db->trans_status() === FALSE) {
                         $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
@@ -145,13 +161,16 @@ class P_topper extends MY_Controller
                 }
             } else {
                 $data = [
-                    'id_produk_topper' => $post['inpidproduktopper'],
-                    'kd_topper'        => $post['inpkdtopper'],
-                    'nama'             => $post['inpnamatopper'],
-                    'harga'            => remove_separator($post['inphargatopper']),
+                    'id_produk'   => $post['id_produk'],
+                    'id_diskon'   => $post['id_diskon'],
+                    'id_kategori' => $post['id_kategori'],
+                    'kd_produk'   => $post['kd_produk'],
+                    'nama'        => $post['nama'],
+                    'harga'       => remove_separator($post['harga']),
+                    'deskripsi'   => $post['deskripsi'],
                 ];
                 $this->db->trans_start();
-                $this->crud->u('tb_produk_topper', $data, ['id_produk_topper' => $post['inpidproduktopper']]);
+                $this->crud->u('tb_produk', $data, ['id_produk' => $post['id_produk']]);
                 $this->db->trans_complete();
                 if ($this->db->trans_status() === FALSE) {
                     $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
@@ -160,16 +179,22 @@ class P_topper extends MY_Controller
                 }
             }
         }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
+        } else {
+            $response = ['title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
+        }
         // untuk response json
         $this->_response($response);
     }
 
-    // untuk proses hapus data topper
+    // untuk proses hapus data
     public function process_del()
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_produk_topper', ['id_produk_topper' => $post['id']]);
+        $result = $this->crud->gda('tb_produk', ['id_produk' => $post['id']]);
         $nma_file = $result['gambar'];
         // menghapus foto yg tersimpan
         if ($nma_file !== '' || $nma_file !== null) {
@@ -178,7 +203,7 @@ class P_topper extends MY_Controller
             }
         }
         $this->db->trans_start();
-        $this->crud->d('tb_produk_topper', $post['id'], 'id_produk_topper');
+        $this->crud->d('tb_produk', $post['id'], 'id_produk');
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $response = ['title' => 'Gagal!', 'text' => 'Gagal Hapus!', 'type' => 'error', 'button' => 'Ok!'];

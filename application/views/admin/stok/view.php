@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-bank">
-                        </table>
+                        <table class="table table-striped table-bordered nowrap" id="tabel-stok"></table>
                     </div>
                 </div>
             </div>
@@ -68,7 +67,7 @@
                             <select class="form-control" name="inpkdproduk" id="inpkdproduk">
                                 <option value="">- Pilih Produk -</option>
                                 <?php foreach ($produk->result() as $key => $row) { ?>
-                                    <option value="<?= $row->kd_produk ?>"><?= $row->nama ?></option>
+                                    <option value="<?= $row->kd_produk ?>"><?= $row->kd_produk ?> | <?= $row->nama ?></option>
                                 <?php } ?>
                             </select>
                         </div>

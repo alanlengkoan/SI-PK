@@ -16,7 +16,7 @@
 
     // untuk datatable
     var untukTabelBank = function() {
-        tabelBankDt = $('#tabel-bank').DataTable({
+        tabelBankDt = $('#tabel-stok').DataTable({
             responsive: true,
             processing: true,
             lengthMenu: [5, 10, 25, 50],
@@ -32,7 +32,7 @@
                 },
                 {
                     title: 'Kode Produk',
-                    data: 'nama',
+                    data: 'kd_produk',
                     className: 'text-center',
                 },
                 {

@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-produk-dessert">
-                        </table>
+                        <table class="table table-striped table-bordered nowrap" id="tabel-produk"></table>
                     </div>
                 </div>
             </div>
@@ -54,29 +53,39 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
+                <h4 class="modal-title"><span id="judul-add-upd"></span> Produk</h4>
             </div>
-            <form id="form-add" action="<?= admin_url() ?>p_dessert/process_add" method="POST">
+            <form id="form-add-upd" action="<?= admin_url() ?>produk/process_save" method="POST">
+                <!-- begin:: id produk -->
+                <input type="hidden" name="id_produk" id="id_produk" />
+                <!-- end:: id produk -->
+
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Kode Produk&nbsp;*</label>
+                        <label class="col-sm-2 col-form-label">Kode Produk</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpkdproduk" id="inpkdproduk" readonly="readonly" />
+                            <input type="text" class="form-control" name="kd_produk" id="kd_produk" readonly="readonly" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Nama *</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpnama" id="inpnama" placeholder="Masukkan nama produk" />
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Satuan *</label>
+                        <label class="col-sm-2 col-form-label">Harga *</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="inpsatuan" id="inpsatuan">
-                                <option value="">- Pilih Satuan -</option>
-                                <?php foreach ($satuan as $key => $row) { ?>
-                                    <option value="<?= $row->kd_satuan ?>"><?= $row->nama ?></option>
+                            <input type="text" class="form-control" name="harga" id="harga" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan harga" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Kategori *</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="id_kategori" id="id_kategori">
+                                <option value="">- Pilih Kategori -</option>
+                                <?php foreach ($kategori as $key => $row) { ?>
+                                    <option value="<?= $row->id_kategori ?>"><?= $row->nama ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -84,7 +93,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Diskon *</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="inpdiskon" id="inpdiskon">
+                            <select class="form-control" name="id_diskon" id="id_diskon">
                                 <option value="">- Pilih Diskon -</option>
                                 <?php foreach ($diskon as $key => $row) { ?>
                                     <option value="<?= $row->id_diskon ?>"><?= $row->diskon ?>&nbsp;%</option>
@@ -93,27 +102,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Ukuran *</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="inpukuran" id="inpukuran">
-                                <option value="">- Pilih Ukuran -</option>
-                                <?php foreach ($ukuran as $key => $row) { ?>
-                                    <option value="<?= $row->id_ukuran ?>"><?= $row->nama ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Harga *</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="inpharga" id="inpharga" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan harga" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Gambar *</label>
                         <div class="col-sm-10">
                             <div id="lihat_gambar"></div>
-                            <input type="file" class="form-control" name="inpgambar" id="inpgambar" placeholder="Masukkan rekening" />
+                            <input type="file" class="form-control" name="gambar" id="gambar" />
                             <div id="centang_gambar"></div>
                             <p>File dengan tipe (*.jpg,*.jpeg,*.png) Max. 20MB</p>
                         </div>
@@ -121,7 +113,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Deskripsi *</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="inptentang" id="inptentang" placeholder="Masukkan deskripsi produk"></textarea>
+                            <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Masukkan deskripsi"></textarea>
                         </div>
                     </div>
                 </div>
