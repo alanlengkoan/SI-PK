@@ -19,8 +19,8 @@
                 <div class="grid-list-product-wrapper">
                     <div class="product-grid product-view pb-20">
                         <div class="row">
-                            <!-- begin:: cake -->
-                            <?php foreach ($p_cake as $key => $row) { ?>
+                            <!-- begin:: produk -->
+                            <?php foreach ($produk as $key => $row) { ?>
                                 <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
                                     <div class="product-wrapper">
                                         <div class="product-img">
@@ -29,7 +29,7 @@
                                             </a>
                                             <span>-30%</span>
                                             <div class="product-action">
-                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
+                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
                                                     <i class="ion-ios-shuffle-strong"></i>
                                                 </a>
                                             </div>
@@ -52,41 +52,7 @@
                                     </div>
                                 </div>
                             <?php } ?>
-                            <!-- end:: cake -->
-                            <!-- begin:: dessert -->
-                            <?php foreach ($p_dessert as $key => $row) { ?>
-                                <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
-                                    <div class="product-wrapper">
-                                        <div class="product-img">
-                                            <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">
-                                                <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
-                                            </a>
-                                            <span>-30%</span>
-                                            <div class="product-action">
-                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
-                                                    <i class="ion-ios-shuffle-strong"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-left">
-                                            <div class="product-hover-style">
-                                                <div class="product-title">
-                                                    <h4>
-                                                        <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>"><?= $row->nama ?></a>
-                                                    </h4>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <h4><a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">+ Add to cart</a></h4>
-                                                </div>
-                                            </div>
-                                            <div class="product-price-wrapper">
-                                                <span><?= rupiah($row->harga) ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                            <!-- end:: dessert -->
+                            <!-- end:: produk -->
                         </div>
                     </div>
                 </div>

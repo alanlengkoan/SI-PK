@@ -67,22 +67,35 @@
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Metode Pengiriman *</label>
-                                                        <select name="inpmetodepengantaran" id="inpmetodepengantaran">
+                                                        <label>Metode Pemesanan *</label>
+                                                        <select name="metode_pemesanan" id="metode_pemesanan">
                                                             <option value="">- Pilih -</option>
-                                                            <option value="b">Dijemput</option>
-                                                            <option value="s">Diantar</option>
+                                                            <option value="e">Ditempat</option>
+                                                            <option value="a">Diantar</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div id="pengiriman" style="display: none;">
+                                                <div id="diantar" style="display: none;">
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="billing-info">
                                                             <label>Lokasi Pengiriman *</label>
-                                                            <select name="inpidongkir" id="inpidongkir">
+                                                            <select name="id_ongkir" id="id_ongkir">
                                                                 <option value="">- Pilih -</option>
                                                                 <?php foreach ($ongkir as $key => $row) { ?>
                                                                     <option value="<?= $row->id_ongkir ?>"><?= $row->lokasi ?> (<?= rupiah($row->tarif) ?>)</option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="ditempat" style="display: none;">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="billing-info">
+                                                            <label>Pilih Meja *</label>
+                                                            <select name="id_meja" id="id_meja">
+                                                                <option value="">- Pilih -</option>
+                                                                <?php foreach ($meja as $key => $row) { ?>
+                                                                    <option value="<?= $row->id_meja ?>"><?= $row->no_meja ?> (Jumlah kursi <?= $row->jumlah_kursi ?>)</option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>

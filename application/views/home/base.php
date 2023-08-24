@@ -61,15 +61,23 @@
                                         <li><a href="<?= base_url() ?>tentang">Tentang</a></li>
                                         <li><a href="<?= base_url() ?>kontak">Kontak</a></li>
                                         <li><a href="<?= base_url() ?>panduan">Panduan</a></li>
-                                        <li class="top-hover"><a href="#">Produk</a>
-                                            <ul class="submenu">
-                                                <li><a href="<?= base_url() ?>produk/cake">Cake</a></li>
-                                                <li><a href="<?= base_url() ?>produk/dessert">Dessert</a></li>
-                                                <li><a href="<?= base_url() ?>produk/topper ">Topper</a></li>
-                                            </ul>
-                                        </li>
+                                        <?php if (count($kategori) > 0) { ?>
+                                            <li class="top-hover">
+                                                <a href="<?= base_url() ?>produk">Produk</a>
+                                                <ul class="submenu">
+                                                    <?php foreach ($kategori as $row) { ?>
+                                                        <li>
+                                                            <a href="<?= base_url() ?>produk/kategori/<?= $row->id_kategori ?>">
+                                                                <?= $row->nama ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </li>
+                                        <?php } else { ?>
+                                            <a href="<?= base_url() ?>produk">Produk</a>
+                                        <?php } ?>
                                         <?php if ($this->session->userdata('id_users')) { ?>
-                                            <li><a href="<?= base_url() ?>request">Request</a></li>
                                             <li><a href="<?= base_url() ?>riwayat">Riwayat</a></li>
                                             <li><a href="<?= logout_url() ?>">Logout</a></li>
                                         <?php } else { ?>
@@ -226,7 +234,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
 
     <script type="text/javascript">
-        load_rating()
+        load_rating();
 
         function load_rating() {
             $.ajax({

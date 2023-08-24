@@ -19,7 +19,7 @@ class Bank extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Bank',
+            'title'   => 'Bank',
             'content' => 'admin/bank/view',
             'css'     => 'admin/bank/css/view',
             'js'      => 'admin/bank/js/view'

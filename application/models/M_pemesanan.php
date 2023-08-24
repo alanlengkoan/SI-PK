@@ -77,14 +77,14 @@ class M_pemesanan extends CI_Model
         $result = $this->db->query("SELECT tpm.id_users, tpm.kd_pemesanan, tpm.tgl_pemesanan, tu.nama, tpm.metode_pembayaran, tpm.status_pembayaran, tpm.status_pengantaran, tpm.pilih_kurir FROM tb_pemesanan as tpm LEFT JOIN tb_pengantaran as tpe ON tpm.kd_pemesanan = tpe.kd_pemesanan LEFT JOIN tb_users as tu on tpm.id_users = tu.id_users WHERE tpe.id_users = '$id_users' AND tpe.status_lihat = 'belum-lihat'");
         return $result;
     }
-    
+
     // untuk menampilkan pemesanan belum rating
     public function getRating($id_users)
     {
         $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.tgl_pemesanan, tp.metode_pembayaran, tp.status_pembayaran, tp.status_pengantaran, tp.pilih_kurir FROM tb_pemesanan AS tp WHERE tp.id_users = '$id_users' AND tp.status_pengantaran = '2' AND tp.bintang IS NULL AND tp.komentar IS NULL");
         return $result;
     }
-    
+
     // untuk mengambil data pembelian laporan
     public function getReportPembelian($tgl_awal, $tgl_akhir, $jenis)
     {

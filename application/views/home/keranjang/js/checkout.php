@@ -51,18 +51,27 @@
         });
     }();
 
-    // untuk pilih metode pengiriman
+    // untuk pilih metode pemesanan
     var untukMetodePembayaran = function() {
-        $(document).on('change', '#inpmetodepengantaran', function() {
+        $(document).on('change', '#metode_pemesanan', function() {
             var ini = $(this);
             var val = ini.val();
-            if (val == 's') {
-                $('#pengiriman').attr('style', 'width: 100%');
-                $('#inpidongkir').attr('required', 'required');
+            if (val == 'a') {
+                $('#diantar').attr('style', 'width: 100%');
+                $('#ditempat').attr('style', 'display: none');
+                $('#id_ongkir').attr('required', 'required');
+            } else if (val == 'e') {
+                $('#ditempat').attr('style', 'width: 100%');
+                $('#diantar').attr('style', 'display: none');
+                $('#id_meja').attr('required', 'required');
             } else {
-                $('#pengiriman').attr('style', 'display: none');
-                $('#inpidongkir').removeAttr('required');
-                $('#inpidongkir').val('');
+                $('#ditempat').attr('style', 'display: none');
+                $('#id_meja').removeAttr('required');
+                $('#id_meja').val('');
+
+                $('#diantar').attr('style', 'display: none');
+                $('#id_ongkir').removeAttr('required');
+                $('#id_ongkir').val('');
             }
         });
     }();

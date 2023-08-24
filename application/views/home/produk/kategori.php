@@ -19,19 +19,17 @@
                 <div class="grid-list-product-wrapper">
                     <div class="product-grid product-view pb-20">
                         <div class="row">
-                            <!-- begin:: cake -->
-                            <?php foreach ($p_cake as $key => $row) { ?>
+                            <!-- begin:: produk -->
+                            <?php foreach ($produk as $key => $row) { ?>
                                 <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
                                     <div class="product-wrapper">
                                         <div class="product-img">
                                             <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">
                                                 <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
                                             </a>
-                                            <?php if ($row->diskon > 0) { ?>
-                                                <span><?= $row->diskon ?> %</span>
-                                            <?php } ?>
+                                            <span>-30%</span>
                                             <div class="product-action">
-                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
+                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
                                                     <i class="ion-ios-shuffle-strong"></i>
                                                 </a>
                                             </div>
@@ -47,25 +45,14 @@
                                                     <h4><a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">+ Add to cart</a></h4>
                                                 </div>
                                             </div>
-                                            <!-- begin:: harga -->
                                             <div class="product-price-wrapper">
-                                                <?php if ($row->diskon > 0) {
-                                                    $diskon       = (int) $row->diskon / 100;
-                                                    $harga_diskon = (int) $row->harga * $diskon;
-                                                    $result       = (int) $row->harga - round($harga_diskon);
-                                                ?>
-                                                    <span><?= rupiah($result) ?> |</span>
-                                                    <span class="product-price-old"><?= rupiah($row->harga) ?></span>
-                                                <?php } else { ?>
-                                                    <span><?= rupiah($row->harga) ?></span>
-                                                <?php } ?>
+                                                <span><?= rupiah($row->harga) ?></span>
                                             </div>
-                                            <!-- end:: harga -->
                                         </div>
                                     </div>
                                 </div>
                             <?php } ?>
-                            <!-- end:: cake -->
+                            <!-- end:: produk -->
                         </div>
                     </div>
                 </div>

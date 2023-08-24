@@ -23,14 +23,11 @@ class Riwayat extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Riwayat',
             'riwayat' => $this->m_riwayat->getAllByUsers($this->session->userdata('id_users'), 'n'),
-            'content' => 'home/riwayat/view',
-            'css'     => '',
-            'js'      => 'home/riwayat/js/view'
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Riwayat', 'riwayat', 'view', $data);
     }
 
     // untuk halaman lacak

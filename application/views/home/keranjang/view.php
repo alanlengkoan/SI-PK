@@ -68,9 +68,7 @@
                                             <input type="hidden" name="inpsubtotal[]" id="inpsubtotal" value="<?= $row->sub_total ?>" />
                                         </td>
                                         <td class="product-remove">
-                                            <?php if ($row->jenis === 'cake') { ?>
-                                                <a href="<?= base_url() ?>keranjang/detail/<?= base64url_encode($row->kd_produk) ?>"><i class="fa fa-info"></i></a>
-                                            <?php } ?>
+                                            <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>"><i class="fa fa-info"></i></a>
                                             <a href="#" id="btn-hapus" data-id="<?= $row->kd_produk ?>"><i class="fa fa-times"></i></a>
                                         </td>
                                     </tr>

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 $route['default_controller'] = 'home';
 $route['404_override'] = 'not_found';
@@ -15,14 +15,66 @@ $route['users'] = 'home';
 $route['kurir'] = 'kurir/dashboard';
 
 // route users
-$route['request']                     = 'users/request';
-$route['request/add']                 = 'users/request/add';
-$route['produk']                      = 'users/produk';
-$route['produk/cake']                 = 'users/produk/cake';
-$route['produk/dessert']              = 'users/produk/dessert';
-$route['produk/topper']               = 'users/produk/topper';
-$route['produk/detail/(:any)']        = 'users/produk/detail';
-$route['produk/topper_detail/(:any)'] = 'users/produk/topper_detail';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$route['produk']                 = 'users/produk';
+$route['produk/detail/(:any)']   = 'users/produk/detail';
+$route['produk/kategori/(:any)'] = 'users/produk/kategori';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $route['riwayat']                     = 'users/riwayat';
 $route['riwayat/load_rating']         = 'users/riwayat/load_rating';
 $route['riwayat/save_rating']         = 'users/riwayat/save_rating';

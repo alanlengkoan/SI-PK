@@ -36,7 +36,7 @@
                         </div>
                         <div class="pro-dec-review">
                             <ul>
-                                <li>32 Reviews </li>
+                                <li><?= count($produk_komentar->result()) ?> Reviews </li>
                                 <li> Add Your Reviews</li>
                             </ul>
                         </div>
@@ -52,24 +52,17 @@
                         <span><?= rupiah($produk->harga) ?></span>
                     <?php } ?>
                     <!-- end:: harga -->
-                    <?php if ($produk->jenis === 'dessert') { ?>
-                        <div class="in-stock">
-                            <?php
-                            $stock = ($produk->stock - $produk->jumlah);
-                            ?>
-                            <p>Available: <span><?= ($stock > 0 ? 'In stock' : 'Out of stock') ?></span></p>
-                            <p>Stock: <span><?= $stock ?></span></p>
-                        </div>
-                        <p><?= $produk->tentang ?></p>
-                        <?php if ($stock > 0) { ?>
-                            <div class="quality-add-to-cart">
-                                <button type="button" class="btn btn-success" id="btn-keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $produk->kd_produk ?>" data-jenis="<?= $produk->jenis ?>"><i class="fa fa-shopping-cart"></i>&nbsp;Beli</button>
-                            </div>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <p><?= $produk->tentang ?></p>
+                    <div class="in-stock">
+                        <?php
+                        $stock = ($produk->stock - $produk->jumlah);
+                        ?>
+                        <p>Available: <span><?= ($stock > 0 ? 'In stock' : 'Out of stock') ?></span></p>
+                        <p>Stock: <span><?= $stock ?></span></p>
+                    </div>
+                    <p><?= $produk->kategori ?></p>
+                    <?php if ($stock > 0) { ?>
                         <div class="quality-add-to-cart">
-                            <button type="button" class="btn btn-success" id="btn-keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $produk->kd_produk ?>" data-jenis="<?= $produk->jenis ?>"><i class="fa fa-shopping-cart"></i>&nbsp;Beli</button>
+                            <button type="button" class="btn btn-success" id="btn-keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $produk->kd_produk ?>"><i class="fa fa-shopping-cart"></i>&nbsp;Beli</button>
                         </div>
                     <?php } ?>
                 </div>
@@ -88,7 +81,7 @@
             <div class="tab-content description-review-bottom">
                 <div id="des-details1" class="tab-pane active">
                     <div class="product-description-wrapper">
-                        <?= $produk->tentang ?>
+                        <?= $produk->deskripsi ?>
                     </div>
                 </div>
                 <div id="des-details2" class="tab-pane">
@@ -117,46 +110,3 @@
         </div>
     </div>
 </div>
-
-<?php if ($produk->jenis === 'cake') { ?>
-    <div class="product-area pb-100">
-        <div class="container">
-            <div class="product-top-bar section-border mb-35">
-                <div class="section-title-wrap">
-                    <h3 class="section-title section-bg-white">Topper</h3>
-                </div>
-            </div>
-            <div class="featured-product-active hot-flower owl-carousel product-nav">
-                <?php foreach ($produk_topper->result() as $key => $row) { ?>
-                    <div class="product-wrapper">
-                        <div class="product-img">
-                            <a href="<?= base_url() ?>produk/topper_detail/<?= base64url_encode($row->kd_topper) ?>">
-                                <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
-                            </a>
-                            <div class="product-action">
-                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_topper ?>">
-                                    <i class="ion-ios-shuffle-strong"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-content text-left">
-                            <div class="product-hover-style">
-                                <div class="product-title">
-                                    <h4>
-                                        <a href="<?= base_url() ?>produk/topper_detail/<?= base64url_encode($row->kd_topper) ?>"><?= $row->nama ?></a>
-                                    </h4>
-                                </div>
-                                <div class="cart-hover">
-                                    <h4><a href="<?= base_url() ?>produk/topper_detail/<?= base64url_encode($row->kd_topper) ?>">+ Add to cart</a></h4>
-                                </div>
-                            </div>
-                            <div class="product-price-wrapper">
-                                <span><?= rupiah($row->harga) ?></span>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-<?php } ?>

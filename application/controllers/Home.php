@@ -15,8 +15,7 @@ class Home extends MY_Controller
         $this->load->model('crud');
         $this->load->model('m_slide');
         $this->load->model('m_produk');
-        $this->load->model('m_produk_cake');
-        $this->load->model('m_produk_dessert');
+        $this->load->model('m_kategori');
     }
 
     public function index()
@@ -24,52 +23,31 @@ class Home extends MY_Controller
         $bulan = (int) date('m');
 
         $data = [
-            'title'                => 'Home',
-            'content'                => 'home/home/view',
             'slide'                  => $this->m_slide->getAll(),
             'p_laris'                => $this->m_produk->getLaris(),
             'p_laris_bulan_sekarang' => $this->m_produk->getLarisMonth($bulan),
-            'css'                    => '',
-            'js'                     => 'home/home/js/view'
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Home', 'home', 'view', $data);
     }
 
     public function tentang()
     {
-        $data = [
-            'title' => 'Tentang Kami',
-            'content' => 'home/tentang/view',
-            'css'     => '',
-            'js'      => ''
-        ];
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Tentang Kami', 'tentang', 'view');
     }
 
     public function kontak()
     {
-        $data = [
-            'title' => 'Kontak Kami',
-            'content' => 'home/kontak/view',
-            'css'     => '',
-            'js'      => 'home/kontak/js/view'
-        ];
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Kontak Kami', 'kontak', 'view');
     }
 
     public function panduan()
     {
-        $data = [
-            'title' => 'Panduan',
-            'content' => 'home/panduan/view',
-            'css'     => '',
-            'js'      => ''
-        ];
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Panduan', 'panduan', 'view');
     }
 
     public function diskon()

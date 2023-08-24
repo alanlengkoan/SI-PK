@@ -18,6 +18,7 @@ class Template
     public function __construct()
     {
         $this->ci = &get_instance();
+        $this->ci->load->model('m_kategori');
     }
 
     // untuk load view
@@ -35,6 +36,25 @@ class Template
         $data['js'] = ($this->_check_file_exist($js) ? $js : '');
         // untuk load view
         $this->ci->load->view("{$role}/base", $data);
+    }
+
+    // untuk page view
+    public function page($title, $module, $view, array $data = [])
+    {
+        // untuk judul halaman
+        $data['title'] = $title;
+        // untuk content
+        $data['content'] = "home/{$module}/{$view}";
+        // untuk kategori
+        $data['kategori'] = $this->ci->m_kategori->getAll();
+        // untuk css local
+        $css = "home/{$module}/css/{$view}";
+        $data['css'] = ($this->_check_file_exist($css) ? $css : '');
+        // untuk js local
+        $js = "home/{$module}/js/{$view}";
+        $data['js'] = ($this->_check_file_exist($js) ? $js : '');
+        // untuk load view
+        $this->ci->load->view("home/base", $data);
     }
 
     // untuk check file tersedia

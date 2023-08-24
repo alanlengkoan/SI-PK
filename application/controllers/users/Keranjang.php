@@ -15,6 +15,7 @@ class Keranjang extends MY_Controller
         $this->load->model('crud');
         $this->load->model('m_cod');
         $this->load->model('m_bank');
+        $this->load->model('m_meja');
         $this->load->model('m_users');
         $this->load->model('m_produk');
         $this->load->model('m_ongkir');
@@ -27,30 +28,11 @@ class Keranjang extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Keranjang',
             'keranjang' => $this->m_keranjang->getBuyCustomerKeranjang($this->session->userdata('id_users')),
-            'content'   => 'home/keranjang/view',
-            'css'       => '',
-            'js'        => 'home/keranjang/js/view'
         ];
-        // untuk load view
-        $this->load->view('home/base', $data);
-    }
 
-    // untuk detail produk
-    public function detail()
-    {
-        $kd_produk = base64url_decode($this->uri->segment('3'));
-
-        $data = [
-            'title'   => 'Detail Keranjang',
-            'keranjang' => $this->m_keranjang->getBuyCustomerKeranjangDetail($kd_produk),
-            'content'   => 'home/keranjang/detail',
-            'css'       => '',
-            'js'        => ''
-        ];
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Keranjang', 'keranjang', 'view', $data);
     }
 
     // untuk tambah data
@@ -75,7 +57,7 @@ class Keranjang extends MY_Controller
 
             $this->crud->u('tb_keranjang', $data, ['id_users' => $post['inpidusers'], 'kd_produk' => $post['inpkdproduk']]);
         } else {
-            $get_produk = $this->m_produk->getProdukDetail($post['inpkdproduk']);
+            $get_produk = $this->m_produk->getProdukWhere('p.kd_produk', $post['inpkdproduk'])->row();
 
             if ($get_produk !== null) {
                 $produk = $this->m_keranjang->getProdukDetailKeranjang($post['inpkdproduk']);
@@ -90,34 +72,6 @@ class Keranjang extends MY_Controller
                 ];
 
                 $this->crud->i('tb_keranjang', $data);
-            } else {
-                $get_topper = $this->m_keranjang->getCheckKeranjangTopper($post['inpidusers'], $post['inpkdproduk'], $post['kd_produk']);
-                $num_topper = $get_topper->num_rows();
-
-                if ($num_topper == 1) {
-                    $data = [
-                        'kd_pasang' => $post['inpkdproduk'],
-                    ];
-
-                    $this->crud->u('tb_keranjang', $data, ['id_users' => $post['inpidusers'], 'kd_pasang' => $post['inpkdproduk'], 'kd_produk' => $post['kd_produk']]);
-                } else {
-                    $produk = $this->m_keranjang->getProdukDetailKeranjang($post['kd_produk']);
-
-                    $this->db->where('kd_produk', $post['kd_produk']);
-                    $this->db->where('kd_pasang', null);
-                    $this->db->delete('tb_keranjang');
-
-                    $data = [
-                        'id_users'  => $post['inpidusers'],
-                        'kd_produk' => $post['kd_produk'],
-                        'kd_pasang' => $post['inpkdproduk'],
-                        'jumlah'    => 1,
-                        'harga'     => $produk['harga'],
-                        'sub_total' => 1 * $produk['harga'],
-                    ];
-
-                    $this->crud->i('tb_keranjang', $data);
-                }
             }
         }
         // untuk response json
@@ -168,18 +122,16 @@ class Keranjang extends MY_Controller
             }
 
             $data = [
-                'title'   => 'Checkout',
                 'kd_order'  => get_kode_urut('tb_pemesanan', 'kd_pemesanan', 'ODR-'),
                 'keranjang' => $this->m_keranjang->getBuyCustomerKeranjang($this->session->userdata('id_users')),
                 'ongkir'    => $this->m_ongkir->getAll(),
+                'meja'      => $this->m_meja->getAll(),
                 'user'      => $this->m_users->getRoleUsers('users', $this->session->userdata('id_users')),
                 'bank'      => $this->m_bank->getAll(),
-                'content'   => 'home/keranjang/checkout',
-                'css'       => '',
-                'js'        => 'home/keranjang/js/checkout'
             ];
+
             // untuk load view
-            $this->load->view('home/base', $data);
+            $this->template->page('Checkout', 'keranjang', 'checkout', $data);
         }
     }
 

@@ -66,7 +66,7 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="inpkdproduk" id="inpkdproduk">
                                 <option value="">- Pilih Produk -</option>
-                                <?php foreach ($produk->result() as $key => $row) { ?>
+                                <?php foreach ($produk as $key => $row) { ?>
                                     <option value="<?= $row->kd_produk ?>"><?= $row->kd_produk ?> | <?= $row->nama ?></option>
                                 <?php } ?>
                             </select>

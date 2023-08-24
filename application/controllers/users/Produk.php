@@ -13,25 +13,18 @@ class Produk extends MY_Controller
 
         // untuk load model
         $this->load->model('m_produk');
-        $this->load->model('m_topper');
         $this->load->model('m_keranjang');
-        $this->load->model('m_produk_cake');
-        $this->load->model('m_produk_dessert');
     }
 
     // untuk halaman default
     public function index()
     {
         $data = [
-            'title'   => 'Cake & Dessert',
-            'p_cake'    => $this->m_produk_cake->getAll(),
-            'p_dessert' => $this->m_produk_dessert->getAll(),
-            'content'   => 'home/produk/view',
-            'css'       => '',
-            'js'        => 'home/produk/js/view'
+            'produk' => $this->m_produk->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Produk', 'produk', 'view', $data);
     }
 
     // untuk detail produk
@@ -40,75 +33,24 @@ class Produk extends MY_Controller
         $kd_produk = base64url_decode($this->uri->segment('3'));
 
         $data = [
-            'title'         => 'Produk Detail',
-            'produk'          => $this->m_produk->getProdukDetail($kd_produk),
+            'produk'          => $this->m_produk->getProdukWhere('p.kd_produk', $kd_produk)->row(),
             'produk_komentar' => $this->m_produk->getProdukCommentar($kd_produk),
-            'produk_topper'   => $this->m_topper->getAll(),
-            'content'         => 'home/produk/detail',
-            'css'             => '',
-            'js'              => 'home/produk/js/detail'
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Produk Detail', 'produk', 'detail', $data);
     }
 
     // untuk halaman default
-    public function cake()
+    public function kategori()
     {
-        $data = [
-            'title'   => 'Cake',
-            'p_cake'    => $this->m_produk_cake->getAll(),
-            'content'   => 'home/produk/cake',
-            'css'       => '',
-            'js'        => 'home/produk/js/cake'
-        ];
-        // untuk load view
-        $this->load->view('home/base', $data);
-    }
-
-    // untuk halaman default
-    public function dessert()
-    {
-        $data = [
-            'title'   => 'Dessert',
-            'p_dessert' => $this->m_produk_dessert->getAll(),
-            'content'   => 'home/produk/dessert',
-            'css'       => '',
-            'js'        => 'home/produk/js/dessert'
-        ];
-        // untuk load view
-        $this->load->view('home/base', $data);
-    }
-
-    // untuk detail produk topper
-    public function topper()
-    {
-        $data = [
-            'title'        => 'Topper',
-            'produk_topper'  => $this->m_topper->getAll(),
-            'keranjang_cake' => $this->m_keranjang->getBuyCustomerKeranjangCake($this->session->userdata('id_users')),
-            'content'        => 'home/produk/topper',
-            'css'            => '',
-            'js'             => 'home/produk/js/topper'
-        ];
-        // untuk load view
-        $this->load->view('home/base', $data);
-    }
-
-    // untuk detail produk topper
-    public function topper_detail()
-    {
-        $kd_topper = base64url_decode($this->uri->segment('3'));
+        $id_kategori = $this->uri->segment('3');
 
         $data = [
-            'title'        => 'Topper Detail',
-            'content'        => 'home/produk/topper_detail',
-            'produk_topper'  => $this->m_topper->getTopperDetail($kd_topper),
-            'keranjang_cake' => $this->m_keranjang->getBuyCustomerKeranjangCake($this->session->userdata('id_users')),
-            'css'            => '',
-            'js'             => 'home/produk/js/topper_detail'
+            'produk' => $this->m_produk->getProdukWhere('p.id_kategori', $id_kategori)->result(),
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Produk Kategori', 'produk', 'kategori', $data);
     }
 }
