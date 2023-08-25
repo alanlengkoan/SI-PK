@@ -34,7 +34,7 @@
     var untukKirimPesan = function() {
         $(document).on('submit', '#form-send', function(e) {
             e.preventDefault();
-            $('#pesan').attr('required', 'required')
+            $('#pesan').attr('required', 'required');
             if ($('#form-send').parsley().isValid() == true) {
                 $.ajax({
                     method: $(this).attr('method'),

@@ -48,7 +48,11 @@
                                     <td><?= $row->jam_pemesanan ?></td>
                                     <td><?= ($row->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?></td>
                                     <td>
-                                        <a href="<?= base_url() ?>lacak/<?= base64url_encode($row->kd_pemesanan) ?>"><?= $status_pengantaran[$row->status_pengantaran] ?></a>
+                                        <?php if ($row->metode_pemesanan === 'e') { ?>
+                                            Ditempat
+                                        <?php } else { ?>
+                                            <a href="<?= base_url() ?>lacak/<?= base64url_encode($row->kd_pemesanan) ?>"><?= $status_pengantaran[$row->status_pengantaran] ?></a>
+                                        <?php } ?>
                                     </td>
                                     <td><?= rupiah($row->total) ?></td>
                                     <td>

@@ -36,15 +36,12 @@ class Riwayat extends MY_Controller
         $kd_pemesanan = base64url_decode($this->uri->segment('2'));
 
         $data = [
-            'title'      => 'Lacak',
             'kd_pemesanan' => $kd_pemesanan,
             'pengantaran'  => $this->m_pengantaran->getPengataranDetail($kd_pemesanan),
-            'content'      => 'home/riwayat/lacak',
-            'css'          => 'home/riwayat/css/lacak',
-            'js'           => 'home/riwayat/js/lacak'
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Lacak', 'riwayat', 'lacak', $data);
     }
 
     // untuk load rating

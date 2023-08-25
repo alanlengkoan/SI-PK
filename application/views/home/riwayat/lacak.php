@@ -18,7 +18,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="small-title mb-30">
                     <h2><?= $title ?></h2>
-                    <p><i>Note :</i> Silahkan transfer sesuai dengan total yang tertera!</p>
+                    <p><i>Note :</i> Silahkan chat kami jika terdapat keterlambatan!</p>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
