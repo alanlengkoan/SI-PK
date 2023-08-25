@@ -68,7 +68,7 @@
                     title: 'Gambar',
                     className: 'text-center',
                     render: function(data, type, full, meta) {
-                        return `<img src="<?= upload_url('gambar') ?>` + full.gambar + `" width="100" heigth="100" />`
+                        return `<img src="<?= upload_url('gambar/produk') ?>` + full.gambar + `" width="100" heigth="100" />`
                     },
                 },
                 {
@@ -188,7 +188,7 @@
                     ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
                 },
                 success: function(response) {
-                    $('#lihat_gambar').html(`<img src="<?= upload_url('gambar') ?>` + response.gambar + `" width="100" heigth="100" />`);
+                    $('#lihat_gambar').html(`<img src="<?= upload_url('gambar/produk') ?>` + response.gambar + `" width="100" heigth="100" />`);
                     $('#lihat_gambar').attr('style', 'padding-bottom: 10px');
 
                     $('#centang_gambar').html(`<div class="checkbox-fade fade-in-default"><label><input type="checkbox" name="ubah_gambar" id="ubah_gambar" /><span class="cr"><i class="cr-icon icofont icofont-ui-check txt-default"></i></span><span>Ubah Gambar!</span></label></div>`);

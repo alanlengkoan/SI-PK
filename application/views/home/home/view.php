@@ -39,7 +39,7 @@
                                     <div class="product-wrapper">
                                         <div class="product-img">
                                             <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">
-                                                <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
+                                                <img src="<?= upload_url('gambar/produk') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
                                             </a>
                                             <?php if ($row->diskon > 0) { ?>
                                                 <span><?= $row->diskon ?> %</span>
@@ -109,7 +109,7 @@
                                     <div class="product-wrapper">
                                         <div class="product-img">
                                             <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">
-                                                <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
+                                                <img src="<?= upload_url('gambar/produk') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
                                             </a>
                                             <?php if ($row->diskon > 0) { ?>
                                                 <span><?= $row->diskon ?> %</span>

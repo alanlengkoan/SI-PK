@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-img">
-                    <img class="zoompro" src="<?= upload_url('gambar') ?><?= $produk->gambar ?>" alt="<?= $produk->nama ?>" title="<?= $produk->nama ?>" />
+                    <img class="zoompro" src="<?= upload_url('gambar/produk') ?><?= $produk->gambar ?>" alt="<?= $produk->nama ?>" title="<?= $produk->nama ?>" />
                     <?php if ($produk->diskon > 0) { ?>
                         <span><?= $produk->diskon ?> %</span>
                     <?php } ?>

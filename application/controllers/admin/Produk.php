@@ -75,7 +75,7 @@ class Produk extends MY_Controller
 
         $this->db->trans_start();
         if (empty($post['id_produk'])) {
-            $config['upload_path']   = './' . upload_path('gambar');
+            $config['upload_path']   = './' . upload_path('gambar/produk');
             $config['allowed_types'] = 'jpg|jpeg|png';
             $config['encrypt_name']  = TRUE;
             $config['overwrite']     = TRUE;
@@ -115,7 +115,7 @@ class Produk extends MY_Controller
             $result = $this->crud->gda('tb_produk', ['id_produk' => $post['id_produk']]);
 
             if (isset($post['ubah_gambar']) && $post['ubah_gambar'] === 'on') {
-                $config['upload_path']   = './' . upload_path('gambar');
+                $config['upload_path']   = './' . upload_path('gambar/produk');
                 $config['allowed_types'] = 'jpg|jpeg|png';
                 $config['encrypt_name']  = TRUE;
                 $config['overwrite']     = TRUE;
@@ -133,9 +133,9 @@ class Produk extends MY_Controller
 
                     $nma_file = $result['gambar'];
                     // menghapus foto yg tersimpan
-                    if ($nma_file !== '' || $nma_file !== null) {
-                        if (file_exists(upload_path('gambar') . $result['gambar'])) {
-                            unlink(upload_path('gambar') . $result['gambar']);
+                    if ($nma_file !== null) {
+                        if (file_exists(upload_path('gambar/produk') . $result['gambar'])) {
+                            unlink(upload_path('gambar/produk') . $result['gambar']);
                         }
                     }
 
@@ -197,9 +197,9 @@ class Produk extends MY_Controller
         $result   = $this->crud->gda('tb_produk', ['id_produk' => $post['id']]);
         $nma_file = $result['gambar'];
         // menghapus foto yg tersimpan
-        if ($nma_file !== '' || $nma_file !== null) {
-            if (file_exists(upload_path('gambar') . $result['gambar'])) {
-                unlink(upload_path('gambar') . $result['gambar']);
+        if ($nma_file !== null) {
+            if (file_exists(upload_path('gambar/produk') . $result['gambar'])) {
+                unlink(upload_path('gambar/produk') . $result['gambar']);
             }
         }
         $this->db->trans_start();

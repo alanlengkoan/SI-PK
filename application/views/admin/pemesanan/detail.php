@@ -256,7 +256,7 @@
                                 ?>
                                     <tr align="center">
                                         <td><?= $no++ ?></td>
-                                        <td><img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" width="100" heigth="100" /></td>
+                                        <td><img src="<?= upload_url('gambar/produk') ?><?= $row->gambar ?>" width="100" heigth="100" /></td>
                                         <td><?= $row->nama ?></td>
                                         <td><?= $row->jumlah ?></td>
                                         <td><?= rupiah($row->harga) ?></td>

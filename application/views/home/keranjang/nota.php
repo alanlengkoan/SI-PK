@@ -242,7 +242,7 @@
                                                                     <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>" target="_blank"><i class="fa fa-info"></i></a>
                                                                 </td>
                                                                 <td>
-                                                                    <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" width="100" heigth="100" />
+                                                                    <img src="<?= upload_url('gambar/produk') ?><?= $row->gambar ?>" width="100" heigth="100" />
                                                                 </td>
                                                                 <td>
                                                                     <?= $row->nama ?>
