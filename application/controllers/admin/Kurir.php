@@ -19,7 +19,7 @@ class Kurir extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Kurir',
+            'title'   => 'Kurir',
             'content' => 'admin/kurir/view',
             'css'     => 'admin/kurir/css/view',
             'js'      => 'admin/kurir/js/view'

@@ -19,7 +19,7 @@ class Diskon extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Diskon',
+            'title'   => 'Diskon',
             'content' => 'admin/diskon/view',
             'css'     => 'admin/diskon/css/view',
             'js'      => 'admin/diskon/js/view'

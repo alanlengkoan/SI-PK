@@ -28,7 +28,7 @@ class Laporan extends MY_Controller
     public function l_pembelian()
     {
         $data = [
-            'title' => 'Laporan Pembelian',
+            'title'   => 'Laporan Pembelian',
             'content' => 'admin/laporan_p/view',
             'css'     => '',
             'js'      => 'admin/laporan_p/js/view'
@@ -73,7 +73,7 @@ class Laporan extends MY_Controller
             ];
         }
         $data = [
-            'title' => 'Laporan Pembelian',
+            'title'   => 'Laporan Pembelian',
             'laporan' => $result
         ];
         // untuk load view
@@ -137,7 +137,7 @@ class Laporan extends MY_Controller
         $bulan = array(1 => "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
 
         $data = [
-            'title' => 'Laporan Pembelian Bulanan',
+            'title'   => 'Laporan Pembelian Bulanan',
             'bulan'   => $bulan,
             'content' => 'admin/laporan_p_bulanan/view',
             'css'     => '',
@@ -183,7 +183,7 @@ class Laporan extends MY_Controller
             ];
         }
         $data = [
-            'title' => 'Laporan Pembelian Bulanan',
+            'title'   => 'Laporan Pembelian Bulanan',
             'laporan' => $result
         ];
         // untuk load view
@@ -250,7 +250,7 @@ class Laporan extends MY_Controller
         }
 
         $data = [
-            'title' => 'Laporan Pembelian Tahunan',
+            'title'   => 'Laporan Pembelian Tahunan',
             'tahun'   => $rTahun,
             'content' => 'admin/laporan_p_tahunan/view',
             'css'     => '',
@@ -296,7 +296,7 @@ class Laporan extends MY_Controller
             ];
         }
         $data = [
-            'title' => 'Laporan Pembelian Tahunan',
+            'title'   => 'Laporan Pembelian Tahunan',
             'laporan' => $result
         ];
         // untuk load view
@@ -359,7 +359,7 @@ class Laporan extends MY_Controller
     public function l_pelanggan()
     {
         $data = [
-            'title' => 'Laporan Pelanggan',
+            'title'   => 'Laporan Pelanggan',
             'content' => 'admin/laporan_pelanggan/view',
             'css'     => 'admin/laporan_pelanggan/css/view',
             'js'      => 'admin/laporan_pelanggan/js/view'
@@ -406,7 +406,7 @@ class Laporan extends MY_Controller
     public function l_kurir()
     {
         $data = [
-            'title' => 'Laporan Kurir',
+            'title'   => 'Laporan Kurir',
             'content' => 'admin/laporan_kurir/view',
             'css'     => 'admin/laporan_kurir/css/view',
             'js'      => 'admin/laporan_kurir/js/view'

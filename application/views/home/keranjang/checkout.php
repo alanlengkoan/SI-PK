@@ -31,38 +31,47 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Kode Order</label>
-                                                        <input type="text" name="inpkodeorder" id="inpkodeorder" value="<?= $kd_order ?>" readonly="readonly" />
+                                                        <input type="text" name="kd_pemesanan" id="kd_pemesanan" value="<?= $kd_order ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Nama *</label>
-                                                        <input type="text" name="inpnama" id="inpnama" value="<?= $user->nama ?>" />
+                                                        <input type="text" name="nama" id="nama" value="<?= $user->nama ?>" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="billing-info">
+                                                        <label>Jenis Kelamin *</label>
+                                                        <select name="kelamin" id="kelamin">
+                                                            <option value="">- Pilih -</option>
+                                                            <option value="L" <?= ($user->kelamin === 'L' ? 'selected' : '') ?>>Laki - laki</option>
+                                                            <option value="P" <?= ($user->kelamin === 'P' ? 'selected' : '') ?>>Perempuan</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>E-Mail *</label>
-                                                        <input type="text" name="inpemail" id="inpemail" value="<?= $user->email ?>" />
+                                                        <input type="text" name="email" id="email" value="<?= $user->email ?>" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>No. Telepon *</label>
-                                                        <input type="text" name="inpnotelpon" id="inpnotelpon" value="<?= $user->telepon ?>" />
+                                                        <input type="text" name="telepon" id="telepon" value="<?= $user->telepon ?>" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Alamat *</label>
-                                                        <textarea name="inpalamat" id="inpalamat"><?= $user->alamat ?></textarea>
+                                                        <textarea name="alamat" id="alamat"><?= $user->alamat ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Tanggal Pengambilan *</label>
-                                                        <input type="date" name="inptglpengambilan" id="inptglpengambilan" />
-                                                        <p style="font-size: 10px;"><i>Note :</i> Tanggal Pengambilan 1 Hari Sebelumnya Tanggal Pemesanan.</p>
+                                                        <label>Tanggal Pemesanan *</label>
+                                                        <input type="datetime-local" name="tgl_pemesanan" id="tgl_pemesanan" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
@@ -195,7 +204,7 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Metode Pembayaran</label>
-                                                        <select name="inpmetodepembayaran" id="inpmetodepembayaran">
+                                                        <select name="metode_pembayaran" id="metode_pembayaran">
                                                             <option value="">- Pilih -</option>
                                                             <option value="c">COD</option>
                                                             <option value="t">Transfer</option>
@@ -206,7 +215,7 @@
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="billing-info">
                                                             <label>Bank *</label>
-                                                            <select name="inpidbank" id="inpidbank">
+                                                            <select name="id_bank" id="id_bank">
                                                                 <option value="">- Pilih -</option>
                                                                 <?php foreach ($bank as $key => $row) { ?>
                                                                     <option value="<?= $row->id_bank ?>" data-rekening="<?= $row->rekening ?>"><?= $row->nama ?></option>
@@ -219,7 +228,7 @@
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="billing-info">
                                                             <label>Rekening</label>
-                                                            <input type="text" id="inprekening" value="0" readonly="readonly" />
+                                                            <input type="text" id="rekening" value="0" readonly="readonly" />
                                                         </div>
                                                     </div>
                                                 </div>

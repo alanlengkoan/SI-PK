@@ -24,7 +24,7 @@ class Pemesanan extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Pemesanan',
+            'title'   => 'Pemesanan',
             'content' => 'admin/pemesanan/view',
             'css'     => 'admin/pemesanan/css/view',
             'js'      => 'admin/pemesanan/js/view'
@@ -39,7 +39,7 @@ class Pemesanan extends MY_Controller
         $kd_pemesanan = base64url_decode($this->uri->segment('4'));
 
         $data = [
-            'title'      => 'Bayar',
+            'title'        => 'Bayar',
             'kd_pemesanan' => $kd_pemesanan,
             'pembayaran'   => $this->m_cod->getDetail($kd_pemesanan)->row(),
             'total'        => $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total'),
@@ -59,23 +59,6 @@ class Pemesanan extends MY_Controller
     public function get_data_kurir_dt()
     {
         return $this->m_kurir->getAllDataDt();
-    }
-
-    public function detail_produk()
-    {
-        $get = $this->input->get(NULL, TRUE);
-        $kd_pemesanan = base64url_decode($get['kd_pemesanan']);
-        $kd_produk    = base64url_decode($get['kd_produk']);
-
-        $data = [
-            'title'   => 'Detail Produk',
-            'keranjang' => $this->m_pemesanan->getPemesananDetailTopper($kd_pemesanan, $kd_produk),
-            'content'   => 'admin/pemesanan/detail_produk',
-            'css'       => '',
-            'js'        => ''
-        ];
-        // untuk load view
-        $this->load->view('admin/base', $data);
     }
 
     // untuk detail pemesanan
@@ -100,7 +83,7 @@ class Pemesanan extends MY_Controller
         }
 
         $data = [
-            'title'               => 'Detail',
+            'title'                 => 'Detail',
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
             'data_pembayaran'       => $get_pembayaran->row(),
@@ -149,7 +132,7 @@ class Pemesanan extends MY_Controller
         $kd_pemesanan = base64url_decode($this->uri->segment('4'));
 
         $data = [
-            'title'      => 'Lacak',
+            'title'        => 'Lacak',
             'kd_pemesanan' => $kd_pemesanan,
             'pengantaran'  => $this->m_pengantaran->getPengataranDetail($kd_pemesanan),
             'content'      => 'admin/pemesanan/lacak',
@@ -168,11 +151,11 @@ class Pemesanan extends MY_Controller
         $ulasan = $this->crud->gda('tb_pemesanan', ['kd_pemesanan' => $kd_pemesanan]);
 
         $data = [
-            'title'     => 'Ulasan',
-            'ulasan'      => $ulasan,
-            'content'     => 'admin/pemesanan/ulasan',
-            'css'         => '',
-            'js'          => ''
+            'title'   => 'Ulasan',
+            'ulasan'  => $ulasan,
+            'content' => 'admin/pemesanan/ulasan',
+            'css'     => '',
+            'js'      => ''
         ];
         // untuk load view
         $this->load->view('admin/base', $data);
@@ -211,7 +194,7 @@ class Pemesanan extends MY_Controller
 
             // untuk update tabel pemesanan
             $pemesanan = [
-                'status_pembayaran'  => '1',
+                'status_pembayaran' => '1',
             ];
             $this->crud->u('tb_pemesanan', $pemesanan, ['kd_pemesanan' => $post['inpkdorder']]);
             $this->db->trans_complete();

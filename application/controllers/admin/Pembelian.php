@@ -19,7 +19,7 @@ class Pembelian extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Pembelian',
+            'title'   => 'Pembelian',
             'content' => 'admin/pembelian/view',
             'css'     => 'admin/pembelian/css/view',
             'js'      => 'admin/pembelian/js/view'

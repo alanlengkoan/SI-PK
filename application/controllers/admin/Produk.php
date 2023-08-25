@@ -194,7 +194,7 @@ class Produk extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_produk', ['id_produk' => $post['id']]);
+        $result   = $this->crud->gda('tb_produk', ['id_produk' => $post['id']]);
         $nma_file = $result['gambar'];
         // menghapus foto yg tersimpan
         if ($nma_file !== '' || $nma_file !== null) {

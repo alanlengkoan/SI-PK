@@ -65,10 +65,10 @@
                     searchable: false,
                     render: function(data, type, full, meta) {
                         return `
-                        <div class="button-icon-btn button-icon-btn-cl">
-                            <button type="button"  class="btn btn-info btn-sm waves-effect pilih-kurir-ini" id="pilih-kurir-ini" data-id_users="` + full.id_users + `"><i class="fa fa-check"></i>&nbsp;Pilih</button>
-                        </div>
-                    `;
+                            <div class="button-icon-btn button-icon-btn-cl">
+                                <button type="button"  class="btn btn-info btn-sm waves-effect pilih-kurir-ini" id="pilih-kurir-ini" data-id_users="` + full.id_users + `"><i class="fa fa-check"></i>&nbsp;Pilih</button>
+                            </div>
+                        `;
                     },
                 },
             ],
@@ -119,36 +119,21 @@
                     searchable: false,
                     render: function(data, type, full, meta) {
                         // metode pembayaran
-                        if (full.metode_pembayaran === 't' && full.metode_pengantaran === 's') {
+                        if (full.metode_pembayaran === 't' && full.metode_pemesanan === 'a') {
                             // transfer & diantar
                             if (full.status_pembayaran === '1') {
                                 // sudah pembayaran
-                                return `
-                                    <div class="button-icon-btn button-icon-btn-cl">
-                                        <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
-                                         <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-star"></i>&nbsp;Ulasan
-                                        </a>
-                                    </div>
-                                    `;
-                            } else {
-                                // belum pembayaran
                                 if (full.pilih_kurir === 'n') {
                                     // belum pilih kurir
                                     return `
                                         <div class="button-icon-btn button-icon-btn-cl">
                                             <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-info"></i>&nbsp;Detail
-                                            </a>
+                                            </a>&nbsp;
                                             <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-check"></i>&nbsp;Lacak
-                                            </a>
-                                            <button type="button" id="pilih-kurir" data-id="` + full.kd_pemesanan + `" class="btn btn-warning btn-sm waves-effect" data-toggle="modal" data-target="#modal-pilih-kurir"><i class="fa fa-star"></i>&nbsp;Pilih Kurir</button>
+                                            </a>&nbsp;
+                                            <button type="button" id="pilih-kurir" data-id="` + full.kd_pemesanan + `" class="btn btn-warning btn-sm waves-effect" data-toggle="modal" data-target="#modal-pilih-kurir"><i class="fa fa-star"></i>&nbsp;Pilih Kurir</button>&nbsp;
                                             <button type="button" id="btn-batal" data-id="` + full.kd_pemesanan + `" class="btn btn-danger btn-sm waves-effect"><i class="fa fa-close"></i>&nbsp;Batal</button>
                                         </div>
                                         `;
@@ -158,67 +143,52 @@
                                         <div class="button-icon-btn button-icon-btn-cl">
                                             <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-info"></i>&nbsp;Detail
-                                            </a>
+                                            </a>&nbsp;
                                             <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-check"></i>&nbsp;Lacak
-                                            </a>
+                                            </a>&nbsp;
                                             <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-star"></i>&nbsp;Ulasan
                                             </a>
                                         </div>
                                         `;
                                 }
-                            }
-                        } else if (full.metode_pembayaran === 't' && full.metode_pengantaran === 'b') {
-                            // transfer & dijemput
-                            if (full.status_pembayaran === '1') {
-                                // sudah pembayaran
-                                if (full.status_pengantaran === '2') {
-                                    // jika sudah diterima
-                                    return `
+                            } else {
+                                return `
                                     <div class="button-icon-btn button-icon-btn-cl">
                                         <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
-                                        <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
+                                        </a>&nbsp;
+                                        <button type="button" id="btn-batal" data-id="` + full.kd_pemesanan + `" class="btn btn-danger btn-sm waves-effect"><i class="fa fa-close"></i>&nbsp;Batal</button>
+                                    </div>
+                                `;
+                            }
+                        } else if (full.metode_pembayaran === 't' && full.metode_pemesanan === 'e') {
+                            // transfer & ditempat
+                            if (full.status_pembayaran === '1') {
+                                // sudah pembayaran
+                                return `
+                                    <div class="button-icon-btn button-icon-btn-cl">
+                                        <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
+                                            <i class="fa fa-info"></i>&nbsp;Detail
+                                        </a>&nbsp;
+                                         <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-star"></i>&nbsp;Ulasan
                                         </a>
                                     </div>
-                                    `;
-                                } else {
-                                    // jika belum diterima
-                                    return `
-                                    <div class="button-icon-btn button-icon-btn-cl">
-                                        <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
-                                         <button type="button" class="btn btn-primary btn-sm waves-effect" id="btn-diterima" data-id="` + full.kd_pemesanan + `">
-                                            <i class="fa fa-check"></i>&nbsp;Diterima
-                                        </button>
-                                    </div>
-                                    `;
-                                }
+                                `;
                             } else {
                                 // belum pembayaran
                                 return `
                                     <div class="button-icon-btn button-icon-btn-cl">
                                         <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
+                                        </a>&nbsp;
                                         <button type="button" id="btn-batal" data-id="` + full.kd_pemesanan + `" class="btn btn-danger btn-sm waves-effect"><i class="fa fa-close"></i>&nbsp;Batal</button>
                                     </div>
-                                    `;
+                                `;
                             }
-                        } else if (full.metode_pembayaran === 'c' && full.metode_pengantaran === 's') {
+                        } else if (full.metode_pembayaran === 'c' && full.metode_pemesanan === 'a') {
                             // cod & diantar
                             if (full.status_pembayaran === '1') {
                                 // sudah pembayaran
@@ -226,10 +196,10 @@
                                 <div class="button-icon-btn button-icon-btn-cl">
                                     <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                         <i class="fa fa-info"></i>&nbsp;Detail
-                                    </a>
+                                    </a>&nbsp;
                                     <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
                                         <i class="fa fa-check"></i>&nbsp;Lacak
-                                    </a>
+                                    </a>&nbsp;
                                     <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
                                         <i class="fa fa-star"></i>&nbsp;Ulasan
                                     </a>
@@ -243,11 +213,11 @@
                                         <div class="button-icon-btn button-icon-btn-cl">
                                             <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-info"></i>&nbsp;Detail
-                                            </a>
+                                            </a>&nbsp;
                                             <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-check"></i>&nbsp;Lacak
-                                            </a>
-                                            <button type="button" id="pilih-kurir" data-id="` + full.kd_pemesanan + `" class="btn btn-warning btn-sm waves-effect" data-toggle="modal" data-target="#modal-pilih-kurir"><i class="fa fa-star"></i>&nbsp;Pilih Kurir</button>
+                                            </a>&nbsp;
+                                            <button type="button" id="pilih-kurir" data-id="` + full.kd_pemesanan + `" class="btn btn-warning btn-sm waves-effect" data-toggle="modal" data-target="#modal-pilih-kurir"><i class="fa fa-star"></i>&nbsp;Pilih Kurir</button>&nbsp;
                                             <button type="button" id="btn-batal" data-id="` + full.kd_pemesanan + `" class="btn btn-danger btn-sm waves-effect"><i class="fa fa-close"></i>&nbsp;Batal</button>
                                         </div>
                                         `;
@@ -257,7 +227,7 @@
                                         <div class="button-icon-btn button-icon-btn-cl">
                                             <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-info"></i>&nbsp;Detail
-                                            </a>
+                                            </a>&nbsp;
                                             <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
                                                 <i class="fa fa-check"></i>&nbsp;Lacak
                                             </a>
@@ -265,54 +235,33 @@
                                         `;
                                 }
                             }
-                        } else if (full.metode_pembayaran === 'c' && full.metode_pengantaran === 'b') {
-                            // cod & dijemput
+                        } else if (full.metode_pembayaran === 'c' && full.metode_pemesanan === 'e') {
+                            // cod & ditempat
                             if (full.status_pembayaran === '1') {
                                 // sudah pembayaran
-                                if (full.status_pengantaran === '2') {
-                                    // jika sudah diterima
-                                    return `
+                                return `
                                     <div class="button-icon-btn button-icon-btn-cl">
                                         <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
-                                        <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
+                                        </a>&nbsp;
+                                         <a class="btn btn-success btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/ulasan/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-star"></i>&nbsp;Ulasan
                                         </a>
                                     </div>
-                                    `;
-                                } else {
-                                    // jika belum diterima
-                                    return `
-                                    <div class="button-icon-btn button-icon-btn-cl">
-                                        <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
-                                        <a class="btn btn-primary btn-sm waves-effect" href="<?= admin_url() ?>pemesanan/lacak/` + btoa(full.kd_pemesanan) + `">
-                                            <i class="fa fa-check"></i>&nbsp;Lacak
-                                        </a>
-                                         <button type="button" class="btn btn-primary btn-sm waves-effect" id="btn-diterima" data-id="` + full.kd_pemesanan + `">
-                                            <i class="fa fa-check"></i>&nbsp;Diterima
-                                        </button>
-                                    </div>
-                                    `;
-                                }
+                                `;
                             } else {
                                 // belum pembayaran
                                 return `
                                     <div class="button-icon-btn button-icon-btn-cl">
                                         <a class="btn btn-info btn-sm waves-effect lihat" data-id="` + full.kd_pemesanan + `" href="<?= admin_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-info"></i>&nbsp;Detail
-                                        </a>
+                                        </a>&nbsp;
                                         <a class="btn btn-warning btn-sm waves-effect lihat" href="<?= admin_url() ?>pemesanan/bayar/` + btoa(full.kd_pemesanan) + `">
                                             <i class="fa fa-credit-card"></i>&nbsp;Bayar
-                                        </a>
+                                        </a>&nbsp;
                                         <button type="button" id="btn-batal" data-id="` + full.kd_pemesanan + `" class="btn btn-danger btn-sm waves-effect"><i class="fa fa-close"></i>&nbsp;Batal</button>
                                     </div>
-                                    `;
+                                `;
                             }
                         } else {
                             return `Terdapat Kesalahan Status !`;

@@ -24,7 +24,7 @@ class Pengaturan extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Pengaturan',
+            'title'   => 'Pengaturan',
             'data'    => $this->m_pengaturan->getFirstRecord(),
             'content' => 'admin/pengaturan/view',
             'css'     => 'admin/pengaturan/css/view',
@@ -90,7 +90,7 @@ class Pengaturan extends MY_Controller
     // untuk update profil
     public function upd_profil()
     {
-        $post = $this->input->post(NULL, TRUE);
+        $post          = $this->input->post(NULL, TRUE);
         $id_pengaturan = $this->uri->segment('4');
 
         $this->db->trans_start();
@@ -110,14 +110,14 @@ class Pengaturan extends MY_Controller
             $this->crud->i('tb_pengaturan', $data);
         } else {
             $data = [
-                'nama'          => $post['inpnama'],
-                'email'         => $post['inpemail'],
-                'alamat'        => $post['inpalamat'],
-                'telepon'       => $post['inptelepon'],
-                'facebook'      => $post['inplinkfacebook'],
-                'instagram'     => $post['inplinkinstagram'],
-                'twitter'       => $post['inplinktwitter'],
-                'youtube'       => $post['inplinkyoutube'],
+                'nama'      => $post['inpnama'],
+                'email'     => $post['inpemail'],
+                'alamat'    => $post['inpalamat'],
+                'telepon'   => $post['inptelepon'],
+                'facebook'  => $post['inplinkfacebook'],
+                'instagram' => $post['inplinkinstagram'],
+                'twitter'   => $post['inplinktwitter'],
+                'youtube'   => $post['inplinkyoutube'],
             ];
 
             $this->crud->u('tb_pengaturan', $data, ['id_pengaturan' => $id_pengaturan]);

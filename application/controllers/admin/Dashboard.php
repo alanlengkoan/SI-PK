@@ -22,8 +22,8 @@ class Dashboard extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Dashboard Admin',
-            'produk'    => $this->m_produk->getAll()->num_rows(),
+            'title'     => 'Dashboard Admin',
+            'produk'    => count($this->m_produk->getAll()),
             'pelanggan' => $this->m_pelanggan->getAll()->num_rows(),
             'kurir'     => $this->m_kurir->getAll()->num_rows(),
             'content'   => 'admin/dashboard/view',

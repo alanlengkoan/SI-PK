@@ -15,65 +15,9 @@ $route['users'] = 'home';
 $route['kurir'] = 'kurir/dashboard';
 
 // route users
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $route['produk']                 = 'users/produk';
 $route['produk/detail/(:any)']   = 'users/produk/detail';
 $route['produk/kategori/(:any)'] = 'users/produk/kategori';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $route['riwayat']                     = 'users/riwayat';
 $route['riwayat/load_rating']         = 'users/riwayat/load_rating';
@@ -90,7 +34,6 @@ $route['keranjang/detail/(:any)']     = 'users/keranjang/detail';
 $route['checkout']                    = 'users/keranjang/checkout';
 $route['checkout/finish']             = 'users/keranjang/checkout_finish';
 $route['nota/(:any)']                 = 'users/keranjang/nota';
-$route['detail']                      = 'users/keranjang/nota_detail';
 $route['cetak/(:any)']                = 'users/keranjang/cetak';
 $route['transfer/(:any)']             = 'users/keranjang/transfer';
 $route['pembayaran']                  = 'users/keranjang/pembayaran';

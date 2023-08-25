@@ -19,7 +19,7 @@ class Pelanggan extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Pelanggan',
+            'title'   => 'Pelanggan',
             'content' => 'admin/pelanggan/view',
             'css'     => 'admin/pelanggan/css/view',
             'js'      => 'admin/pelanggan/js/view'
@@ -57,9 +57,9 @@ class Pelanggan extends MY_Controller
     // untuk proses hapus data
     public function process_del()
     {
-        $post   = $this->input->post(NULL, TRUE);
+        $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_users', ['id_users' => $post['id']]);
+        $result   = $this->crud->gda('tb_users', ['id_users' => $post['id']]);
         $nma_file = $result['foto'];
         // menghapus foto yg tersimpan
         if ($nma_file !== '' || $nma_file !== null) {

@@ -20,7 +20,7 @@ class Slide extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Slide',
+            'title'   => 'Slide',
             'diskon'  => $this->m_diskon->getAll(),
             'content' => 'admin/slide/view',
             'css'     => 'admin/slide/css/view',
@@ -41,7 +41,7 @@ class Slide extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_slide', ['id_slide' => $post['id']]);
+        $result   = $this->crud->gda('tb_slide', ['id_slide' => $post['id']]);
         $response = [
             'id_slide'  => $result['id_slide'],
             'id_diskon' => $result['id_diskon'],
@@ -161,7 +161,7 @@ class Slide extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_slide', ['id_slide' => $post['id']]);
+        $result   = $this->crud->gda('tb_slide', ['id_slide' => $post['id']]);
         $nma_file = $result['gambar'];
         // menghapus foto yg tersimpan
         if ($nma_file !== null) {

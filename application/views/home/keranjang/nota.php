@@ -40,6 +40,12 @@
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
+                                                    <label>Jenis Kelamin</label>
+                                                    <input type="text" placeholder="<?= ($data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan') ?>" readonly="readonly" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info">
                                                     <label>E-Mail</label>
                                                     <input type="text" placeholder="<?= $data_pemesanan->email ?>" readonly="readonly" />
                                                 </div>
@@ -48,12 +54,6 @@
                                                 <div class="billing-info">
                                                     <label>No. Telepon</label>
                                                     <input type="text" placeholder="<?= $data_pemesanan->telepon ?>" readonly="readonly" />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="billing-info">
-                                                    <label>Jenis Kelamin</label>
-                                                    <input type="text" placeholder="<?= ($data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan') ?>" readonly="readonly" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
@@ -76,17 +76,18 @@
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
-                                                    <label>Tanggal Pemesanan</label>
-                                                    <input type="text" placeholder="<?= $data_pemesanan->tgl_pengambilan ?>" readonly="readonly" />
+                                                    <label>Metode Pemesanan</label>
+                                                    <input type="text" placeholder="<?= ($data_pemesanan->metode_pemesanan === 'e' ? 'Ditempat' : 'Diantar') ?>" readonly="readonly" />
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="billing-info">
-                                                    <label>Metode Pengantaran</label>
-                                                    <input type="text" placeholder="<?= ($data_pemesanan->metode_pengantaran === 'b' ? 'Dijemput' : 'Diantar') ?>" readonly="readonly" />
+                                            <?php if ($data_pemesanan->metode_pemesanan == 'e') { ?>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="billing-info">
+                                                        <label>Meja</label>
+                                                        <input type="text" placeholder="<?= $data_pemesanan->no_meja ?> (Jumlah kursi <?= $data_pemesanan->jumlah_kursi ?>)" readonly="readonly" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <?php if ($data_pemesanan->metode_pengantaran == 's') { ?>
+                                            <?php } else { ?>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Status Pengantaran</label>
@@ -238,9 +239,7 @@
                                                             <tr>
                                                                 <td><?= $no++ ?></td>
                                                                 <td class="text-center">
-                                                                    <?php if ($row->jenis === 'cake') { ?>
-                                                                        <a href="<?= base_url() ?>detail?kd_pemesanan=<?= base64url_encode($row->kd_pemesanan) ?>&kd_produk=<?= base64_encode($row->kd_produk) ?>" target="_blank"><i class="fa fa-info"></i></a>
-                                                                    <?php } ?>
+                                                                    <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>" target="_blank"><i class="fa fa-info"></i></a>
                                                                 </td>
                                                                 <td>
                                                                     <img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" width="100" heigth="100" />
@@ -281,7 +280,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="6" align="center">
+                                                            <td colspan="7" align="center">
                                                                 Grand Total
                                                             </td>
                                                             <td align="center">

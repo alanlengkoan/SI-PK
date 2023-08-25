@@ -45,20 +45,12 @@
                                                 <span><?= $row->diskon ?> %</span>
                                             <?php } ?>
 
-                                            <?php if ($row->jenis === 'dessert') { ?>
-                                                <?php
-                                                $stock_terjual = ($row->stock - $row->jumlah);
-                                                $stock = ($row->jumlah_keranjang == null) ? $row->stock - $row->jumlah : $stock_terjual - $row->jumlah_keranjang;
-                                                if ($stock > 0) { ?>
-                                                    <div class="product-action">
-                                                        <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
-                                                            <i class="ion-ios-shuffle-strong"></i>
-                                                        </a>
-                                                    </div>
-                                                <?php } ?>
-                                            <?php } else { ?>
+                                            <?php
+                                            $stock_terjual = ($row->stock - $row->jumlah);
+                                            $stock = ($row->jumlah_keranjang == null) ? $row->stock - $row->jumlah : $stock_terjual - $row->jumlah_keranjang;
+                                            if ($stock > 0) { ?>
                                                 <div class="product-action">
-                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
+                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
                                                         <i class="ion-ios-shuffle-strong"></i>
                                                     </a>
                                                 </div>
@@ -123,20 +115,12 @@
                                                 <span><?= $row->diskon ?> %</span>
                                             <?php } ?>
 
-                                            <?php if ($row->jenis === 'dessert') { ?>
-                                                <?php
-                                                $stock_terjual = ($row->stock - $row->jumlah);
-                                                $stock = ($row->jumlah_keranjang == null) ? $row->stock - $row->jumlah : $stock_terjual - $row->jumlah_keranjang;
-                                                if ($stock > 0) { ?>
-                                                    <div class="product-action">
-                                                        <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
-                                                            <i class="ion-ios-shuffle-strong"></i>
-                                                        </a>
-                                                    </div>
-                                                <?php } ?>
-                                            <?php } else { ?>
+                                            <?php
+                                            $stock_terjual = ($row->stock - $row->jumlah);
+                                            $stock = ($row->jumlah_keranjang == null) ? $row->stock - $row->jumlah : $stock_terjual - $row->jumlah_keranjang;
+                                            if ($stock > 0) { ?>
                                                 <div class="product-action">
-                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>" data-jenis="<?= $row->jenis ?>">
+                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
                                                         <i class="ion-ios-shuffle-strong"></i>
                                                     </a>
                                                 </div>

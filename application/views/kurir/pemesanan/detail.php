@@ -47,6 +47,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan') ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
                                 <input type="email" class="form-control" placeholder="<?= $data_pemesanan->email ?>" readonly>
@@ -56,12 +62,6 @@
                             <label class="col-sm-2 col-form-label">No. Telepon</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" placeholder="<?= $data_pemesanan->telepon ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan') ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -83,9 +83,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tanggal Pengambilan</label>
+                            <label class="col-sm-2 col-form-label">Metode Pemesanan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= $data_pemesanan->tgl_pengambilan ?>" readonly>
+                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pemesanan === 'e' ? 'Ditempat' : 'Diantar') ?>" readonly="readonly" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -105,9 +105,10 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Status Pembayaran</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->status_pembayaran === 0 ? 'Menunggu Pembayaran' : 'Telah Melakukan Pembayaran') ?>" readonly>
+                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->status_pembayaran === '0' ? 'Menunggu Pembayaran' : 'Telah Melakukan Pembayaran') ?>" readonly>
                             </div>
                         </div>
+
                         <?php if ($data_pemesanan->metode_pembayaran === 't') { ?>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Bank</label>
@@ -207,6 +208,7 @@
                                 </div>
                             <?php } ?>
                         <?php } ?>
+
                         <?php if ($data_pemesanan->status_pembayaran === '1' && $data_pemesanan->status_pengantaran === '2') { ?>
                             <div class="alert alert-success background-success">
                                 <strong>Berhasil!</strong> Transaksi telah diproses!
@@ -224,7 +226,6 @@
                             <thead>
                                 <tr align="center">
                                     <th>No.</th>
-                                    <th>Aksi</th>
                                     <th>Gambar</th>
                                     <th>Nama</th>
                                     <th>Jumlah</th>
@@ -241,11 +242,6 @@
                                 ?>
                                     <tr align="center">
                                         <td><?= $no++ ?></td>
-                                        <td class="text-center">
-                                            <?php if ($row->jenis === 'cake') { ?>
-                                                <a href="<?= kurir_url() ?>pemesanan/detail_produk?kd_pemesanan=<?= base64url_encode($row->kd_pemesanan) ?>&kd_produk=<?= base64_encode($row->kd_produk) ?>" target="_blank"><i class="fa fa-info"></i></a>
-                                            <?php } ?>
-                                        </td>
                                         <td><img src="<?= upload_url('gambar') ?><?= $row->gambar ?>" width="100" heigth="100" /></td>
                                         <td><?= $row->nama ?></td>
                                         <td><?= $row->jumlah ?></td>

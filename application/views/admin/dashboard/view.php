@@ -34,7 +34,7 @@
                             <div class="card-block text-center">
                                 <i class="feather icon-box text-c-blue d-block f-40"></i>
                                 <h4 class="m-t-20"><span class="text-c-blue"><?= $produk ?></span>&nbsp;Produk</h4>
-                                <p class="m-b-20">Gabungan Produk Cake dan Dessert.</p>
+                                <p class="m-b-20">Gabungan Produk Makanan dan Minuman.</p>
                             </div>
                         </div>
                     </div>

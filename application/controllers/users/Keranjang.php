@@ -140,17 +140,19 @@ class Keranjang extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $id_users           = $this->session->userdata('id_users');
-        $id_ongkir          = $post['inpidongkir'];
-        $kd_order           = $post['inpkodeorder'];
-        $id_bank            = $post['inpidbank'];
-        $nama               = $post['inpnama'];
-        $email              = $post['inpemail'];
-        $telepon            = $post['inpnotelpon'];
-        $alamat             = $post['inpalamat'];
-        $tgl_pengambilan    = $post['inptglpengambilan'];
-        $metode_pengantaran = $post['inpmetodepengantaran'];
-        $metode_pembayaran  = $post['inpmetodepembayaran'];
+        $id_users          = $this->session->userdata('id_users');
+        $id_ongkir         = $post['id_ongkir'];
+        $id_meja           = $post['id_meja'];
+        $id_bank           = $post['id_bank'];
+        $kd_pemesanan      = $post['kd_pemesanan'];
+        $nama              = $post['nama'];
+        $kelamin           = $post['kelamin'];
+        $email             = $post['email'];
+        $telepon           = $post['telepon'];
+        $alamat            = $post['alamat'];
+        $tgl_pemesanan     = $post['tgl_pemesanan'];
+        $metode_pemesanan  = $post['metode_pemesanan'];
+        $metode_pembayaran = $post['metode_pembayaran'];
 
         $this->db->trans_start();
         // update tabel users
@@ -162,6 +164,7 @@ class Keranjang extends MY_Controller
 
         // update tabel pelanggan
         $tb_pelanggan = [
+            'kelamin' => $kelamin,
             'telepon' => $telepon,
             'alamat'  => $alamat
         ];
@@ -169,13 +172,13 @@ class Keranjang extends MY_Controller
 
         // insert tabel pemesanan
         $tb_pemesanan = [
-            'kd_pemesanan'       => $kd_order,
+            'kd_pemesanan'       => $kd_pemesanan,
             'id_users'           => $id_users,
             'id_ongkir'          => $id_ongkir,
-            'tgl_pemesanan'      => date('Y-m-d H:i:s'),
-            'tgl_pengambilan'    => $tgl_pengambilan,
+            'id_meja'            => $id_meja,
+            'tgl_pemesanan'      => $tgl_pemesanan,
             'metode_pembayaran'  => $metode_pembayaran,
-            'metode_pengantaran' => $metode_pengantaran,
+            'metode_pemesanan'   => $metode_pemesanan,
             'status_pembayaran'  => '0',
             'status_pengantaran' => '0',
             'status_lihat'       => 'belum-lihat',
@@ -186,11 +189,11 @@ class Keranjang extends MY_Controller
 
         // insert tabel pemesanan detail
         $checkout = $this->m_keranjang->getBuyCustomerKeranjangAll($this->session->userdata('id_users'));
+
         foreach ($checkout->result() as $row) {
             $tb_pemesanan_detail = [
-                'kd_pemesanan' => $kd_order,
+                'kd_pemesanan' => $kd_pemesanan,
                 'kd_produk'    => $row->kd_produk,
-                'kd_pasang'    => $row->kd_pasang,
                 'jumlah'       => $row->jumlah_keranjang,
                 'harga'        => $row->harga,
                 'sub_total'    => $row->sub_total,
@@ -198,23 +201,25 @@ class Keranjang extends MY_Controller
             $this->crud->i('tb_pemesanan_detail', $tb_pemesanan_detail);
         }
 
-        // insert tabel pengantaran detail
-        $tb_pengantaran_detail = [
-            'kd_pemesanan' => $kd_order,
-            'status'       => '0',
-        ];
-        $this->crud->i('tb_pengantaran_detail', $tb_pengantaran_detail);
+        // untuk simpoan pengantaran
+        if ($metode_pemesanan == 'a') {
+            $tb_pengantaran_detail = [
+                'kd_pemesanan' => $kd_pemesanan,
+                'status'       => '0',
+            ];
+            $this->crud->i('tb_pengantaran_detail', $tb_pengantaran_detail);
+        }
 
         // untuk simpan data pembayaran
         if ($metode_pembayaran == 't') {
             $tb_transfer = [
-                'kd_pemesanan' => $kd_order,
+                'kd_pemesanan' => $kd_pemesanan,
                 'id_bank'      => $id_bank,
             ];
             $this->crud->i('tb_transfer', $tb_transfer);
         } else {
             $tb_cod = [
-                'kd_pemesanan' => $kd_order,
+                'kd_pemesanan' => $kd_pemesanan,
             ];
             $this->crud->i('tb_cod', $tb_cod);
         }
@@ -258,34 +263,13 @@ class Keranjang extends MY_Controller
         }
 
         $data = [
-            'title'               => 'Nota',
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
             'data_pembayaran'       => $get_pembayaran->row(),
-            'content'               => 'home/keranjang/nota',
-            'css'                   => '',
-            'js'                    => ''
         ];
-        // untuk load view
-        $this->load->view('home/base', $data);
-    }
 
-    // untuk detail produk
-    public function nota_detail()
-    {
-        $get = $this->input->get(NULL, TRUE);
-        $kd_pemesanan = base64url_decode($get['kd_pemesanan']);
-        $kd_produk    = base64url_decode($get['kd_produk']);
-
-        $data = [
-            'title'   => 'Detail Nota',
-            'keranjang' => $this->m_pemesanan->getPemesananDetailTopper($kd_pemesanan, $kd_produk),
-            'content'   => 'home/keranjang/detail',
-            'css'       => '',
-            'js'        => ''
-        ];
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Nota', 'keranjang', 'nota', $data);
     }
 
     // untuk halaman cetak
@@ -325,16 +309,13 @@ class Keranjang extends MY_Controller
         $kd_pemesanan = base64url_decode($this->uri->segment('2'));
 
         $data = [
-            'title'      => 'Bayar',
             'kd_pemesanan' => $kd_pemesanan,
             'pembayaran'   => $this->m_transfer->getDetail($kd_pemesanan)->row(),
             'total'        => $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total'),
-            'content'      => 'home/keranjang/transfer',
-            'css'          => '',
-            'js'           => 'home/keranjang/js/transfer'
         ];
+
         // untuk load view
-        $this->load->view('home/base', $data);
+        $this->template->page('Nota', 'keranjang', 'transfer', $data);
     }
 
     // untuk pemabayaran transfer

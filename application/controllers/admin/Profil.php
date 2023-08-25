@@ -24,7 +24,7 @@ class Profil extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Profil',
+            'title'   => 'Profil',
             'content' => 'admin/profil/view',
             'data'    => $this->m_users->getRoleUsers('admin', $this->users->id_users),
             'css'     => 'admin/profil/css/view',
@@ -103,11 +103,11 @@ class Profil extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $pwd_lama = $post['inppasswordlama'];
-        $pwd_baru = $post['inppasswordbaru'];
+        $pwd_lama            = $post['inppasswordlama'];
+        $pwd_baru            = $post['inppasswordbaru'];
         $konfirmasi_pwd_baru = $post['inpkonfirmasipassword'];
 
-        $users = $this->crud->gda('tb_users', ['id_users' => $this->users->id_users]);
+        $users     = $this->crud->gda('tb_users', ['id_users' => $this->users->id_users]);
         $check_pwd = password_verify($pwd_lama, $users['password']);
 
         if ($check_pwd === true) {

@@ -10,7 +10,7 @@ class M_pemesanan extends CI_Model
 
     public function getAllDataDt($status_batal)
     {
-        $this->datatables->select('tp.id_users, tp.kd_pemesanan, tu.nama, DATE_FORMAT( tp.tgl_pemesanan, "%d-%m-%Y" ) AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, "%H:%i:%s" ) AS jam_pemesanan, tp.metode_pembayaran, tp.metode_pengantaran, tp.status_pembayaran, tp.status_pengantaran, tp.pilih_kurir, ( SELECT SUM( tpd.sub_total ) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan ) AS total, ( SELECT SUM( tf.jumlah_transfer ) FROM tb_transfer AS tf WHERE tf.kd_pemesanan = tp.kd_pemesanan ) AS transfer, ( SELECT SUM( tc.jumlah_bayar ) FROM tb_cod AS tc WHERE tc.kd_pemesanan = tp.kd_pemesanan ) AS bayar');
+        $this->datatables->select('tp.id_users, tp.kd_pemesanan, tu.nama, DATE_FORMAT( tp.tgl_pemesanan, "%d-%m-%Y") AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, "%H:%i:%s") AS jam_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tp.pilih_kurir, tp.status_batal, tp.status_lihat, tp.status_pembayaran, ( SELECT SUM( tpd.sub_total) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan) AS total,( SELECT SUM( tf.jumlah_transfer ) FROM tb_transfer AS tf WHERE tf.kd_pemesanan = tp.kd_pemesanan ) AS transfer,( SELECT SUM( tc.jumlah_bayar ) FROM tb_cod AS tc WHERE tc.kd_pemesanan = tp.kd_pemesanan ) AS bayar');
         $this->datatables->where('tp.status_batal', $status_batal);
         $this->datatables->from('tb_pemesanan AS tp');
         $this->datatables->join('tb_users AS tu', 'tp.id_users = tu.id_users', 'left');
@@ -19,19 +19,19 @@ class M_pemesanan extends CI_Model
 
     public function getPemesanan($id_users, $kd_pemesanan)
     {
-        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pengantaran, tu.nama, tu.email, tc.telepon, DATE_FORMAT(tp.tgl_pengambilan, '%d-%m-%Y') AS tgl_pengambilan, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s' ) AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir WHERE tp.id_users = '$id_users' AND tp.kd_pemesanan = '$kd_pemesanan'");
+        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tu.nama, tu.email, tc.telepon, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif, tm.no_meja, tm.jumlah_kursi FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir LEFT JOIN tb_meja AS tm ON tm.id_meja = tp.id_meja WHERE tp.id_users = '$id_users' AND tp.kd_pemesanan = '$kd_pemesanan'");
         return $result;
     }
 
     public function getPemesananAdmin($kd_pemesanan)
     {
-        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pengantaran, tu.nama, tu.email, tc.telepon, DATE_FORMAT(tp.tgl_pengambilan, '%d-%m-%Y') AS tgl_pengambilan, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s' ) AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir WHERE tp.id_users = tu.id_users AND tp.kd_pemesanan = '$kd_pemesanan'");
+        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tu.nama, tu.email, tc.telepon, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif, tm.no_meja, tm.jumlah_kursi FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir LEFT JOIN tb_meja AS tm ON tm.id_meja = tp.id_meja WHERE tp.id_users = tu.id_users AND tp.kd_pemesanan = '$kd_pemesanan'");
         return $result;
     }
 
     public function getPemesananDetail($kd_pemesanan)
     {
-        $result = $this->db->query("SELECT tpd.kd_pemesanan, tp.kd_produk, tp.nama, tp.gambar, tp.jenis, tpd.jumlah, tpd.harga, tpd.sub_total, d.diskon FROM tb_pemesanan_detail AS tpd LEFT JOIN tb_produk AS tp ON tpd.kd_produk = tp.kd_produk LEFT JOIN tb_diskon AS d ON tp.diskon = d.id_diskon WHERE tpd.kd_pemesanan = '$kd_pemesanan' AND( tp.jenis = 'cake' OR tp.jenis = 'dessert')");
+        $result = $this->db->query("SELECT tpd.kd_pemesanan, tp.kd_produk, tp.nama, tp.gambar, tpd.jumlah, tpd.harga, tpd.sub_total, td.diskon FROM tb_pemesanan_detail AS tpd LEFT JOIN tb_produk AS tp ON tpd.kd_produk = tp.kd_produk LEFT JOIN tb_diskon AS td ON td.id_diskon = tp.id_diskon WHERE tpd.kd_pemesanan = '$kd_pemesanan'");
         return $result;
     }
 
@@ -81,7 +81,7 @@ class M_pemesanan extends CI_Model
     // untuk menampilkan pemesanan belum rating
     public function getRating($id_users)
     {
-        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.tgl_pemesanan, tp.metode_pembayaran, tp.status_pembayaran, tp.status_pengantaran, tp.pilih_kurir FROM tb_pemesanan AS tp WHERE tp.id_users = '$id_users' AND tp.status_pengantaran = '2' AND tp.bintang IS NULL AND tp.komentar IS NULL");
+        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.tgl_pemesanan, tp.metode_pembayaran, tp.status_pembayaran, tp.status_pengantaran, tp.pilih_kurir FROM tb_pemesanan AS tp WHERE tp.id_users = '$id_users' AND( tp.status_pengantaran = '2' OR tp.status_pembayaran = '1') AND tp.bintang IS NULL AND tp.komentar IS NULL");
         return $result;
     }
 

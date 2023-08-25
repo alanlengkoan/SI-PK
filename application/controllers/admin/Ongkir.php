@@ -19,7 +19,7 @@ class Ongkir extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Ongkos Kirim',
+            'title'   => 'Ongkos Kirim',
             'content' => 'admin/ongkir/view',
             'css'     => 'admin/ongkir/css/view',
             'js'      => 'admin/ongkir/js/view'
@@ -39,7 +39,7 @@ class Ongkir extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $result = $this->crud->gda('tb_ongkir', ['id_ongkir' => $post['id']]);
+        $result   = $this->crud->gda('tb_ongkir', ['id_ongkir' => $post['id']]);
         $response = [
             'id_ongkir' => $result['id_ongkir'],
             'lokasi'    => $result['lokasi'],
