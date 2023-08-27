@@ -114,7 +114,6 @@
                                             <?php if ($row->diskon > 0) { ?>
                                                 <span><?= $row->diskon ?> %</span>
                                             <?php } ?>
-
                                             <?php
                                             $stock_terjual = ($row->stock - $row->jumlah);
                                             $stock = ($row->jumlah_keranjang == null) ? $row->stock - $row->jumlah : $stock_terjual - $row->jumlah_keranjang;
@@ -144,7 +143,7 @@
                                                     $harga_diskon = (int) $row->harga * $diskon;
                                                     $result       = (int) $row->harga - round($harga_diskon);
                                                 ?>
-                                                    <span><?= rupiah($result) ?> |</span>
+                                                    <span><?= rupiah($result) ?>&nbsp;|&nbsp;</span>
                                                     <span class="product-price-old"><?= rupiah($row->harga) ?></span>
                                                 <?php } else { ?>
                                                     <span><?= rupiah($row->harga) ?></span>
