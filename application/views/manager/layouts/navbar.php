@@ -20,23 +20,6 @@
                 </li>
             </ul>
             <ul class="nav-right">
-                <!-- begin:: notificaion -->
-                <li class="header-notification">
-                    <div class="dropdown-primary dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="feather icon-bell"></i>
-                            <div id="count"></div>
-                        </div>
-                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
-                                <h6>Notifications</h6>
-                                <label id="notification-info" class="label label-danger">New</label>
-                            </li>
-                            <div id="notification"></div>
-                        </ul>
-                    </div>
-                </li>
-                <!-- end:: notificaion -->
                 <!-- begin:: profil navbar -->
                 <li class="user-profile header-notification">
                     <div class="dropdown-primary dropdown">

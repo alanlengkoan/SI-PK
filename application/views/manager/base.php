@@ -75,61 +75,6 @@
     <script type="text/javascript" src="<?= assets_url() ?>admin/sweetalert/js/sweetalert.min.js"></script>
 
     <script type="text/javascript">
-        // untuk load notifikasi
-        load_notification();
-
-        function load_notification() {
-            $.ajax({
-                type: 'GET',
-                url: '<?= manager_url() ?>dashboard/load_notification',
-                dataType: 'json',
-                success: function(response) {
-                    if (response.count > 0) {
-                        const order = response.result;
-                        var html = "";
-
-                        order.forEach(function(object) {
-                            html += `
-                                <li>
-                                    <div class="media lihat" data-id="` + object.kd_pemesanan + `">
-                                        <div class="media-body">
-                                            <h5 class="notification-user">` + object.kd_pemesanan + `</h5>
-                                            <p class="notification-msg">` + object.nama + `</p>
-                                            <span class="notification-time">` + object.tgl_pemesanan + ` | ` + object.jam_pemesanan + `</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            `;
-                        });
-                        $('#count').html(`<span class="badge bg-c-red">` + response.count + `</span>`);
-                        $('#notification-info').html("Baru");
-                        $('#notification').html(html);
-                    } else {
-                        $('#notification-info').html("Kosong");
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    var errorMsg = 'Request Ajax Gagal : ' + xhr.responseText;
-                }
-            });
-        };
-
-        setInterval(function() {
-            load_notification()
-        }, 5000);
-
-        // untuk update baca pemberitahuan
-        $(document).on('click', '.lihat', function() {
-            var ini = $(this);
-            var kd_pemesanan = ini.data('id');
-
-            $.post('<?= manager_url() ?>dashboard/read_notification', {
-                kd_pemesanan: ini.data('id')
-            });
-
-            location.href = '<?= manager_url() ?>pemesanan/detail/' + btoa(kd_pemesanan);
-        });
-
         // untuk angka
         function justAngka(e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190, 77]) !== -1 ||

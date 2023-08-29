@@ -21,35 +21,14 @@ class Dashboard extends MY_Controller
     // untuk default
     public function index()
     {
-        // untuk load view
-        $this->template->load($this->role, 'Dashboard Manager', 'dashboard', 'view');
-    }
-
-    // untuk load pemberitahuan
-    public function load_notification()
-    {
-        $get = $this->m_pemesanan->getNotifikasiAdmin();
-        $num = $get->num_rows();
-
-        $response = [
-            'count'  => $num,
-            'result' => $get->result()
-        ];
-
-        // untuk response json
-        $this->_response($response);
-    }
-
-    // untuk read notification
-    public function read_notification()
-    {
-        $post = $this->input->post(NULL, TRUE);
-
         $data = [
-            'status_lihat' => 'lihat'
+            'produk'    => count($this->m_produk->getAll()),
+            'pelanggan' => $this->m_pelanggan->getAll()->num_rows(),
+            'kurir'     => $this->m_kurir->getAll()->num_rows(),
         ];
 
-        $this->crud->u('tb_pemesanan', $data, ['kd_pemesanan' => $post['kd_pemesanan']]);
+        // untuk load view
+        $this->template->load($this->role, 'Dashboard Manager', 'dashboard', 'view', $data);
     }
 
     // untuk ambil produk sering dibeli
