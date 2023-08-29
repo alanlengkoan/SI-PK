@@ -8,10 +8,9 @@ class Slide extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_slide');
         $this->load->model('m_diskon');
     }
@@ -20,14 +19,11 @@ class Slide extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Slide',
-            'diskon'  => $this->m_diskon->getAll(),
-            'content' => 'admin/slide/view',
-            'css'     => 'admin/slide/css/view',
-            'js'      => 'admin/slide/js/view'
+            'diskon' => $this->m_diskon->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Slide', 'slide', 'view', $data);
     }
 
     // untuk get data slide by datatable

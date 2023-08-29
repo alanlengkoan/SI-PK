@@ -8,24 +8,17 @@ class Ongkir extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_ongkir');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Ongkos Kirim',
-            'content' => 'admin/ongkir/view',
-            'css'     => 'admin/ongkir/css/view',
-            'js'      => 'admin/ongkir/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Ongkos Kirim', 'ongkir', 'view');
     }
 
     // untuk get data ongkir by datatable

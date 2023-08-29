@@ -8,24 +8,17 @@ class Kurir extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_kurir');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Kurir',
-            'content' => 'admin/kurir/view',
-            'css'     => 'admin/kurir/css/view',
-            'js'      => 'admin/kurir/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Kurir', 'kurir', 'view');
     }
 
     // untuk get data bank by datatable

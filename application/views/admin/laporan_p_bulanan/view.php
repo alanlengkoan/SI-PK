@@ -56,12 +56,13 @@
                                     <select class="form-control" name="jenis" id="jenis">
                                         <option value="">- Pilih Jenis -</option>
                                         <option value="all">Semua</option>
-                                        <option value="cake">Cake</option>
-                                        <option value="dessert">Dessert</option>
+                                        <?php foreach ($kategori as $key => $row) { ?>
+                                            <option value="<?= $row->id_kategori ?>"><?= $row->nama ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light" id="proses"><i class="fa fa-eye"></i>&nbsp;Proses</button>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light" id="proses"><i class="fa fa-eye"></i>&nbsp;Proses</button>&nbsp;
                             <button type="button" class="btn btn-success btn-sm waves-effect waves-light" id="cetak"><i class="fa fa-print"></i>&nbsp;Cetak</button>
                         </form>
                     </div>

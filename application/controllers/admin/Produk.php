@@ -8,10 +8,9 @@ class Produk extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_produk');
         $this->load->model('m_diskon');
         $this->load->model('m_kategori');
@@ -21,15 +20,12 @@ class Produk extends MY_Controller
     public function index()
     {
         $data = [
-            'title'    => 'Produk',
             'diskon'   => $this->m_diskon->getAll(),
             'kategori' => $this->m_kategori->getAll(),
-            'content'  => 'admin/produk/view',
-            'css'      => 'admin/produk/css/view',
-            'js'       => 'admin/produk/js/view'
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Produk', 'produk', 'view', $data);
     }
 
     // untuk get data bank by datatable

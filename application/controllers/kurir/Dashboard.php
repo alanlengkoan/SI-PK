@@ -8,7 +8,7 @@ class Dashboard extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['kurir']);
+        checking_session($this->username, $this->role, ['kurir']);
 
         // untuk load model
         $this->load->model('crud');
@@ -18,21 +18,18 @@ class Dashboard extends MY_Controller
     public function index()
     {
         $data = [
-            'title' => 'Dashboard Kurir',
-            'no'      => $this->m_pemesanan->getPemesananNo($this->session->userdata('id_users'))->num_rows(),
-            'yes'     => $this->m_pemesanan->getPemesananYes($this->session->userdata('id_users'))->num_rows(),
-            'content' => 'kurir/dashboard/view',
-            'css'     => '',
-            'js'      => ''
+            'no'  => $this->m_pemesanan->getPemesananNo($this->id_users)->num_rows(),
+            'yes' => $this->m_pemesanan->getPemesananYes($this->id_users)->num_rows(),
         ];
+
         // untuk load view
-        $this->load->view('kurir/base', $data);
+        $this->template->load($this->role, 'Dashboard Kurir', 'dashboard', 'view', $data);
     }
 
     // untuk load pemberitahuan
     public function load_notification()
     {
-        $get = $this->m_pemesanan->getNotifikasiKurir($this->session->userdata('id_users'));
+        $get = $this->m_pemesanan->getNotifikasiKurir($this->id_users);
         $num = $get->num_rows();
 
         $response = [

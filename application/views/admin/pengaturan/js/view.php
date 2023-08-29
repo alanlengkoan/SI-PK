@@ -36,14 +36,14 @@
                     },
                     success: function(response) {
                         swal({
-                            title: response.title,
-                            text: response.text,
-                            icon: response.type,
-                            button: response.button,
-                        })
-                        .then((value) => {
-                            location.reload();
-                        });
+                                title: response.title,
+                                text: response.text,
+                                icon: response.type,
+                                button: response.button,
+                            })
+                            .then((value) => {
+                                location.reload();
+                            });
                     }
                 })
             }
@@ -73,14 +73,14 @@
                     },
                     success: function(response) {
                         swal({
-                            title: response.title,
-                            text: response.text,
-                            icon: response.type,
-                            button: response.button,
-                        })
-                        .then((value) => {
-                            location.reload();
-                        });
+                                title: response.title,
+                                text: response.text,
+                                icon: response.type,
+                                button: response.button,
+                            })
+                            .then((value) => {
+                                location.reload();
+                            });
                     }
                 })
             }
@@ -93,7 +93,7 @@
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('#lihat-gambar').attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }

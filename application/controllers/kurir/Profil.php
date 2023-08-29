@@ -10,7 +10,7 @@ class Profil extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['kurir']);
+        checking_session($this->username, $this->role, ['kurir']);
 
         // untuk mengambil detail user
         $this->users = get_users_detail($this->session->userdata('id'));

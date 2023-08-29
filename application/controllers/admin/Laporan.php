@@ -8,13 +8,13 @@ class Laporan extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_kurir');
         $this->load->model('m_users');
         $this->load->model('m_riwayat');
+        $this->load->model('m_kategori');
         $this->load->model('m_pelanggan');
         $this->load->model('m_pemesanan');
     }
@@ -28,13 +28,11 @@ class Laporan extends MY_Controller
     public function l_pembelian()
     {
         $data = [
-            'title'   => 'Laporan Pembelian',
-            'content' => 'admin/laporan_p/view',
-            'css'     => '',
-            'js'      => 'admin/laporan_p/js/view'
+            'kategori' => $this->m_kategori->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Laporan Pembelian', 'laporan_p', 'view', $data);
     }
 
     // untuk lihat laporan pembelian produk
@@ -45,13 +43,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelian($post['tgl_awal'], $post['tgl_akhir'], $post['jenis']);
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -61,17 +60,8 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
+
         $data = [
             'title'   => 'Laporan Pembelian',
             'laporan' => $result
@@ -88,13 +78,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelian(base64url_decode($post['tgl_awal']), base64url_decode($post['tgl_akhir']), base64_decode($post['jenis']));
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -104,22 +95,13 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
 
         if (base64_decode($post['jenis']) === 'all') {
             $judul = "CAKE & DESSERT";
         } else {
-            $judul = strtoupper(base64_decode($post['jenis']));
+            $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
+            $judul    = strtoupper($kategori['nama']);
         }
 
         $data = [
@@ -137,14 +119,12 @@ class Laporan extends MY_Controller
         $bulan = array(1 => "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
 
         $data = [
-            'title'   => 'Laporan Pembelian Bulanan',
-            'bulan'   => $bulan,
-            'content' => 'admin/laporan_p_bulanan/view',
-            'css'     => '',
-            'js'      => 'admin/laporan_p_bulanan/js/view'
+            'bulan'    => $bulan,
+            'kategori' => $this->m_kategori->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Laporan Pembelian Bulanan', 'laporan_p_bulanan', 'view', $data);
     }
 
     // untuk lihat laporan pembelian produk bulanan
@@ -155,13 +135,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelianBulanan($post['inpbulan'], date('Y'), $post['jenis']);
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -171,17 +152,8 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
+
         $data = [
             'title'   => 'Laporan Pembelian Bulanan',
             'laporan' => $result
@@ -198,13 +170,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelianBulanan(base64url_decode($post['bulan']), date('Y'), base64url_decode($post['jenis']));
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -214,22 +187,13 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
 
         if (base64_decode($post['jenis']) === 'all') {
             $judul = "CAKE & DESSERT";
         } else {
-            $judul = strtoupper(base64_decode($post['jenis']));
+            $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
+            $judul    = strtoupper($kategori['nama']);
         }
 
         $data = [
@@ -250,14 +214,12 @@ class Laporan extends MY_Controller
         }
 
         $data = [
-            'title'   => 'Laporan Pembelian Tahunan',
-            'tahun'   => $rTahun,
-            'content' => 'admin/laporan_p_tahunan/view',
-            'css'     => '',
-            'js'      => 'admin/laporan_p_tahunan/js/view'
+            'tahun'    => $rTahun,
+            'kategori' => $this->m_kategori->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Laporan Pembelian Tahunan', 'laporan_p_tahunan', 'view', $data);
     }
 
     // untuk lihat laporan pembelian produk tahunan
@@ -268,13 +230,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelianTahunan($post['inptahun'], $post['jenis']);
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -284,17 +247,8 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
+
         $data = [
             'title'   => 'Laporan Pembelian Tahunan',
             'laporan' => $result
@@ -311,13 +265,14 @@ class Laporan extends MY_Controller
         $get = $this->m_pemesanan->getReportPembelianTahunan(base64url_decode($post['tahun']), base64url_decode($post['jenis']));
         $num = $get->num_rows();
 
+        $result = [];
         if ($num > 0) {
             foreach ($get->result() as $value) {
                 $transfer = ($value->transfer === null) ? 0 : $value->transfer;
                 $bayar    = ($value->bayar === null) ? 0 : $value->bayar;
                 $total    = $transfer + $bayar;
 
-                $result[$value->customer][] = [
+                $result[$value->kd_pemesanan][] = [
                     'kode_order'        => $value->kd_pemesanan,
                     'kode_produk'       => $value->kd_produk,
                     'customer'          => $value->customer,
@@ -327,22 +282,13 @@ class Laporan extends MY_Controller
                     'total_bayar'       => ($total == 0) ? 0 : $total,
                 ];
             }
-        } else {
-            $result['Data Kosong!'][] = [
-                'kode_order'        => 'Data Kosong!',
-                'kode_produk'       => 'Data Kosong!',
-                'customer'          => 'Data Kosong!',
-                'tanggal_pembelian' => 'Data Kosong!',
-                'jam_pembelian'     => 'Data Kosong!',
-                'total_pembelian'   => 0,
-                'total_bayar'       => 0,
-            ];
         }
 
         if (base64_decode($post['jenis']) === 'all') {
             $judul = "CAKE & DESSERT";
         } else {
-            $judul = strtoupper(base64_decode($post['jenis']));
+            $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
+            $judul    = strtoupper($kategori['nama']);
         }
 
         $data = [
@@ -358,14 +304,8 @@ class Laporan extends MY_Controller
     // untuk laporan pelanggan
     public function l_pelanggan()
     {
-        $data = [
-            'title'   => 'Laporan Pelanggan',
-            'content' => 'admin/laporan_pelanggan/view',
-            'css'     => 'admin/laporan_pelanggan/css/view',
-            'js'      => 'admin/laporan_pelanggan/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Laporan Pelanggan', 'laporan_pelanggan', 'view');
     }
 
     // untuk lihat laporan pelanggan by datatable
@@ -379,7 +319,7 @@ class Laporan extends MY_Controller
     {
         $id_users = base64url_decode($this->uri->segment('4'));
 
-        $riwayat = $this->m_riwayat->getAllByUsers($id_users);
+        $riwayat = $this->m_riwayat->getAllByUsers($id_users, 'n');
         $users   = $this->m_users->getRoleUsers('users', $id_users);
 
         $results = [];
@@ -405,14 +345,8 @@ class Laporan extends MY_Controller
     // untuk laporan kurir
     public function l_kurir()
     {
-        $data = [
-            'title'   => 'Laporan Kurir',
-            'content' => 'admin/laporan_kurir/view',
-            'css'     => 'admin/laporan_kurir/css/view',
-            'js'      => 'admin/laporan_kurir/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Laporan Kurir', 'laporan_kurir', 'view');
     }
 
     // untuk lihat laporan kurir by datatable

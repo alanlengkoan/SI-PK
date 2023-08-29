@@ -8,24 +8,17 @@ class Pembelian extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_pemesanan');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Pembelian',
-            'content' => 'admin/pembelian/view',
-            'css'     => 'admin/pembelian/css/view',
-            'js'      => 'admin/pembelian/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Pembelian', 'pembelian', 'view');
     }
 
     // untuk get data pembelian by datatable

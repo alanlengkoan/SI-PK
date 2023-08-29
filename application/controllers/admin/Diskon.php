@@ -8,24 +8,17 @@ class Diskon extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_diskon');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Diskon',
-            'content' => 'admin/diskon/view',
-            'css'     => 'admin/diskon/css/view',
-            'js'      => 'admin/diskon/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Diskon', 'diskon', 'view');
     }
 
     // untuk get data bank by datatable

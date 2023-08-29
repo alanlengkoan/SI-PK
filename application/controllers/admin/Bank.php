@@ -8,24 +8,17 @@ class Bank extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_bank');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Bank',
-            'content' => 'admin/bank/view',
-            'css'     => 'admin/bank/css/view',
-            'js'      => 'admin/bank/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Bank', 'bank', 'view');
     }
 
     // untuk get data bank by datatable

@@ -10,13 +10,12 @@ class Profil extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk mengambil detail user
         $this->users = get_users_detail($this->session->userdata('id'));
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_users');
     }
 
@@ -24,14 +23,11 @@ class Profil extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Profil',
-            'content' => 'admin/profil/view',
-            'data'    => $this->m_users->getRoleUsers('admin', $this->users->id_users),
-            'css'     => 'admin/profil/css/view',
-            'js'      => 'admin/profil/js/view'
+            'data' => $this->m_users->getRoleUsers('admin', $this->users->id_users),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Profil', 'profil', 'view', $data);
     }
 
     // untuk ubah foto

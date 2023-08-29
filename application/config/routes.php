@@ -8,11 +8,14 @@ $route['translate_uri_dashes'] = FALSE;
 // route admin
 $route['admin'] = 'admin/dashboard';
 
-// route user
-$route['users'] = 'home';
-
 // route kurir
 $route['kurir'] = 'kurir/dashboard';
+
+// route manager
+$route['manager'] = 'manager/dashboard';
+
+// route user
+$route['users'] = 'home';
 
 // route users
 $route['produk']                 = 'users/produk';

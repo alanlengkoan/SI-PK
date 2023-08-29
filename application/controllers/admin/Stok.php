@@ -8,10 +8,9 @@ class Stok extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_stock');
         $this->load->model('m_produk');
     }
@@ -20,14 +19,11 @@ class Stok extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Stok',
-            'content' => 'admin/stok/view',
-            'produk'  => $this->m_produk->getAll(),
-            'css'     => 'admin/stok/css/view',
-            'js'      => 'admin/stok/js/view'
+            'produk' => $this->m_produk->getAll(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Stok', 'stok', 'view', $data);
     }
 
     // untuk get data stock by datatable

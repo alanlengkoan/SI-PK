@@ -8,24 +8,17 @@ class Meja extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_meja');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Meja',
-            'content' => 'admin/meja/view',
-            'css'     => 'admin/meja/css/view',
-            'js'      => 'admin/meja/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Meja', 'meja', 'view');
     }
 
     // untuk get data bank by datatable

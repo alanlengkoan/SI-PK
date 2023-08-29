@@ -8,10 +8,9 @@ class Pemesanan extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_cod');
         $this->load->model('m_chat');
         $this->load->model('m_kurir');
@@ -23,14 +22,8 @@ class Pemesanan extends MY_Controller
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Pemesanan',
-            'content' => 'admin/pemesanan/view',
-            'css'     => 'admin/pemesanan/css/view',
-            'js'      => 'admin/pemesanan/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Pemesanan', 'pemesanan', 'view');
     }
 
     // untuk halaman bayar

@@ -10,13 +10,12 @@ class Pengaturan extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk mengambil detail user
         $this->users = get_users_detail($this->session->userdata('id'));
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_pengaturan');
     }
 
@@ -24,14 +23,11 @@ class Pengaturan extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Pengaturan',
-            'data'    => $this->m_pengaturan->getFirstRecord(),
-            'content' => 'admin/pengaturan/view',
-            'css'     => 'admin/pengaturan/css/view',
-            'js'      => 'admin/pengaturan/js/view'
+            'data' => $this->m_pengaturan->getFirstRecord(),
         ];
+
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Pengaturan', 'pengaturan', 'view', $data);
     }
 
     // untuk ubah foto

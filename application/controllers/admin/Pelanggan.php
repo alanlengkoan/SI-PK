@@ -8,24 +8,17 @@ class Pelanggan extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_pelanggan');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Pelanggan',
-            'content' => 'admin/pelanggan/view',
-            'css'     => 'admin/pelanggan/css/view',
-            'js'      => 'admin/pelanggan/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Pelanggan', 'pelanggan', 'view');
     }
 
     // untuk get data bank by datatable

@@ -8,24 +8,17 @@ class Kategori extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['admin']);
+        checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('crud');
         $this->load->model('m_kategori');
     }
 
     // untuk default
     public function index()
     {
-        $data = [
-            'title'   => 'Kategori',
-            'content' => 'admin/kategori/view',
-            'css'     => 'admin/kategori/css/view',
-            'js'      => 'admin/kategori/js/view'
-        ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Kategori', 'kategori', 'view');
     }
 
     // untuk get data bank by datatable

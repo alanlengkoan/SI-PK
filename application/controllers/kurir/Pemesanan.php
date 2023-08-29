@@ -8,7 +8,7 @@ class Pemesanan extends MY_Controller
         parent::__construct();
 
         // untuk mengecek status login
-        checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['kurir']);
+        checking_session($this->username, $this->role, ['kurir']);
 
         // untuk load model
         $this->load->model('crud');
@@ -21,31 +21,11 @@ class Pemesanan extends MY_Controller
     public function index()
     {
         $data = [
-            'title'   => 'Pemesanan',
             'pemesanan' => $this->m_pemesanan->getPemesananKurir($this->session->userdata('id_users')),
-            'content'   => 'kurir/pemesanan/view',
-            'css'       => '',
-            'js'        => ''
         ];
-        // untuk load view
-        $this->load->view('kurir/base', $data);
-    }
 
-    public function detail_produk()
-    {
-        $get = $this->input->get(NULL, TRUE);
-        $kd_pemesanan = base64url_decode($get['kd_pemesanan']);
-        $kd_produk    = base64url_decode($get['kd_produk']);
-
-        $data = [
-            'title'   => 'Detail Produk',
-            'keranjang' => $this->m_pemesanan->getPemesananDetailTopper($kd_pemesanan, $kd_produk),
-            'content'   => 'kurir/pemesanan/detail_produk',
-            'css'       => '',
-            'js'        => ''
-        ];
         // untuk load view
-        $this->load->view('kurir/base', $data);
+        $this->template->load($this->role, 'Pemesanan', 'pemesanan', 'view', $data);
     }
 
     // untuk detail pemesanan
@@ -70,16 +50,13 @@ class Pemesanan extends MY_Controller
         }
 
         $data = [
-            'title'               => 'Detail',
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
             'data_pembayaran'       => $get_pembayaran->row(),
-            'content'               => 'kurir/pemesanan/detail',
-            'css'                   => '',
-            'js'                    => 'kurir/pemesanan/js/detail'
         ];
+
         // untuk load view
-        $this->load->view('kurir/base', $data);
+        $this->template->load($this->role, 'Detail', 'pemesanan', 'detail', $data);
     }
 
     // untuk halaman cetak
@@ -119,16 +96,13 @@ class Pemesanan extends MY_Controller
         $kd_pemesanan = base64url_decode($this->uri->segment('4'));
 
         $data = [
-            'title'      => 'Bayar',
             'kd_pemesanan' => $kd_pemesanan,
             'pembayaran'   => $this->m_cod->getDetail($kd_pemesanan)->row(),
             'total'        => $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total'),
-            'content'      => 'kurir/pemesanan/cod',
-            'css'          => '',
-            'js'           => 'kurir/pemesanan/js/cod'
         ];
+
         // untuk load view
-        $this->load->view('kurir/base', $data);
+        $this->template->load($this->role, 'Bayar', 'pemesanan', 'cod', $data);
     }
 
     public function setor()
