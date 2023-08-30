@@ -45,47 +45,51 @@ class Auth extends MY_Controller
         $count = $user->result();
         if (count($count) >= 1) {
             $row = $user->row_array();
-            if (password_verify($password, $row['password'])) {
-                if ($row['roles'] == 'admin') {
-                    $data = [
-                        'id'       => $row['id'],
-                        'id_users' => $row['id_users'],
-                        'username' => $row['username'],
-                        'password' => $password,
-                        'role'     => $row['roles'],
-                    ];
-                    $this->session->set_userdata($data);
-                    exit(json_encode(array('status' => true, 'link' => admin_url())));
-                } else if ($row['roles'] == 'manager') {
-                    $data = [
-                        'id'       => $row['id'],
-                        'id_users' => $row['id_users'],
-                        'username' => $row['username'],
-                        'password' => $password,
-                        'role'     => $row['roles'],
-                    ];
-                    $this->session->set_userdata($data);
-                    exit(json_encode(array('status' => true, 'link' => manager_url())));
-                } else if ($row['roles'] == 'kurir') {
-                    $data = [
-                        'id'       => $row['id'],
-                        'id_users' => $row['id_users'],
-                        'username' => $row['username'],
-                        'password' => $password,
-                        'role'     => $row['roles'],
-                    ];
-                    $this->session->set_userdata($data);
-                    exit(json_encode(array('status' => true, 'link' => kurir_url())));
-                } else if ($row['roles'] == 'users') {
-                    $data = [
-                        'id'       => $row['id'],
-                        'id_users' => $row['id_users'],
-                        'username' => $row['username'],
-                        'password' => $password,
-                        'role'     => $row['roles'],
-                    ];
-                    $this->session->set_userdata($data);
-                    exit(json_encode(array('status' => true, 'link' => base_url())));
+            if ($row['status'] === '1') {
+                if (password_verify($password, $row['password'])) {
+                    if ($row['roles'] == 'admin') {
+                        $data = [
+                            'id'       => $row['id'],
+                            'id_users' => $row['id_users'],
+                            'username' => $row['username'],
+                            'password' => $password,
+                            'role'     => $row['roles'],
+                        ];
+                        $this->session->set_userdata($data);
+                        exit(json_encode(array('status' => true, 'link' => admin_url())));
+                    } else if ($row['roles'] == 'manager') {
+                        $data = [
+                            'id'       => $row['id'],
+                            'id_users' => $row['id_users'],
+                            'username' => $row['username'],
+                            'password' => $password,
+                            'role'     => $row['roles'],
+                        ];
+                        $this->session->set_userdata($data);
+                        exit(json_encode(array('status' => true, 'link' => manager_url())));
+                    } else if ($row['roles'] == 'kurir') {
+                        $data = [
+                            'id'       => $row['id'],
+                            'id_users' => $row['id_users'],
+                            'username' => $row['username'],
+                            'password' => $password,
+                            'role'     => $row['roles'],
+                        ];
+                        $this->session->set_userdata($data);
+                        exit(json_encode(array('status' => true, 'link' => kurir_url())));
+                    } else if ($row['roles'] == 'users') {
+                        $data = [
+                            'id'       => $row['id'],
+                            'id_users' => $row['id_users'],
+                            'username' => $row['username'],
+                            'password' => $password,
+                            'role'     => $row['roles'],
+                        ];
+                        $this->session->set_userdata($data);
+                        exit(json_encode(array('status' => true, 'link' => base_url())));
+                    }
+                } else {
+                    exit(json_encode(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));
                 }
             } else {
                 exit(json_encode(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));

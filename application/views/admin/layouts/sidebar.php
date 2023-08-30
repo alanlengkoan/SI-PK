@@ -21,7 +21,7 @@
                 </a>
             </li>
         </ul>
-        <div class="pcoded-navigation-label">Pustaka</div>
+        <div class="pcoded-navigation-label">Master</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="<?= ($this->uri->segment(2) === 'bank' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>bank">
@@ -87,6 +87,9 @@
                     <span class="pcoded-mtext">Stok</span>
                 </a>
             </li>
+        </ul>
+        <div class="pcoded-navigation-label">Pustaka</div>
+        <ul class="pcoded-item pcoded-left-item">
             <li class="<?= ($this->uri->segment(2) === 'pelanggan' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>pelanggan">
                     <span class="pcoded-micon">
@@ -101,6 +104,14 @@
                         <i class="feather icon-box"></i>
                     </span>
                     <span class="pcoded-mtext">Kurir</span>
+                </a>
+            </li>
+            <li class="<?= ($this->uri->segment(2) === 'users' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>users">
+                    <span class="pcoded-micon">
+                        <i class="feather icon-box"></i>
+                    </span>
+                    <span class="pcoded-mtext">Users</span>
                 </a>
             </li>
         </ul>
