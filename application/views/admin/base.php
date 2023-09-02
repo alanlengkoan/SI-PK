@@ -10,7 +10,7 @@
     <meta name="keywords" content="Sistem Informasi Pemesanan" />
     <meta name="author" content="Sistem Informasi Pemesanan" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?= assets_url() ?>admin/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/icon/icofont/css/icofont.css" />

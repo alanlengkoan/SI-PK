@@ -19,6 +19,7 @@ class Template
     {
         $this->ci = &get_instance();
         $this->ci->load->model('m_kategori');
+        $this->ci->load->model('m_pengaturan');
     }
 
     // untuk load view
@@ -26,6 +27,8 @@ class Template
     {
         // untuk judul halaman
         $data['title'] = $title;
+        // untuk pengaturan
+        $data['pengaturan'] = $this->ci->m_pengaturan->getFirstRecord();
         // untuk content
         $data['content'] = "{$role}/{$module}/{$view}";
         // untuk css local
@@ -47,6 +50,8 @@ class Template
         $data['content'] = "home/{$module}/{$view}";
         // untuk kategori
         $data['kategori'] = $this->ci->m_kategori->getAll();
+        // untuk pengaturan
+        $data['pengaturan'] = $this->ci->m_pengaturan->getFirstRecord();
         // untuk css local
         $css = "home/{$module}/css/{$view}";
         $data['css'] = ($this->_check_file_exist($css) ? $css : '');

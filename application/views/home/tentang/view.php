@@ -18,9 +18,9 @@
 			<div class="col-lg-6 col-md-12 d-flex align-items-center">
 				<div class="overview-content-2">
 					<h4>Selamat Datang di</h4>
-					<h2>UZ DAPUR JENSUD</h2>
+					<h2><?= (empty($pengaturan->alamat) ? null : $pengaturan->alamat) ?></h2>
 					<p class="peragraph-blog">
-						UZ DAPUR JENSUD merupakan salah satu usaha mikro yg bergerak di bidang pemesanan dan penjualan cake and dessert ,toko UZ Dapur Jensud dikelolah oleh pemilik yg bernama uzlifah yg didirikan pada tahun 2017 ,UZ Dapur Jensud berlokasi di jalan jendral Sudirman , kecamatan Sinjai Utara.
+						<?= (empty($pengaturan->alamat) ? null : $pengaturan->alamat) ?> merupakan salah satu usaha mikro yg bergerak di bidang pemesanan dan penjualan cake and dessert ,toko UZ Dapur Jensud dikelolah oleh pemilik yg bernama uzlifah yg didirikan pada tahun 2017 ,UZ Dapur Jensud berlokasi di jalan jendral Sudirman , kecamatan Sinjai Utara.
 					</p>
 				</div>
 			</div>

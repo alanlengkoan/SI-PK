@@ -82,7 +82,7 @@
                 <div class="col-sm-12">
                     <?= form_open('auth/process_save', array('id' => 'form-register', 'class' => 'md-float-material form-material', 'method' => 'post')) ?>
                     <div class="text-center">
-                        <img src="<?= assets_url() ?>admin/images/logo.png" alt="logo.png" width="200" height="200">
+                        <img src="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" alt="<?= (empty($pengaturan->nama) ? 'Logo' : $pengaturan->nama) ?>" width="200" height="200">
                     </div>
                     <div class="auth-box card">
                         <div class="card-block">

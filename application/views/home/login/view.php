@@ -10,7 +10,7 @@
     <meta name="keywords" content="Sistem Informasi Pemesanan" />
     <meta name="author" content="Sistem Informasi Pemesanan" />
 
-    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/pages/waves/css/waves.min.css" media="all" />
@@ -82,7 +82,7 @@
                 <div class="col-sm-12">
                     <?= form_open('auth/check_validation', array('id' => 'form-login', 'class' => 'md-float-material form-material', 'method' => 'post')) ?>
                     <div class="text-center">
-                        <img src="<?= assets_url() ?>admin/images/logo.png" alt="logo.png" width="200" height="200">
+                        <img src="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" alt="<?= (empty($pengaturan->nama) ? 'Logo' : $pengaturan->nama) ?>" width="200" height="200">
                     </div>
                     <div class="auth-box card">
                         <div class="card-block">

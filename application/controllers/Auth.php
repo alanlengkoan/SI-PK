@@ -8,7 +8,7 @@ class Auth extends MY_Controller
         parent::__construct();
 
         // untuk load model
-        $this->load->model('crud');
+        $this->load->model('m_pengaturan');
     }
 
     // untuk halaman login
@@ -17,7 +17,9 @@ class Auth extends MY_Controller
         checking_role_session($this->session->userdata('role'));
 
         if (empty($this->session->userdata('username'))) {
-            $this->load->view('home/login/view');
+            $data['pengaturan'] = $this->m_pengaturan->getFirstRecord();
+
+            $this->load->view('home/login/view', $data);
         } else {
             $this->auth($this->session->userdata('username'), $this->session->userdata('password'));
         }
@@ -105,7 +107,9 @@ class Auth extends MY_Controller
         checking_role_session($this->session->userdata('role'));
 
         if (empty($this->session->userdata('username'))) {
-            $this->load->view('home/register/view');
+            $data['pengaturan'] = $this->m_pengaturan->getFirstRecord();
+
+            $this->load->view('home/register/view', $data);
         } else {
             $this->auth($this->session->userdata('username'), $this->session->userdata('password'));
         }

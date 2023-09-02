@@ -10,7 +10,7 @@
     <meta name="keywords" content="Sistem Informasi Pemesanan" />
     <meta name="author" content="Sistem Informasi Pemesanan" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?= assets_url() ?>admin/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap">
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>page/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>page/css/animate.css">
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-6">
                         <a href="<?= base_url() ?>">
-                            <img alt="" src="<?= assets_url() ?>page/img/logo/logo.png" width="100" height="100">
+                            <img alt="<?= (empty($pengaturan->nama) ? null : $pengaturan->nama) ?>" src="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" width="100" height="100">
                         </a>
                     </div>
                     <div class="col-lg-9 col-md-8 col-6">
@@ -142,15 +142,15 @@
                                 <h4>Kontak Kami</h4>
                             </div>
                             <div class="footer-about">
-                                <p>Jl. Jendral Sudirman, Kecamatan Sinjai Utara, Kabupaten Sinjai.</p>
+                                <p><?= (empty($pengaturan->alamat) ? null : $pengaturan->alamat) ?></p>
                                 <div class="footer-contact mt-20">
                                     <ul>
-                                        <li>(+62) 811 4450 032</li>
+                                        <li><?= (empty($pengaturan->telepon) ? null : $pengaturan->telepon) ?></li>
                                     </ul>
                                 </div>
                                 <div class="footer-contact mt-20">
                                     <ul>
-                                        <li>uzdapurjensud@gmail.com</li>
+                                        <li><?= (empty($pengaturan->email) ? null : $pengaturan->email) ?></li>
                                     </ul>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                <a href="https://alanlengkoan.netlify.app/" target="_blank">AL</a> - Sistem Informasi Pemesanan.
+                                <a href="https://alanlengkoan.netlify.app/" target="_blank"> AL</a> - Sistem Informasi Pemesanan.
                             </p>
                         </div>
                     </div>

@@ -5,7 +5,7 @@
                 <i class="feather icon-toggle-right"></i>
             </a>
             <a href="<?= admin_url() ?>">
-                <img class="img-fluid" src="<?= assets_url() ?>admin/images/logo.png" alt="Theme-Logo" width="75" height="75" />
+                <img class="img-fluid" src="<?= (empty($pengaturan->logo) ? "//placehold.it/75" : upload_url('gambar') . '' . $pengaturan->logo) ?>" alt="<?= (empty($pengaturan->nama) ? 'Logo' : $pengaturan->nama) ?>" width="75" height="75" />
             </a>
             <a class="mobile-options waves-effect waves-light">
                 <i class="feather icon-more-horizontal"></i>
