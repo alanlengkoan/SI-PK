@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-6">
                         <a href="<?= base_url() ?>">
-                            <img alt="<?= (empty($pengaturan->nama) ? null : $pengaturan->nama) ?>" src="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" width="100" height="100">
+                            <img alt="<?= (empty($pengaturan->nama) ? null : $pengaturan->nama) ?>" src="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" width="75" height="75">
                         </a>
                     </div>
                     <div class="col-lg-9 col-md-8 col-6">
