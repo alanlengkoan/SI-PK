@@ -10,7 +10,7 @@
     <meta name="keywords" content="Sistem Informasi Pemesanan" />
     <meta name="author" content="Sistem Informasi Pemesanan" />
 
-    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= (empty($pengaturan->logo) ? "//placehold.it/150" : upload_url('gambar') . '' . $pengaturan->logo) ?>" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/icon/icofont/css/icofont.css">
@@ -51,7 +51,7 @@
                             <i class="feather icon-toggle-right"></i>
                         </a>
                         <a href="<?= admin_url() ?>">
-                            <img class="img-fluid" src="<?= assets_url() ?>admin/images/logo.png" alt="Theme-Logo" width="75" height="75" />
+                            <img class="img-fluid" src="<?= (empty($pengaturan->logo) ? "//placehold.it/75" : upload_url('gambar') . '' . $pengaturan->logo) ?>" alt="<?= (empty($pengaturan->nama) ? 'Logo' : $pengaturan->nama) ?>" width="75" height="75" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="feather icon-more-horizontal"></i>

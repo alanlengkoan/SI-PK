@@ -30,11 +30,15 @@
                                             <?php if ($row->diskon > 0) { ?>
                                                 <span><?= $row->diskon ?> %</span>
                                             <?php } ?>
-                                            <div class="product-action">
-                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
-                                                    <i class="ion-ios-shuffle-strong"></i>
-                                                </a>
-                                            </div>
+
+                                            <?php $stock = ($row->stock - $row->jumlah); ?>
+                                            <?php if ($stock > 0) { ?>
+                                                <div class="product-action">
+                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
+                                                        <i class="ion-ios-shuffle-strong"></i>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="product-content text-left">
                                             <div class="product-hover-style">

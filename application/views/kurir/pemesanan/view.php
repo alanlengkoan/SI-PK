@@ -51,7 +51,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label">Total</label>
                                 <div class="col-sm-6">
-                                    : <?= $row->total ?>
+                                    : <?= rupiah($row->total) ?>
                                 </div>
                             </div>
                             <div class="form-group row">

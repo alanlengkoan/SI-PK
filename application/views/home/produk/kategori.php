@@ -27,12 +27,18 @@
                                             <a href="<?= base_url() ?>produk/detail/<?= base64url_encode($row->kd_produk) ?>">
                                                 <img src="<?= upload_url('gambar/produk') ?><?= $row->gambar ?>" alt="<?= $row->nama ?>" title="<?= $row->nama ?>">
                                             </a>
-                                            <span>-30%</span>
-                                            <div class="product-action">
-                                                <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
-                                                    <i class="ion-ios-shuffle-strong"></i>
-                                                </a>
-                                            </div>
+                                            <?php if ($row->diskon > 0) { ?>
+                                                <span><?= $row->diskon ?> %</span>
+                                            <?php } ?>
+
+                                            <?php $stock = ($row->stock - $row->jumlah); ?>
+                                            <?php if ($stock > 0) { ?>
+                                                <div class="product-action">
+                                                    <a class="action-cart" id="btn-keranjang" href="#" title="Tambah Keranjang" data-id_users="<?= ($this->session->userdata('id_users') ? $this->session->userdata('id_users') : null) ?>" data-kd_produk="<?= $row->kd_produk ?>">
+                                                        <i class="ion-ios-shuffle-strong"></i>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="product-content text-left">
                                             <div class="product-hover-style">
@@ -46,7 +52,16 @@
                                                 </div>
                                             </div>
                                             <div class="product-price-wrapper">
-                                                <span><?= rupiah($row->harga) ?></span>
+                                                <?php if ($row->diskon > 0) {
+                                                    $diskon       = (int) $row->diskon / 100;
+                                                    $harga_diskon = (int) $row->harga * $diskon;
+                                                    $result       = (int) $row->harga - round($harga_diskon);
+                                                ?>
+                                                    <span><?= rupiah($result) ?>&nbsp;|&nbsp;</span>
+                                                    <span class="product-price-old"><?= rupiah($row->harga) ?></span>
+                                                <?php } else { ?>
+                                                    <span><?= rupiah($row->harga) ?></span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>

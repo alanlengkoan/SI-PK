@@ -43,7 +43,7 @@ class M_pemesanan extends CI_Model
 
     public function getTotalPemesananDetail($kd_pemesanan)
     {
-        $result = $this->db->query("SELECT SUM( tpd.sub_total ) AS total FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = '$kd_pemesanan'");
+        $result = $this->db->query("SELECT(( SELECT SUM( tpd.sub_total) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan) + IFNULL( o.tarif, 0)) AS total FROM tb_pemesanan AS tp LEFT JOIN tb_ongkir AS o ON o.id_ongkir = tp.id_ongkir WHERE tp.kd_pemesanan = '$kd_pemesanan'");
         return $result;
     }
 
@@ -60,7 +60,7 @@ class M_pemesanan extends CI_Model
     // untuk mengambil data pemesanan kurir
     public function getPemesananKurir($id_users)
     {
-        $result = $this->db->query("SELECT tpm.id_users, tpm.kd_pemesanan, DATE_FORMAT( tpm.tgl_pemesanan, '%d-%m-%Y' ) AS tgl_pemesanan, DATE_FORMAT( tpm.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tu.nama, tpm.metode_pembayaran, tpm.status_pembayaran, tpm.status_pengantaran, tpm.pilih_kurir, ( SELECT SUM( tpd.sub_total ) FROM tb_pemesanan_detail as tpd WHERE tpd.kd_pemesanan = tpm.kd_pemesanan ) AS total FROM tb_pemesanan as tpm LEFT JOIN tb_pengantaran as tpn on tpm.kd_pemesanan = tpn.kd_pemesanan LEFT JOIN tb_users as tu on tpm.id_users = tu.id_users WHERE tpn.id_users = '$id_users'");
+        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tu.nama, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tp.pilih_kurir,(( SELECT SUM( tpd.sub_total) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan ) + IFNULL( o.tarif, 0 )) AS total FROM tb_pemesanan AS tp LEFT JOIN tb_pengantaran AS tpn ON tp.kd_pemesanan = tpn.kd_pemesanan LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS o ON o.id_ongkir = tp.id_ongkir WHERE tpn.id_users = '$id_users'");
         return $result;
     }
 

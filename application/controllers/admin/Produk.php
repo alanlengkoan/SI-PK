@@ -69,7 +69,6 @@ class Produk extends MY_Controller
     {
         $post = $this->input->post(NULL, TRUE);
 
-        $this->db->trans_start();
         if (empty($post['id_produk'])) {
             $config['upload_path']   = './' . upload_path('gambar/produk');
             $config['allowed_types'] = 'jpg|jpeg|png';
@@ -174,12 +173,6 @@ class Produk extends MY_Controller
                     $response = ['title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
                 }
             }
-        }
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-            $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
-        } else {
-            $response = ['title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
         }
         // untuk response json
         $this->_response($response);
