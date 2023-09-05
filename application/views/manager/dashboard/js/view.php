@@ -10,7 +10,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Pembelian Cake & Dessert'
+                text: 'Pembelian Produk'
             },
             colors: ['#FFFF5C'],
             xAxis: {
