@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-lg-8 col-md-8">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.8423286553393!2d120.24720831476391!3d-5.129086296277711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbc2678216d91c9%3A0x1761a7c90d67a956!2sJl.%20Jenderal%20Sudirman%2C%20Sinjai%20Utara%2C%20Kabupaten%20Sinjai%2C%20Sulawesi%20Selatan%2092615!5e0!3m2!1sid!2sid!4v1634124310868!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248.34268292291858!2d119.4252135817867!3d-5.186497338565058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee3a034c0e32d%3A0x934b4e54cf323e55!2sRumah%20makan%20bone%20tamparang!5e0!3m2!1sid!2sid!4v1693875807036!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
