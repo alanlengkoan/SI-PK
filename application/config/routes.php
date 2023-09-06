@@ -21,7 +21,6 @@ $route['users'] = 'home';
 $route['produk']                 = 'users/produk';
 $route['produk/detail/(:any)']   = 'users/produk/detail';
 $route['produk/kategori/(:any)'] = 'users/produk/kategori';
-
 $route['riwayat']                     = 'users/riwayat';
 $route['riwayat/load_rating']         = 'users/riwayat/load_rating';
 $route['riwayat/save_rating']         = 'users/riwayat/save_rating';
