@@ -112,6 +112,18 @@
                     className: 'text-center',
                 },
                 {
+                    title: 'Status Pengantaran',
+                    className: 'text-center',
+                    render: function(data, type, full, meta) {
+                        var status_pengantaran = ['Dikemas', 'Dikirim', 'Diterima'];
+                        if (full.metode_pemesanan === 'e') {
+                            return "Ditempat";
+                        } else {
+                            return status_pengantaran[full.status_pengantaran];
+                        }
+                    }
+                },
+                {
                     title: 'Aksi',
                     responsivePriority: -1,
                     className: 'text-center',

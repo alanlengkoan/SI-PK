@@ -10,7 +10,7 @@ class M_pemesanan extends CI_Model
 
     public function getAllDataDt($status_batal)
     {
-        $this->datatables->select('tp.id_users, tp.kd_pemesanan, tu.nama, DATE_FORMAT( tp.tgl_pemesanan, "%d-%m-%Y") AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, "%H:%i:%s") AS jam_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tp.pilih_kurir, tp.status_batal, tp.status_lihat, tp.status_pembayaran, ( SELECT SUM( tpd.sub_total) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan) AS total,( SELECT SUM( tf.jumlah_transfer ) FROM tb_transfer AS tf WHERE tf.kd_pemesanan = tp.kd_pemesanan ) AS transfer,( SELECT SUM( tc.jumlah_bayar ) FROM tb_cod AS tc WHERE tc.kd_pemesanan = tp.kd_pemesanan ) AS bayar');
+        $this->datatables->select('tp.id_users, tp.kd_pemesanan, tu.nama, DATE_FORMAT( tp.tgl_pemesanan, "%d-%m-%Y") AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, "%H:%i:%s") AS jam_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tp.status_pengantaran, tp.pilih_kurir, tp.status_batal, tp.status_lihat, tp.status_pembayaran, ( SELECT SUM( tpd.sub_total) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_pemesanan = tp.kd_pemesanan) AS total,( SELECT SUM( tf.jumlah_transfer ) FROM tb_transfer AS tf WHERE tf.kd_pemesanan = tp.kd_pemesanan ) AS transfer,( SELECT SUM( tc.jumlah_bayar ) FROM tb_cod AS tc WHERE tc.kd_pemesanan = tp.kd_pemesanan ) AS bayar');
         $this->datatables->where('tp.status_batal', $status_batal);
         $this->datatables->from('tb_pemesanan AS tp');
         $this->datatables->join('tb_users AS tu', 'tp.id_users = tu.id_users', 'left');

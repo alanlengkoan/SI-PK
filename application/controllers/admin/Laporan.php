@@ -17,6 +17,7 @@ class Laporan extends MY_Controller
         $this->load->model('m_kategori');
         $this->load->model('m_pelanggan');
         $this->load->model('m_pemesanan');
+        $this->load->model('m_pengaturan');
     }
 
     // untuk default
@@ -98,7 +99,7 @@ class Laporan extends MY_Controller
         }
 
         if (base64_decode($post['jenis']) === 'all') {
-            $judul = "CAKE & DESSERT";
+            $judul = $this->m_pengaturan->getFirstRecord()->nama ?? '-';
         } else {
             $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
             $judul    = strtoupper($kategori['nama']);
@@ -190,7 +191,7 @@ class Laporan extends MY_Controller
         }
 
         if (base64_decode($post['jenis']) === 'all') {
-            $judul = "CAKE & DESSERT";
+            $judul = $this->m_pengaturan->getFirstRecord()->nama ?? '-';
         } else {
             $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
             $judul    = strtoupper($kategori['nama']);
@@ -285,7 +286,7 @@ class Laporan extends MY_Controller
         }
 
         if (base64_decode($post['jenis']) === 'all') {
-            $judul = "CAKE & DESSERT";
+            $judul = $this->m_pengaturan->getFirstRecord()->nama ?? '-';
         } else {
             $kategori = $this->crud->gda('tb_kategori', ['id_kategori' => base64_decode($post['jenis'])]);
             $judul    = strtoupper($kategori['nama']);

@@ -6,11 +6,6 @@ class Keranjang extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        // untuk mengecek status login
-        if (!empty($this->session->userdata('username'))) {
-            checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['users']);
-        }
-
         // untuk load model
         $this->load->model('crud');
         $this->load->model('m_cod');
@@ -243,6 +238,10 @@ class Keranjang extends MY_Controller
     // untuk bukti bayar
     public function nota()
     {
+        if (empty($this->session->userdata('username'))) {
+            checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['users']);
+        }
+
         $id_users     = $this->session->userdata('id_users');
         $kd_pemesanan = base64url_decode($this->uri->segment('2'));
 
@@ -275,6 +274,10 @@ class Keranjang extends MY_Controller
     // untuk halaman cetak
     public function cetak()
     {
+        if (empty($this->session->userdata('username'))) {
+            checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['users']);
+        }
+
         $kd_pemesanan = base64url_decode($this->uri->segment('2'));
 
         // untuk data pemesanan
@@ -306,6 +309,10 @@ class Keranjang extends MY_Controller
     // untuk transfer
     public function transfer()
     {
+        if (empty($this->session->userdata('username'))) {
+            checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['users']);
+        }
+
         $kd_pemesanan = base64url_decode($this->uri->segment('2'));
 
         $data = [
