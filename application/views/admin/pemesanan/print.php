@@ -35,7 +35,7 @@
         <tr>
             <td align="center">
                 <h3>NOTA</h3>
-                <h3>CAKE & DESSERT</h3>
+                <h3><?= $this->m_pengaturan->getFirstRecord()->nama ?? '-' ?></h3>
             </td>
         </tr>
     </table>

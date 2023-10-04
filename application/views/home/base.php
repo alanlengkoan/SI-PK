@@ -105,12 +105,7 @@
                                 <li><a href="<?= base_url() ?>">Beranda</a></li>
                                 <li><a href="<?= base_url() ?>tentang">Tentang</a></li>
                                 <li><a href="<?= base_url() ?>kontak">Kontak</a></li>
-                                <li><a href="#">Produk</a>
-                                    <ul>
-                                        <li><a href="<?= base_url() ?>produk">Cake & Dessert</a></li>
-                                        <li><a href="<?= base_url() ?>produk/topper ">Topper</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="<?= base_url() ?>produk">Produk</a></li>
                                 <?php if ($this->session->userdata('id_users')) { ?>
                                     <li><a href="<?= base_url() ?>riwayat">Riwayat</a></li>
                                     <li><a href="<?= logout_url() ?>">Logout</a></li>
