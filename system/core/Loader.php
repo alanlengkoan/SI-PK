@@ -124,6 +124,20 @@ class CI_Loader {
 		'user_agent' => 'agent'
 	);
 
+    public $load;
+    public $benchmark;
+    public $config;
+    public $log;
+    public $hooks;
+    public $utf8;
+    public $uri;
+    public $router;
+    public $exceptions;
+    public $output;
+    public $security;
+    public $input;
+    public $lang; 
+
 	// --------------------------------------------------------------------
 
 	/**
