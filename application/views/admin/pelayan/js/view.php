@@ -21,7 +21,7 @@
             processing: true,
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-            ajax: '<?= admin_url() ?>kurir/get_data_kurir_dt',
+            ajax: '<?= admin_url() ?>pelayan/get_data_kurir_dt',
             columns: [{
                     title: 'No.',
                     data: null,
@@ -135,7 +135,7 @@
                     if (del) {
                         $.ajax({
                             type: "post",
-                            url: "<?= admin_url() ?>kurir/process_del",
+                            url: "<?= admin_url() ?>pelayan/process_del",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id')

@@ -22,7 +22,7 @@ class M_keranjang extends CI_Model
 
     public function getBuyCustomerKeranjang($id_users)
     {
-        $result = $this->db->query("SELECT tk.id_keranjang, tk.id_users, tk.kd_produk, tk.jumlah AS jumlah_keranjang,( SELECT SUM( ts.stock) FROM tb_stock AS ts WHERE ts.kd_produk = tp.kd_produk) AS stock,( SELECT SUM( tpd.jumlah) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_produk = tp.kd_produk ) AS jumlah, tk.harga, tk.sub_total, tp.nama, tp.gambar, td.diskon FROM tb_keranjang AS tk LEFT JOIN tb_produk AS tp ON tk.kd_produk = tp.kd_produk LEFT JOIN tb_diskon AS td ON td.id_diskon = tp.id_diskon WHERE tk.id_users = '$id_users'");
+        $result = $this->db->query("SELECT tk.id_keranjang, tk.id_users, tk.kd_produk, tk.jumlah AS jumlah_keranjang,( SELECT SUM( ts.stock) FROM tb_stock AS ts WHERE ts.kd_produk = tp.kd_produk) AS stock,( SELECT SUM( tpd.jumlah) FROM tb_pemesanan_detail AS tpd WHERE tpd.kd_produk = tp.kd_produk ) AS jumlah, tk.harga, tk.sub_total, tp.nama, tp.gambar, td.diskon, tke.nama AS kategori FROM tb_keranjang AS tk LEFT JOIN tb_produk AS tp ON tk.kd_produk = tp.kd_produk LEFT JOIN tb_diskon AS td ON td.id_diskon = tp.id_diskon LEFT JOIN tb_kategori AS tke ON tke.id_kategori = tp.id_kategori WHERE tk.id_users = '$id_users'");
         return $result;
     }
 

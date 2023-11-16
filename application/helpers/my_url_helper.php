@@ -44,6 +44,15 @@ if (!function_exists('kurir_url')) {
     }
 }
 
+// untuk pelayan url
+if (!function_exists('pelayan_url')) {
+    function pelayan_url($url = NULL)
+    {
+        $link = ($url) ? '/' . $url : '';
+        return site_url('pelayan/') . $link;
+    }
+}
+
 // untuk manager url
 if (!function_exists('manager_url')) {
     function manager_url($url = NULL)

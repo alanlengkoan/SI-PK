@@ -79,6 +79,16 @@ class Auth extends MY_Controller
                         ];
                         $this->session->set_userdata($data);
                         exit(json_encode(array('status' => true, 'link' => kurir_url())));
+                    } else if ($row['roles'] == 'pelayan') {
+                        $data = [
+                            'id'       => $row['id'],
+                            'id_users' => $row['id_users'],
+                            'username' => $row['username'],
+                            'password' => $password,
+                            'role'     => $row['roles'],
+                        ];
+                        $this->session->set_userdata($data);
+                        exit(json_encode(array('status' => true, 'link' => pelayan_url())));
                     } else if ($row['roles'] == 'users') {
                         $data = [
                             'id'       => $row['id'],

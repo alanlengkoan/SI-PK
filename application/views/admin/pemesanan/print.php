@@ -61,7 +61,7 @@
         </tr>
         <tr>
             <td>Jenis Kelamin</td>
-            <td><?= ($data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan') ?></td>
+            <td><?= ($data_pemesanan->kelamin !== null ? $data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan' : '') ?></td>
         </tr>
         <tr>
             <td>Alamat</td>

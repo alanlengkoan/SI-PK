@@ -11,6 +11,9 @@ $route['admin'] = 'admin/dashboard';
 // route kurir
 $route['kurir'] = 'kurir/dashboard';
 
+// route pelayan
+$route['pelayan'] = 'pelayan/dashboard';
+
 // route manager
 $route['manager'] = 'manager/dashboard';
 

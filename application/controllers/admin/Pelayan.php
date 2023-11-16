@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kurir extends MY_Controller
+class Pelayan extends MY_Controller
 {
     public function __construct()
     {
@@ -11,20 +11,20 @@ class Kurir extends MY_Controller
         checking_session($this->username, $this->role, ['admin']);
 
         // untuk load model
-        $this->load->model('m_kurir');
+        $this->load->model('m_pelayan');
     }
 
     // untuk default
     public function index()
     {
         // untuk load view
-        $this->template->load($this->role, 'Kurir', 'kurir', 'view');
+        $this->template->load($this->role, 'Pelayan', 'pelayan', 'view');
     }
 
     // untuk get data bank by datatable
     public function get_data_kurir_dt()
     {
-        return $this->m_kurir->getAllDataDt();
+        return $this->m_pelayan->getAllDataDt();
     }
 
     // untuk proses tambah data
@@ -39,16 +39,16 @@ class Kurir extends MY_Controller
             'email'    => $post['inpemail'],
             'username' => $post['inpusername'],
             'password' => password_hash($post['inppassword'], PASSWORD_DEFAULT),
-            'roles'    => 'kurir',
+            'roles'    => 'pelayan',
         ];
         // data kurir
         $kurir = [
-            'id_kurir' => acak_id('tb_kurir', 'id_kurir'),
+            'id_pelayan' => acak_id('tb_pelayan', 'id_pelayan'),
             'id_users' => $users['id_users'],
         ];
         $this->db->trans_start();
         $this->crud->i('tb_users', $users);
-        $this->crud->i('tb_kurir', $kurir);
+        $this->crud->i('tb_pelayan', $kurir);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];

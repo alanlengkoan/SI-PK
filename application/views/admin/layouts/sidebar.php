@@ -98,6 +98,14 @@
                     <span class="pcoded-mtext">Pelanggan</span>
                 </a>
             </li>
+            <li class="<?= ($this->uri->segment(2) === 'pelayan' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>pelayan">
+                    <span class="pcoded-micon">
+                        <i class="feather icon-box"></i>
+                    </span>
+                    <span class="pcoded-mtext">Pelayan</span>
+                </a>
+            </li>
             <li class="<?= ($this->uri->segment(2) === 'kurir' ? 'active' : '') ?>">
                 <a href="<?= admin_url() ?>kurir">
                     <span class="pcoded-micon">
