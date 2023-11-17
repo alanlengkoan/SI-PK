@@ -137,7 +137,7 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Atas Nama</label>
-                                                        <input type="text" placeholder="<?= ($data_pembayaran->nama_penyetor === null ? '-' : $data_pembayaran->nama_penyetor) ?>" readonly="readonly" />
+                                                        <input type="text" placeholder="<?= ($data_pembayaran->nama_bayar === null ? '-' : $data_pembayaran->nama_bayar) ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
@@ -149,13 +149,13 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Tanggal Transfer</label>
-                                                        <input type="text" placeholder="<?= ($data_pembayaran->tgl_transfer === null ? '-' : $data_pembayaran->tgl_transfer) ?>" readonly="readonly" />
+                                                        <input type="text" placeholder="<?= ($data_pembayaran->tgl_bayar === null ? '-' : $data_pembayaran->tgl_bayar) ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Jam Transfer</label>
-                                                        <input type="text" placeholder="<?= ($data_pembayaran->jam_transfer === null ? '-' : $data_pembayaran->jam_transfer) ?>" readonly="readonly" />
+                                                        <input type="text" placeholder="<?= ($data_pembayaran->jam_bayar === null ? '-' : $data_pembayaran->jam_bayar) ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
@@ -166,16 +166,9 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Jumlah Transfer</label>
-                                                        <input type="text" placeholder="<?= ($data_pembayaran->jumlah_transfer === null ? '-' : rupiah($data_pembayaran->jumlah_transfer)) ?>" readonly="readonly" />
+                                                        <input type="text" placeholder="<?= ($data_pembayaran->jumlah_bayar === null ? '-' : rupiah($data_pembayaran->jumlah_bayar)) ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
-                                                <?php if ($data_pemesanan->status_pembayaran == '0') { ?>
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="billing-info">
-                                                            <a class="btn btn-success" href="<?= base_url() ?>transfer/<?= base64_encode($data_pemesanan->kd_pemesanan) ?>"><i class="fa fa-money"></i>&nbsp;Transfer</a>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
                                             <?php } else { ?>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
@@ -201,6 +194,26 @@
                                                         <input type="text" placeholder="<?= ($data_pembayaran->jam_bayar === null ? '-' : $data_pembayaran->jam_bayar) ?>" readonly="readonly" />
                                                     </div>
                                                 </div>
+                                            <?php } ?>
+                                            <?php if ($data_pemesanan->status_pembayaran == '0') { ?>
+                                                <?php if ($data_pemesanan->metode_pembayaran === 't') { ?>
+                                                    <div class="billing-info">
+                                                        <a class="btn btn-success" href="<?= base_url() ?>transfer/<?= base64_encode($data_pemesanan->kd_pemesanan) ?>"><i class="fa fa-money"></i>&nbsp;Transfer</a>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <i>Note :</i>
+                                                        <?php if ($data_pemesanan->metode_pembayaran === 'c' && $data_pemesanan->metode_pemesanan === 'e') { ?>
+                                                            Silahkan lakukan pembayaran DP sebesar <?= rupiah(100000) ?>
+                                                        <?php } else { ?>
+                                                            Silahkan lakukan pembayaran DP sebesar <?= rupiah(20000) ?>
+                                                        <?php } ?>
+                                                        <br /><br />
+                                                        <div class="billing-info">
+                                                            <a class="btn btn-success" href="<?= base_url() ?>cod/<?= base64_encode($data_pemesanan->kd_pemesanan) ?>"><i class="fa fa-money"></i>&nbsp;Transfer</a>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
                                             <?php } ?>
                                         </div>
                                     </div>

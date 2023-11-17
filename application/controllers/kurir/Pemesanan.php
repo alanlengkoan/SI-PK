@@ -13,7 +13,6 @@ class Pemesanan extends MY_Controller
         // untuk load model
         $this->load->model('crud');
         $this->load->model('m_cod');
-        $this->load->model('m_transfer');
         $this->load->model('m_pemesanan');
     }
 
@@ -35,24 +34,13 @@ class Pemesanan extends MY_Controller
 
         // untuk data pemesanan
         $get_pemesanan = $this->m_pemesanan->getPemesananAdmin($kd_pemesanan);
-        $row_pemesanan = $get_pemesanan->row();
 
         // untuk data pemesanan detail
         $get_pemesanan_detail = $this->m_pemesanan->getPemesananDetail($kd_pemesanan);
 
-        // mengecek metode pembayaran
-        if ($row_pemesanan->metode_pembayaran == 'c') {
-            // metode pembayaran cod
-            $get_pembayaran = $this->m_cod->getDetail($kd_pemesanan);
-        } else {
-            // metode pembayaran transfer
-            $get_pembayaran = $this->m_transfer->getDetail($kd_pemesanan);
-        }
-
         $data = [
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
-            'data_pembayaran'       => $get_pembayaran->row(),
         ];
 
         // untuk load view
@@ -66,24 +54,13 @@ class Pemesanan extends MY_Controller
 
         // untuk data pemesanan
         $get_pemesanan = $this->m_pemesanan->getPemesananAdmin($kd_pemesanan);
-        $row_pemesanan = $get_pemesanan->row();
 
         // untuk data pemesanan detail
         $get_pemesanan_detail = $this->m_pemesanan->getPemesananDetail($kd_pemesanan);
 
-        // mengecek metode pembayaran
-        if ($row_pemesanan->metode_pembayaran == 'c') {
-            // metode pembayaran cod
-            $get_pembayaran = $this->m_cod->getDetail($kd_pemesanan);
-        } else {
-            // metode pembayaran transfer
-            $get_pembayaran = $this->m_transfer->getDetail($kd_pemesanan);
-        }
-
         $data = [
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
-            'data_pembayaran'       => $get_pembayaran->row(),
         ];
         // untuk load view
         $this->pdf->setPaper('A4', 'potrait');
@@ -95,10 +72,15 @@ class Pemesanan extends MY_Controller
     {
         $kd_pemesanan = base64url_decode($this->uri->segment('4'));
 
+        $bayar = $this->m_cod->getTotalBayar($kd_pemesanan)->row('total');
+        $total = $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total');
+
+        $sisah = ($total - $bayar);
+
         $data = [
             'kd_pemesanan' => $kd_pemesanan,
             'pembayaran'   => $this->m_cod->getDetail($kd_pemesanan)->row(),
-            'total'        => $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total'),
+            'total'        => $sisah,
         ];
 
         // untuk load view
@@ -162,12 +144,13 @@ class Pemesanan extends MY_Controller
                 $this->db->trans_start();
                 // untuk update tabel cod
                 $cod = [
+                    'kd_pemesanan'  => $post['inpkdorder'],
                     'nama_bayar'    => $post['inpnamapenyetor'],
                     'jumlah_bayar'  => remove_separator($post['inpjumlahbayar']),
                     'tanggal_bayar' => date('Y-m-d H:i:s'),
                     'bukti'         => $detailFile['file_name']
                 ];
-                $this->crud->u('tb_cod', $cod, ['kd_pemesanan' => $post['inpkdorder']]);
+                $this->crud->i('tb_cod', $cod);
 
                 // untuk update tabel pemesanan
                 $pemesanan = [

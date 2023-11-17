@@ -33,6 +33,12 @@ class M_pemesanan extends CI_Model
         return $result;
     }
 
+    public function getPemesananPembayaran()
+    {
+        $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tu.nama, tu.email, tc.telepon, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif, tm.no_meja, tm.jumlah_kursi FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir LEFT JOIN tb_meja AS tm ON tm.id_meja = tp.id_meja ORDER BY tp.kd_pemesanan ASC")->result();
+        return $result;
+    }
+
     public function getPemesananAdmin($kd_pemesanan)
     {
         $result = $this->db->query("SELECT tp.id_users, tp.kd_pemesanan, tp.metode_pembayaran, tp.metode_pemesanan, tu.nama, tu.email, tc.telepon, DATE_FORMAT( tp.tgl_pemesanan, '%d-%m-%Y') AS tgl_pemesanan, DATE_FORMAT( tp.tgl_pemesanan, '%H:%i:%s') AS jam_pemesanan, tp.status_pembayaran, tp.status_pengantaran, tc.kelamin, tc.alamat, ti.tarif, tm.no_meja, tm.jumlah_kursi FROM tb_pemesanan AS tp LEFT JOIN tb_pelanggan AS tc ON tp.id_users = tc.id_users LEFT JOIN tb_users AS tu ON tp.id_users = tu.id_users LEFT JOIN tb_ongkir AS ti ON tp.id_ongkir = ti.id_ongkir LEFT JOIN tb_meja AS tm ON tm.id_meja = tp.id_meja WHERE tp.id_users = tu.id_users AND tp.kd_pemesanan = '$kd_pemesanan'");

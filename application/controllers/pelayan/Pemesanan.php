@@ -132,20 +132,6 @@ class Pemesanan extends MY_Controller
             $this->crud->i('tb_pemesanan_detail', $tb_pemesanan_detail);
         }
 
-        // untuk simpan data pembayaran
-        if ($metode_pembayaran === 't') {
-            $tb_transfer = [
-                'kd_pemesanan' => $kd_pemesanan,
-                'id_bank'      => $id_bank,
-            ];
-            $this->crud->i('tb_transfer', $tb_transfer);
-        } else {
-            $tb_cod = [
-                'kd_pemesanan' => $kd_pemesanan,
-            ];
-            $this->crud->i('tb_cod', $tb_cod);
-        }
-
         // delete tabel keranjang
         $this->crud->d('tb_keranjang', $id_users, 'id_users');
         $this->db->trans_complete();
@@ -157,10 +143,7 @@ class Pemesanan extends MY_Controller
         // untuk response json
         $this->_response($response);
     }
-
-
-
-
+    
     // untuk get data temp
     public function get_data_detail_dt()
     {
@@ -243,53 +226,6 @@ class Pemesanan extends MY_Controller
         // untuk response json
         $this->_response($response);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // untuk get data temp
     public function get_data_temp_dt()
@@ -379,13 +315,15 @@ class Pemesanan extends MY_Controller
 
         $get = $this->m_produk->getProdukWhere('kd_produk', $post['id'])->row();
 
+        $stok = ($get->stock - $get->jumlah);
+
         $response = [
             "id_produk" => $get->id_produk,
             "kd_produk" => $get->kd_produk,
             "nama"      => $get->nama,
             "harga"     => $get->harga,
             "kategori"  => $get->kategori,
-            "stok"      => $get->stock
+            "stok"      => $stok
         ];
         // untuk response json
         $this->_response($response);

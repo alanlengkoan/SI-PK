@@ -68,15 +68,28 @@
                     searchable: false,
                     render: function(data, type, full, meta) {
                         // metode pembayaran
-                        return `
-                            <div class="button-icon-btn button-icon-btn-cl">
-                                <a class="btn btn-info btn-sm waves-effect lihat" href="<?= pelayan_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
-                                    <i class="fa fa-info"></i>&nbsp;Detail
-                                </a>&nbsp;
-                                <a class="btn btn-primary btn-sm waves-effect lihat" href="<?= pelayan_url() ?>pemesanan/upd/` + btoa(full.kd_pemesanan) + `">
-                                    <i class="fa fa-edit"></i>&nbsp;Ubah
-                                </a>&nbsp;
-                            </div>`;
+                        if (full.status_pembayaran === '1') {
+                            // sudah pembayaran
+                            return `
+                                <div class="button-icon-btn button-icon-btn-cl">
+                                    <a class="btn btn-info btn-sm waves-effect lihat" href="<?= pelayan_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
+                                        <i class="fa fa-info"></i>&nbsp;Detail
+                                    </a>
+                                </div>
+                            `;
+                        } else {
+                            // belum pembayaran
+                            return `
+                                <div class="button-icon-btn button-icon-btn-cl">
+                                    <a class="btn btn-info btn-sm waves-effect lihat" href="<?= pelayan_url() ?>pemesanan/detail/` + btoa(full.kd_pemesanan) + `">
+                                        <i class="fa fa-info"></i>&nbsp;Detail
+                                    </a>&nbsp;
+                                    <a class="btn btn-primary btn-sm waves-effect lihat" href="<?= pelayan_url() ?>pemesanan/upd/` + btoa(full.kd_pemesanan) + `">
+                                        <i class="fa fa-edit"></i>&nbsp;Ubah
+                                    </a>&nbsp;
+                                </div>
+                            `;
+                        }
                     },
                 },
             ],

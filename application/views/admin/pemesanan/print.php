@@ -91,57 +91,6 @@
             <td>Status Pembayaran</td>
             <td><?= ($data_pemesanan->status_pembayaran === 0 ? 'Menunggu Pembayaran' : 'Telah Melakukan Pembayaran') ?></td>
         </tr>
-        <?php if ($data_pemesanan->metode_pembayaran === 't') { ?>
-            <tr>
-                <td>Bank</td>
-                <td><?= $data_pembayaran->nama ?></td>
-            </tr>
-            <tr>
-                <td>Rekening</td>
-                <td><?= $data_pembayaran->rekening ?></td>
-            </tr>
-            <tr>
-                <td>Atas Nama</td>
-                <td><?= $data_pembayaran->atas_nama ?></td>
-            </tr>
-            <tr>
-                <td>Nama Penyetor</td>
-                <td><?= $data_pembayaran->nama_penyetor ?></td>
-            </tr>
-            <tr>
-                <td>Tanggal Transfer</td>
-                <td><?= $data_pembayaran->tgl_transfer ?></td>
-            </tr>
-            <tr>
-                <td>Jam Transfer</td>
-                <td><?= $data_pembayaran->jam_transfer ?></td>
-            </tr>
-            <tr>
-                <td>Bukti Transfer</td>
-                <td><img src="./public/uploads/gambar/<?= $data_pembayaran->bukti ?>" width="100" heigth="100" /></td>
-            </tr>
-            <tr>
-                <td>Jumlah Transfer</td>
-                <td><?= create_separator($data_pembayaran->jumlah_transfer) ?></td>
-            </tr>
-        <?php } else { ?>
-            <tr>
-                <td>Nama Bayar</td>
-                <td><?= $data_pembayaran->nama_bayar ?></td>
-            </tr>
-            <tr>
-                <td>Jumlah Bayar</td>
-                <td><?= $data_pembayaran->jumlah_bayar ?></td>
-            </tr>
-            <tr>
-                <td>Tanggal Bayar</td>
-                <td><?= $data_pembayaran->tgl_bayar ?></td>
-            </tr>
-            <tr>
-                <td>Jam Bayar</td>
-                <td><?= $data_pembayaran->jam_bayar ?></td>
-            </tr>
-        <?php } ?>
     </table>
     <h3>Tabel Produk</h3>
     <table align="center" width="100%" border="1" cellpadding="4" cellspacing="0">

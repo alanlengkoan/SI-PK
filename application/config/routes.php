@@ -41,6 +41,7 @@ $route['checkout/finish']             = 'users/keranjang/checkout_finish';
 $route['nota/(:any)']                 = 'users/keranjang/nota';
 $route['cetak/(:any)']                = 'users/keranjang/cetak';
 $route['transfer/(:any)']             = 'users/keranjang/transfer';
+$route['cod/(:any)']                  = 'users/keranjang/cod';
 $route['pembayaran']                  = 'users/keranjang/pembayaran';
 
 // route home

@@ -32,6 +32,16 @@
                         <h5 class="w-75 p-2"><?= $title ?></h5>
                     </div>
                     <div class="card-block">
+                        <?php if ($data_pemesanan->status_pembayaran === '1' && $data_pemesanan->status_pengantaran === '2') { ?>
+                            <div class="alert alert-success background-success">
+                                <strong>Berhasil!</strong> Transaksi telah diproses!
+                            </div>
+                        <?php } else { ?>
+                            <div class="alert alert-info background-info">
+                                <strong>Progress!</strong> Transaksi sedang diproses!
+                            </div>
+                        <?php } ?>
+                        
                         <!-- begin:: form -->
                         <h3>Detail Pembayaran</h3>
                         <div class="form-group row">
@@ -88,112 +98,6 @@
                                 <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pemesanan === 'e' ? 'Ditempat' : 'Diantar') ?>" readonly="readonly" />
                             </div>
                         </div>
-                        <h3>Pembayaran</h3>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Metode Pembayaran</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Status Pembayaran</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->status_pembayaran === '0' ? 'Menunggu Pembayaran' : 'Telah Melakukan Pembayaran') ?>" readonly>
-                            </div>
-                        </div>
-
-                        <?php if ($data_pemesanan->metode_pembayaran === 't') { ?>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Bank</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= $data_pembayaran->nama ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Rekening</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= $data_pembayaran->rekening ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Atas Nama</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->atas_nama === null ? '-' : $data_pembayaran->atas_nama) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama Penyetor</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->nama_penyetor === null ? '-' : $data_pembayaran->nama_penyetor) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Tanggal Transfer</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->tgl_transfer === null ? '-' : $data_pembayaran->tgl_transfer) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jam Transfer</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->jam_transfer === null ? '-' : $data_pembayaran->jam_transfer) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Bukti Transfer</label>
-                                <div class="col-sm-10">
-                                    <?= ($data_pembayaran->bukti === null ? '-' : '<img src="' . upload_url('gambar') . '' . $data_pembayaran->bukti  . '" width="100" heigth="100" />') ?>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jumlah Transfer</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->jumlah_transfer === null ? '-' : create_separator($data_pembayaran->jumlah_transfer)) ?>" readonly>
-                                </div>
-                            </div>
-                        <?php } else { ?>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Bukti Terima</label>
-                                <div class="col-sm-10">
-                                    <?= ($data_pembayaran->bukti === null ? '-' : '<a href="' . upload_url('gambar') . '' . $data_pembayaran->bukti  . '"><img src="' . upload_url('gambar') . '' . $data_pembayaran->bukti  . '" width="100" heigth="100" /></a>') ?>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama Bayar</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->nama_bayar === null ? '-' : $data_pembayaran->nama_bayar) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jumlah Bayar</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->jumlah_bayar === null ? '-' : create_separator($data_pembayaran->jumlah_bayar)) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Tanggal Bayar</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->tgl_bayar === null ? '-' : $data_pembayaran->tgl_bayar) ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jam Bayar</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="<?= ($data_pembayaran->jam_bayar === null ? '-' : $data_pembayaran->jam_bayar) ?>" readonly>
-                                </div>
-                            </div>
-                        <?php } ?>
-
-                        <?php if ($data_pemesanan->status_pembayaran === '1' && $data_pemesanan->status_pengantaran === '2') { ?>
-                            <div class="alert alert-success background-success">
-                                <strong>Berhasil!</strong> Transaksi telah diproses!
-                            </div>
-                        <?php } else { ?>
-                            <div class="alert alert-info background-info">
-                                <strong>Progress!</strong> Transaksi sedang diproses!
-                            </div>
-                        <?php } ?>
-                        <hr>
                         <!-- end:: form -->
                         <h3>Tabel Produk</h3>
                         <!-- begin:: table -->

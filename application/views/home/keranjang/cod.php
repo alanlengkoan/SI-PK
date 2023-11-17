@@ -21,10 +21,16 @@
                     <ul>
                         <li>Silahkan transfer sesuai dengan total yang tertera.</li>
                         <li>Silahkan melakukan pembayaran 1 * 24 jam. Jika, belum melakukan pembayaran sistem akan membatalkan pesanan.</li>
+                        <li>Silahkan transfer melalui rekening berikut :</li>
                     </ul>
+                    <?php foreach ($bank as $row) : ?>
+                        Bank : <?= $row->nama ?>
+                        <br />
+                        Rekening : <?= $row->rekening ?>
+                    <?php endforeach ?>
                 </div>
                 <form id="form-transfer" action="<?= base_url() ?>pembayaran" method="post">
-                    <input type="text" id="jenis" name="jenis" value="transfer" />
+                    <input type="text" id="jenis" name="jenis" value="cod"/>
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
@@ -35,32 +41,14 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="billing-info">
-                                <label>Bank</label>
-                                <input type="text" value="<?= $pembayaran->nama ?>" readonly="readonly" />
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12">
-                            <div class="billing-info">
-                                <label>Rekening</label>
-                                <input type="text" value="<?= $pembayaran->rekening ?>" readonly="readonly" />
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12">
-                            <div class="billing-info">
                                 <label>Total</label>
                                 <input type="text" name="inptotal" id="inptotal" value="<?= create_separator($total) ?>" readonly="readonly" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="billing-info">
-                                <label>Nama Penyetor *</label>
-                                <input type="text" name="inpnamapenyetor" id="inpnamapenyetor" />
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12">
-                            <div class="billing-info">
-                                <label>Atas Nama *</label>
-                                <input type="text" name="inpatasnama" id="inpatasnama" />
+                                <label>Nama Bayar *</label>
+                                <input type="text" name="nama_bayar" id="nama_bayar" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">

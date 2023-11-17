@@ -325,6 +325,34 @@ class Keranjang extends MY_Controller
         $this->template->page('Nota', 'keranjang', 'transfer', $data);
     }
 
+    // untuk transfer
+    public function cod()
+    {
+        if (empty($this->session->userdata('username'))) {
+            checking_session($this->session->userdata('username'), $this->session->userdata('role'), ['users']);
+        }
+
+        $kd_pemesanan = base64url_decode($this->uri->segment('2'));
+
+        $get_pemesanan = $this->m_pemesanan->getPemesananAdmin($kd_pemesanan);
+        $row_pemesanan = $get_pemesanan->row();
+
+        if ($row_pemesanan->metode_pembayaran === 'c' && $row_pemesanan->metode_pemesanan === 'e') {
+            $total = 100000;
+        } else {
+            $total = 20000;
+        }
+
+        $data = [
+            'kd_pemesanan' => $kd_pemesanan,
+            'bank'         => $this->m_bank->getAll(),
+            'total'        => $total,
+        ];
+
+        // untuk load view
+        $this->template->page('Nota', 'keranjang', 'cod', $data);
+    }
+
     // untuk pemabayaran transfer
     public function pembayaran()
     {
@@ -346,20 +374,30 @@ class Keranjang extends MY_Controller
             // apa bila berhasil
             $detailFile = $this->upload->data();
 
-            // update transfer
-            $transfer = [
-                'nama_penyetor'    => $post['inpnamapenyetor'],
-                'atas_nama'        => $post['inpatasnama'],
-                'tanggal_transfer' => date('Y-m-d H:i:s'),
-                'bukti'            => $detailFile['file_name'],
-            ];
+            $this->db->trans_start();
+            if ($post['jenis'] == 'cod') {
+                $cod = [
+                    'nama_bayar'    => $post['nama_bayar'],
+                    'jumlah_bayar'  => $post['jumlah_bayar'],
+                    'tanggal_bayar' => date('Y-m-d H:i:s'),
+                    'bukti'         => $detailFile['file_name'],
+                ];
+                $this->crud->u('tb_cod', $cod, ['kd_pemesanan' => $post['inpkkorder']]);
+            } else {
+                $transfer = [
+                    'nama_penyetor'    => $post['inpnamapenyetor'],
+                    'atas_nama'        => $post['inpatasnama'],
+                    'jumlah_transfer'  => $post['jumlah_bayar'],
+                    'tanggal_transfer' => date('Y-m-d H:i:s'),
+                    'bukti'            => $detailFile['file_name'],
+                ];
+                $this->crud->u('tb_transfer', $transfer, ['kd_pemesanan' => $post['inpkkorder']]);
+            }
 
             // update pemesanan
             $pemesanan = [
                 'status_pembayaran' => '1'
             ];
-            $this->db->trans_start();
-            $this->crud->u('tb_transfer', $transfer, ['kd_pemesanan' => $post['inpkkorder']]);
             $this->crud->u('tb_pemesanan', $pemesanan, ['kd_pemesanan' => $post['inpkkorder']]);
             $this->db->trans_complete();
             if ($this->db->trans_status() === FALSE) {

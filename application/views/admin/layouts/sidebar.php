@@ -141,6 +141,14 @@
                     <span class="pcoded-mtext">Pembelian</span>
                 </a>
             </li>
+            <li class="<?= ($this->uri->segment(2) === 'pembayaran' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>pembayaran">
+                    <span class="pcoded-micon">
+                        <i class="feather icon-package"></i>
+                    </span>
+                    <span class="pcoded-mtext">Pembayaran</span>
+                </a>
+            </li>
         </ul>
         <div class="pcoded-navigation-label">Laporan</div>
         <ul class="pcoded-item pcoded-left-item">

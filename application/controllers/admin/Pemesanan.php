@@ -26,24 +26,6 @@ class Pemesanan extends MY_Controller
         $this->template->load($this->role, 'Pemesanan', 'pemesanan', 'view');
     }
 
-    // untuk halaman bayar
-    public function bayar()
-    {
-        $kd_pemesanan = base64url_decode($this->uri->segment('4'));
-
-        $data = [
-            'title'        => 'Bayar',
-            'kd_pemesanan' => $kd_pemesanan,
-            'pembayaran'   => $this->m_cod->getDetail($kd_pemesanan)->row(),
-            'total'        => $this->m_pemesanan->getTotalPemesananDetail($kd_pemesanan)->row('total'),
-            'content'      => 'admin/pemesanan/bayar',
-            'css'          => '',
-            'js'           => 'admin/pemesanan/js/bayar'
-        ];
-        // untuk load view
-        $this->load->view('admin/base', $data);
-    }
-
     public function get_data_pemesanan_dt()
     {
         return $this->m_pemesanan->getAllDataDt('n');
@@ -76,16 +58,12 @@ class Pemesanan extends MY_Controller
         }
 
         $data = [
-            'title'                 => 'Detail',
             'data_pemesanan'        => $get_pemesanan->row(),
             'data_pemesanan_detail' => $get_pemesanan_detail->result(),
-            'data_pembayaran'       => $get_pembayaran->row(),
-            'content'               => 'admin/pemesanan/detail',
-            'css'                   => '',
-            'js'                    => 'admin/pemesanan/js/detail'
+            'data_pembayaran'       => $get_pembayaran->result(),
         ];
         // untuk load view
-        $this->load->view('admin/base', $data);
+        $this->template->load($this->role, 'Detail', 'pemesanan', 'detail', $data);
     }
 
     // untuk halaman cetak
