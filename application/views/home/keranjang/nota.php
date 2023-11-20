@@ -112,7 +112,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Metode Pembayaran</label>
-                                                    <input type="text" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?>" readonly="readonly" />
+                                                    <input type="text" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'Tunai' : 'Transfer') ?>" readonly="readonly" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">

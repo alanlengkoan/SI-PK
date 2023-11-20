@@ -41,7 +41,7 @@
                                 <strong>Progress!</strong> Transaksi sedang diproses!
                             </div>
                         <?php } ?>
-                        
+
                         <!-- begin:: form -->
                         <h3>Detail Pembayaran</h3>
                         <div class="form-group row">
@@ -54,30 +54,6 @@
                             <label class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" placeholder="<?= $data_pemesanan->nama ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->kelamin !== null ? $data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan' : '-') ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" placeholder="<?= $data_pemesanan->email ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">No. Telepon</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" placeholder="<?= $data_pemesanan->telepon ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Alamat</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= $data_pemesanan->alamat ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -98,6 +74,22 @@
                                 <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pemesanan === 'e' ? 'Ditempat' : 'Diantar') ?>" readonly="readonly" />
                             </div>
                         </div>
+                        <?php if ($data_pemesanan->metode_pemesanan == 'e') { ?>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Meja</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="<?= $data_pemesanan->no_meja ?> (Jumlah kursi <?= $data_pemesanan->jumlah_kursi ?>)" readonly="readonly" />
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Status Pengantaran</label>
+                                <div class="col-sm-10">
+                                    <?php $status_pengantaran = ['Dikemas', 'Dikirim', 'Diterima']; ?>
+                                    <input type="text" class="form-control" placeholder="<?= $status_pengantaran[$data_pemesanan->status_pengantaran] ?>" readonly="readonly" />
+                                </div>
+                            </div>
+                        <?php } ?>
                         <!-- end:: form -->
                         <h3>Tabel Produk</h3>
                         <!-- begin:: table -->

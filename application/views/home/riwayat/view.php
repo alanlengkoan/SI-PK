@@ -46,7 +46,7 @@
                                     <td><?= $row->nama ?></td>
                                     <td><?= $row->tgl_pemesanan ?></td>
                                     <td><?= $row->jam_pemesanan ?></td>
-                                    <td><?= ($row->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?></td>
+                                    <td><?= ($row->metode_pembayaran === 'c' ? 'Tunai' : 'Transfer') ?></td>
                                     <td>
                                         <?php if ($row->metode_pemesanan === 'e') { ?>
                                             Ditempat

@@ -109,7 +109,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Metode Pembayaran</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?>" readonly>
+                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'Tunai' : 'Transfer') ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">

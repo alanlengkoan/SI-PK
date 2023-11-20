@@ -49,7 +49,7 @@ class Pembayaran extends MY_Controller
         $sisah = ($total - $bayar);
 
         $response = [
-            'metode_pembayaran' => ($row_pemesanan->metode_pembayaran === 'c' ? 'COD' : 'Transfer'),
+            'metode_pembayaran' => ($row_pemesanan->metode_pembayaran === 'c' ? 'Tunai' : 'Transfer'),
             'total'             => create_separator($sisah)
         ];
 

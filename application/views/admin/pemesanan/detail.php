@@ -69,30 +69,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->kelamin !== null ? $data_pemesanan->kelamin === 'L' ? 'Laki - laki' : 'Perempuan' : '') ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" placeholder="<?= $data_pemesanan->email ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">No. Telepon</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" placeholder="<?= $data_pemesanan->telepon ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Alamat</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= $data_pemesanan->alamat ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" placeholder="<?= $data_pemesanan->tgl_pemesanan ?>" readonly>
@@ -132,7 +108,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Metode Pembayaran</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'COD' : 'Transfer') ?>" readonly>
+                                <input type="text" class="form-control" placeholder="<?= ($data_pemesanan->metode_pembayaran === 'c' ? 'Tunai' : 'Transfer') ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">

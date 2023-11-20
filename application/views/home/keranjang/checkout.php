@@ -206,7 +206,7 @@
                                                         <label>Metode Pembayaran</label>
                                                         <select name="metode_pembayaran" id="metode_pembayaran">
                                                             <option value="">- Pilih -</option>
-                                                            <option value="c">COD</option>
+                                                            <option value="c">Tunai</option>
                                                             <option value="t">Transfer</option>
                                                         </select>
                                                     </div>
