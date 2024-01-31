@@ -48,4 +48,5 @@ $route['pembayaran']                  = 'users/keranjang/pembayaran';
 $route['tentang']       = 'home/tentang';
 $route['kontak']        = 'home/kontak';
 $route['panduan']       = 'home/panduan';
+$route['keunggulan']    = 'home/keunggulan';
 $route['diskon/(:any)'] = 'home/diskon';

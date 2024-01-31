@@ -50,6 +50,12 @@ class Home extends MY_Controller
         $this->template->page('Panduan', 'panduan', 'view');
     }
 
+    public function keunggulan()
+    {
+        // untuk load view
+        $this->template->page('Keunggulan', 'keunggulan', 'view');
+    }
+
     public function diskon()
     {
         $diskon = $this->uri->segment('2');

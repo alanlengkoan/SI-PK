@@ -61,6 +61,7 @@
                                         <li><a href="<?= base_url() ?>tentang">Tentang</a></li>
                                         <li><a href="<?= base_url() ?>kontak">Kontak</a></li>
                                         <li><a href="<?= base_url() ?>panduan">Panduan</a></li>
+                                        <li><a href="<?= base_url() ?>keunggulan">Keunggulan</a></li>
                                         <?php if (count($kategori) > 0) { ?>
                                             <li class="top-hover">
                                                 <a href="<?= base_url() ?>produk">Produk</a>
@@ -131,7 +132,7 @@
         <div class="footer-top gray-bg-3 pb-35">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="footer-widget footer-widget-red footer-black-color mb-40">
                             <div class="footer-title mb-25">
                                 <h4>Kontak Kami</h4>
@@ -148,6 +149,18 @@
                                         <li><?= (empty($pengaturan->email) ? null : $pengaturan->email) ?></li>
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="footer-widget footer-widget-red footer-black-color mb-40">
+                            <div class="footer-title mb-25">
+                                <h4>Operasional</h4>
+                            </div>
+                            <div class="footer-about">
+                                <p>
+                                    8:00 - 23:00 WITA
+                                </p>
                             </div>
                         </div>
                     </div>
